@@ -1,35 +1,30 @@
 @import "tailwindcss";
 
-/* Design tokens — binding, from specs/001-proveri-mi-ovo/plan.md */
+/* Design tokens — binding, from specs/001-proveri-mi-ovo/plan.md ("doodled notebook") */
 @theme {
   /* Color */
-  --color-mist: #eef0f7; /* app background */
-  --color-paper: #ffffff; /* paste sheet + marked-text sheet only */
-  --color-ink: #26233f; /* text, primary buttons */
-  --color-ink-muted: #57546f; /* secondary text (AA on mist and paper) */
-  --color-violet: #5b3fd0; /* links, focus ring, button hover/active */
-  --color-marker-yellow: #ffe27a; /* "watch" marks */
-  --color-marker-rose: #ffb8cb; /* "high" marks */
+  --color-milk: #fffcfa; /* app background */
+  --color-paper: #ffffff; /* sheets */
+  --color-blush: #f8e8e3; /* circles behind doodles, chips, quiet fills */
+  --color-ink: #2a2422; /* text, doodle lines, outlines */
+  --color-ink-muted: #6b615d; /* secondary text, labels (AA on milk) */
+  --color-berry: #a8436a; /* links, focus ring, caret, hover */
+  --color-marker-yellow: #ffe48f; /* "watch" marks */
+  --color-marker-rose: #ffc2d1; /* "high" marks */
   --color-rose-ink: #a3214a; /* high-risk label text */
-  --color-marker-mint: #bdebd2; /* low-risk wash, done ticks */
-  --color-edge: #dcdfea; /* sheet border */
-  --color-chip: #e4e6ef; /* masked-item chips */
+  --color-marker-mint: #c9ebd6; /* low-risk wash, done ticks */
 
   /* Radius — reflects hierarchy */
-  --radius-sheet: 20px;
+  --radius-sheet: 24px;
   --radius-mark: 6px;
-  /* buttons use rounded-full (999px) */
-
-  /* Shadow — the single soft edge */
-  --shadow-sheet: 0 8px 24px rgba(38, 35, 63, 0.06);
+  /* buttons and doodle circles use rounded-full */
 
   /* Layout */
   --container-column: 560px;
 
   /* Type scale (mobile; ≥768px overrides below) */
   --text-headline: 2.125rem; /* 34px */
-  --text-headline--line-height: 1.12;
-  --text-headline--letter-spacing: -0.01em;
+  --text-headline--line-height: 1.15;
   --text-section: 1.375rem; /* 22px */
   --text-section--line-height: 1.25;
   --text-body: 1.0625rem; /* 17px */
@@ -43,7 +38,7 @@
 
 /* Fonts come from next/font CSS variables set on <html> */
 @theme inline {
-  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-quicksand), ui-rounded, ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-atkinson), ui-sans-serif, system-ui, sans-serif;
 }
 
@@ -58,7 +53,7 @@
 
 @layer base {
   html {
-    background: var(--color-mist);
+    background: var(--color-milk);
     color: var(--color-ink);
     font-family: var(--font-sans);
     -webkit-text-size-adjust: 100%;
@@ -70,12 +65,14 @@
     -webkit-font-smoothing: antialiased;
   }
 
+  /* Headlines: rounded, lowercase (copy stays sentence case in en.ts) */
   h1,
   h2,
   h3 {
     font-family: var(--font-display);
-    font-weight: 650;
-    font-stretch: 92%; /* slightly condensed headlines */
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    text-transform: lowercase;
     text-wrap: balance;
   }
 
@@ -85,7 +82,7 @@
   }
 
   :focus-visible {
-    outline: 3px solid var(--color-violet);
+    outline: 3px solid var(--color-berry);
     outline-offset: 2px;
   }
 
@@ -93,6 +90,17 @@
     background: var(--color-marker-yellow);
     color: var(--color-ink);
   }
+}
+
+/* Lowercase, wide-tracked label, like the names under phone icons */
+@utility label-doodle {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-small);
+  line-height: var(--text-small--line-height);
+  letter-spacing: 0.14em;
+  text-transform: lowercase;
+  color: var(--color-ink-muted);
 }
 
 @media (prefers-reduced-motion: reduce) {

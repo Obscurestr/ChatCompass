@@ -8,7 +8,7 @@
 | Danger safety net | Regex/keyword floor in `safetyFloor.ts` | Deterministic, testable, guards the worst failure (missed high) | Second model call (slower, costlier) |
 | Masking | Client-side regex for phones (international `+…` and local digit groups), emails, URLs | Third-party data never leaves device | None good enough in time |
 | Input | Text only | Avoids handling images of minors entirely | Screenshot OCR (privacy and legal risk) |
-| Fonts | Bricolage Grotesque + Atkinson Hyperlegible Next via `next/font/google`, latin-ext | Distinct personality + legibility; self-hosted by Next, no third-party requests at runtime | System fonts (too generic for the brief) |
+| Fonts | Quicksand + Atkinson Hyperlegible Next via `next/font/google`, latin-ext | Distinct personality + legibility; self-hosted by Next, no third-party requests at runtime | System fonts (too generic for the brief) |
 | Quick exit | `window.location.replace(EXIT_URL)` + clear state | Replaces history entry so Back doesn't return. Does NOT remove the visit from browser history — say so honestly and suggest incognito | `history.pushState` tricks (unreliable on iOS) |
 
 ## safetyFloor keyword groups (English; starting point, extend on Day 2)

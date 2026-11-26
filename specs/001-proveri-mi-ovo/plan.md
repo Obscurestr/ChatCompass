@@ -94,30 +94,37 @@ public/icons/                 # neutral PWA icons
 
 ## Design System (binding)
 
-**Concept — "the highlighter."** The user's own messages are the hero of the result screen. Like a friend going over a chat with a highlighter pen, the app marks the phrases that matter and lets her tap each mark to see why. Everything else stays quiet so that this one moment carries the design.
+**Concept — "a friend's doodled notebook" + "the highlighter."** The look borrows from hand-drawn phone-icon sets: thick, slightly wobbly ink outlines, soft blush circles behind each doodle, lowercase labels with wide letter-spacing, lots of white space. It feels like a friend's private notebook, cute but calm, never childish, with no mascots or characters. On the result screen the user's own messages are the hero: like a friend going over a chat with a highlighter pen, the app marks the phrases that matter and lets her tap each mark to see why.
 
 ### Color
 | Token | Hex | Use |
 |---|---|---|
-| `mist` | `#EEF0F7` | App background (cool, paper-like — deliberately not cream) |
-| `paper` | `#FFFFFF` | The paste sheet and the marked-text sheet only |
-| `ink` | `#26233F` | Text, primary buttons (a blue-violet ink, not grey-black) |
-| `violet` | `#5B3FD0` | Links, focus ring, the "Check" button hover/active; nods to the SheSafe purple |
-| `marker-yellow` | `#FFE27A` | "Worth watching" marks |
-| `marker-rose` | `#FFB8CB` | "High" marks; rose text `#A3214A` for the high-risk label |
-| `marker-mint` | `#BDEBD2` | Low-risk header wash and "done" ticks |
+| `milk` | `#FFFCFA` | App background (warm white, almost paper) |
+| `paper` | `#FFFFFF` | The paste sheet and the marked-text sheet |
+| `blush` | `#F8E8E3` | Soft circles behind doodles, chips, quiet fills |
+| `ink` | `#2A2422` | Text, doodle lines, outlines, primary buttons (warm near-black, like a felt-tip pen) |
+| `ink-muted` | `#6B615D` | Secondary text and labels (AA on `milk`) |
+| `berry` | `#A8436A` | Links, focus ring, caret, button hover/active |
+| `marker-yellow` | `#FFE48F` | "Worth watching" marks |
+| `marker-rose` | `#FFC2D1` | "High" marks; rose text `#A3214A` for the high-risk label |
+| `marker-mint` | `#C9EBD6` | Low-risk header wash and "done" ticks |
 
 No traffic-light red anywhere. Danger is communicated by order (help first), wording and the rose marker, not by alarm colour. All text pairs meet WCAG AA; marks are behind `ink` text so contrast stays high.
 
+### Doodles
+- Icons are inline SVG in `src/components/Doodle.tsx`, drawn like a felt-tip pen: `stroke: ink`, stroke-width 3 on a 64 grid, round caps and joins, slightly uneven paths, no fills except `paper`/`blush` to occlude.
+- Each doodle sits on a `blush` circle. One doodle per screen header, plus small ones in help rows. No characters, animals or mascots.
+
 ### Type
-- **Display**: *Bricolage Grotesque* (variable; opsz + wdth), weights 600–700, slightly condensed for headlines. It has warmth and a hand-made quirk that suits a teen audience without being childish.
+- **Display / labels**: *Quicksand* (variable weight), 600–700. Rounded, geometric, friendly. Headlines are lowercase (via CSS, copy stays sentence case so screen readers and the copy file read normally).
+- **Labels**: Quicksand 600, lowercase, letter-spacing 0.14em, `ink-muted`, small size — like the labels under phone icons.
 - **Body/UI**: *Atkinson Hyperlegible Next*, 400/700. Designed for legibility; important when someone is reading quickly and stressed.
 - Set `<html lang="en">`. Keep the `latin-ext` subset so names with š, č, ć, ž, đ still render in our fonts.
 - Scale (mobile → ≥ 768 px): 34/40 headline, 22/26 section, 17/18 body (line-height 1.55), 14/15 small. Max line length 62ch.
-- Sentence case everywhere. No all-caps labels, no eyebrows above headings, no monospace, no arrows appended to buttons.
+- No all-caps, no monospace, no arrows appended to buttons.
 
 ### Layout
-Single centered column (horizontally, and vertically on the home screen), `max-width: 560px`, 20 px side padding. Headlines and short copy are center-aligned; long text (the textarea, her marked messages, explanations, lists) stays left-aligned for readability, generous vertical rhythm (8 px base). One sheet of `paper` per screen floats on `mist` with a single soft edge (1 px `#DCDFEA` border + 0 8px 24px rgba(38,35,63,.06)). Corner radius: 20 px for sheets, 999 px for buttons, 6 px for marks — radius reflects hierarchy, not one value everywhere.
+Single centered column (horizontally, and vertically on the home screen), `max-width: 560px`, 20 px side padding, generous vertical rhythm (8 px base). Headlines and short copy are center-aligned; long text (the textarea, her marked messages, explanations, lists) stays left-aligned for readability. Sheets are flat, like stickers: `paper` with a 2 px `ink` outline and no drop shadow. Corner radius: 24 px for sheets, 999 px for buttons and doodle circles, 6 px for marks.
 
 ```
 Home                               Result (high)
@@ -144,8 +151,8 @@ On `low`/`watch`, the order is: header → marked text → next steps → help b
 - Response to action only: the sign bottom sheet slides up (200 ms); the button shows a calm pulsing ink dot while analysing. No scroll-triggered entrances, no hover effects on cards.
 
 ### Components
-- **QuickExit**: top-right pill, `ink` outline, label "Exit", always visible, 44 px tap target.
-- **PasteSheet**: textarea on `paper`, placeholder with a short example, live counter only past 5,000 chars, masked items shown as soft grey chips after masking.
+- **QuickExit**: top-right pill, 2 px `ink` outline, lowercase label "exit", always visible, 44 px tap target.
+- **PasteSheet**: textarea on `paper` with 2 px `ink` outline and a tracked lowercase label above it, placeholder with a short example, live counter only past 5,000 chars, masked items shown as soft grey chips after masking.
 - **AnalyzingState**: the pasted text stays visible and slightly dimmed; copy "Reading carefully…"; no spinner.
 - **RiskHeader**: headline + summary; `low` gets a mint wash, `watch` a yellow underline, `high` the rose label. Headlines: low "We didn't find clear warning signs", watch "Some things are worth a closer look", high "This is worth taking seriously".
 - **MarkedText**: the signature; marks are `<button>`s (keyboard focusable) inside the text.
@@ -157,6 +164,7 @@ Address her as "you", warm and direct. Short sentences, plain words (aim for a 1
 
 ### Design review against defaults
 - Considered and rejected: cream + serif + terracotta (generic "warm AI" look), and dark mode with neon accent (feels like a hacker tool, wrong for a scared teen).
+- Chose a hand-drawn doodle style (team moodboard: doodle phone-icon set) over the earlier cool "mist + violet" look: it feels personal and teen-made rather than institutional. Kept it calm: no mascots, no stickers everywhere, one doodle per screen.
 - Rejected a dashboard of identical cards for the result; replaced with one sheet built around her own text.
 - Rejected traffic-light red/yellow/green risk badges; replaced with highlighter marks, which feel explanatory rather than judgmental.
 

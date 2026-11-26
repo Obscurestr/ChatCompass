@@ -14,8 +14,8 @@ export default function PasteSheet() {
   }, []);
 
   return (
-    <div className="mt-8">
-      <label htmlFor="chat" className="sr-only">
+    <div className="mt-10">
+      <label htmlFor="chat" className="label-doodle mb-3 block">
         {en.home.inputLabel}
       </label>
       <textarea
@@ -29,7 +29,7 @@ export default function PasteSheet() {
         autoCapitalize="sentences"
         spellCheck={false}
         rows={9}
-        className="block w-full resize-y text-left rounded-sheet border border-edge bg-paper p-5 text-body text-ink shadow-sheet caret-violet placeholder:text-ink-muted/70 focus:border-violet focus:outline-none focus:ring-4 focus:ring-violet/15"
+        className="block w-full resize-y rounded-sheet border-2 border-ink bg-paper p-5 text-left text-body text-ink caret-berry placeholder:text-ink-muted/75 focus:border-berry focus:outline-none focus:ring-4 focus:ring-berry/15"
       />
     </div>
   );

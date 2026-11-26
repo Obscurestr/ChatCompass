@@ -13,7 +13,7 @@
 - [x] T001 Create Next.js (latest) + TypeScript + Tailwind v4 app in repo root; add `zod`, `@anthropic-ai/sdk`, `vitest`
 - [ ] T002 [P] Add `.env.example` (`ANTHROPIC_API_KEY`, `ANTHROPIC_MODEL`, `NEXT_PUBLIC_EXIT_URL`, `NEXT_PUBLIC_APP_NAME`, `DEMO_MODE`); connect repo to Vercel, set env vars, confirm preview deploy — *deployed to chatcompass.vercel.app; GitHub auto-deploy + `ANTHROPIC_API_KEY` pending (manual)*
 - [x] T003 [P] Design tokens in `src/app/globals.css` (`@theme`): colors, radii, shadow, type scale from plan.md
-- [x] T004 [P] Fonts via `next/font/google`: Bricolage Grotesque (display) + Atkinson Hyperlegible Next (body), `latin-ext`, wired in `src/app/layout.tsx`
+- [x] T004 [P] Fonts via `next/font/google`: Quicksand (display/labels) + Atkinson Hyperlegible Next (body), `latin-ext`, wired in `src/app/layout.tsx`
 - [x] T005 [P] `src/copy/en.ts` with all strings from plan.md (headlines, buttons, errors, hints)
 - [ ] T005a [P] Set a spend limit on the API key before sharing any URL — *manual*
 - [ ] T005b [P] (Tamara) Get the judging criteria and pitch length from organisers; deck will follow them
@@ -30,7 +30,7 @@
 **Checkpoint**: `curl` samples A–E against the route return valid JSON with expected risk.
 
 ### Phase 3: User Story 1 — Check a conversation (P1) 🎯 MVP
-- [ ] T013 [US1] `src/app/layout.tsx` — `mist` background, neutral `<title>` from env, centered 560 px column, `lang="en"`, `noindex`; `Referrer-Policy: no-referrer` in `next.config`
+- [ ] T013 [US1] `src/app/layout.tsx` — `milk` background, neutral `<title>` from env, centered 560 px column, `lang="en"`, `noindex`; `Referrer-Policy: no-referrer` in `next.config`
 - [ ] T014 [P] [US1] `PasteSheet.tsx` — paper textarea (`autocomplete="off"`, `spellcheck={false}`), AI disclosure line (FR-014), placeholder, length hints, masked chips after masking, "Check" button (disabled < 20 chars)
 - [ ] T015 [P] [US1] `AnalyzingState.tsx` — dimmed text + "Reading carefully…" + ink pulse dot
 - [ ] T016 [P] [US1] `RiskHeader.tsx` — three variants per plan.md
