@@ -11,14 +11,14 @@ export const en = {
     placeholder:
       "For example:\nThem: Don't tell anyone about us.\nMe: Why?\n\nYou can also describe what's happening in your own words.",
     maskNote: "Phone numbers, emails and links are hidden before sending.",
-    textOnly: "Text only here. Don't send photos — not to us, not to them.",
+    textOnly: "Don't send photos — not to us, not to them.",
     disclosure: "Your text goes to an AI service for this check only. It isn't saved.",
     tooShort: "Paste a few messages, or write a couple of sentences about what's happening.",
     tooLong: "That's a lot. Paste just the latest messages, or the part that worries you most.",
     counter: (n: number) => `${n.toLocaleString("en")} / ${MAX_CHARS.toLocaleString("en")}`,
     submit: "Check",
     helpLink: "Get help now",
-    incognitoHint: "Tip: open this page in a private (incognito) window so it doesn't stay in your history.",
+    incognitoHint: "Tip: Open this page in a private (incognito) window so it doesn't stay in your history.",
   },
 
   masked: {
