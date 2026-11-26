@@ -1,5 +1,20 @@
 import { describe, expect, it } from "vitest";
-import { cleanOcrText } from "./ocrClean";
+import { cleanOcrText, hasReadableText } from "./ocrClean";
+
+describe("hasReadableText", () => {
+  it("rejects junk from a picture without text", () => {
+    expect(hasReadableText("yr", 58)).toBe(false);
+  });
+  it("rejects low-confidence reads even with letters", () => {
+    expect(hasReadableText("some blurry words here", 40)).toBe(false);
+  });
+  it("rejects confident but tiny reads", () => {
+    expect(hasReadableText("ok", 96)).toBe(false);
+  });
+  it("accepts a normal chat screenshot", () => {
+    expect(hasReadableText("hey u up?\nyeah why", 95)).toBe(true);
+  });
+});
 
 describe("cleanOcrText", () => {
   it("keeps the messages and drops times, status bar and chat-app labels", () => {

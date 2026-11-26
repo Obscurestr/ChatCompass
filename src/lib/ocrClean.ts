@@ -12,6 +12,17 @@ const BATTERY_LINE = /^.{0,16}\b\d{1,3}\s?%$/;
 const UI_LINE =
   /^(?:delivered|seen|read|sent|edited|typing\.*|today|yesterday|now|active now|online|message\.*|send message\.*|type a message\.*|reply|liked a message|\d+\s?%|[45]g|lte|wi-?fi)$/i;
 
+// A picture without text still gives Tesseract something to "read" (e.g. "yr" at ~58% confidence);
+// real chat screenshots read at ~95%. Below these thresholds we treat the picture as having no text.
+export const MIN_OCR_CONFIDENCE = 70;
+const MIN_LETTERS = 6;
+
+/** True when OCR output is worth keeping: confident enough and with a few real letters. */
+export function hasReadableText(text: string, confidence: number): boolean {
+  const letters = text.match(/\p{L}/gu)?.length ?? 0;
+  return confidence >= MIN_OCR_CONFIDENCE && letters >= MIN_LETTERS;
+}
+
 export function cleanOcrText(raw: string): string {
   const lines = raw
     .replace(/\r/g, "")
