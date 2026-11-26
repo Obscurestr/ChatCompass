@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Atkinson_Hyperlegible_Next, Quicksand } from "next/font/google";
+import QuickExit from "../components/QuickExit";
 import { APP_NAME } from "../config/app";
 import "./globals.css";
 
@@ -35,7 +36,10 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${quicksand.variable} ${atkinson.variable}`}>
-      <body className="min-h-dvh">{children}</body>
+      <body className="min-h-dvh">
+        <QuickExit />
+        {children}
+      </body>
     </html>
   );
 }

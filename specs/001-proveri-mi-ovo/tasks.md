@@ -52,7 +52,7 @@
 - [ ] T026 [US2] Verify helpline numbers with ASTRA, set `verified:true` — *NADEL 116 111 and police 192 verified 2026-11-26; ASTRA SOS number still missing (hidden until added)*
 
 ### Phase 5: User Story 3 — Leave instantly (P1)
-- [ ] T027 [US3] `QuickExit.tsx` in layout — `location.replace(EXIT_URL)`, clears state; Esc-Esc listener
+- [x] T027 [US3] `QuickExit.tsx` in layout — `location.replace(EXIT_URL)`, clears state; Esc-Esc listener — *internal links use `replace` so Back never returns to the app; open sheets carry their own Exit pill*
 - [ ] T028 [US3] **QA: S4, S5, S10–S12**
 
 ### Phase 6: Polish pass

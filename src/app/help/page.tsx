@@ -46,11 +46,13 @@ export default function HelpPage() {
           {p.historyTitle}
         </h2>
         <p className="mt-2">{p.historyNote}</p>
+        <p className="mt-2 text-small text-ink-muted">{en.quickExit.hint}</p>
       </section>
 
       <div className="mt-10 text-center">
         <Link
           href="/"
+          replace
           className="inline-flex min-h-11 items-center rounded-full border-2 border-ink px-6 font-display font-bold"
         >
           {p.back}

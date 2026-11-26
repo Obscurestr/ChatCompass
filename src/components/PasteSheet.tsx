@@ -79,6 +79,7 @@ export default function PasteSheet({
 
       <Link
         href="/help"
+        replace
         className="mt-6 inline-flex min-h-11 items-center font-display font-bold text-berry underline decoration-2 underline-offset-4"
       >
         {en.home.helpLink}

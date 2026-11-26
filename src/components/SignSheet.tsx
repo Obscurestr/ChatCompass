@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { en } from "../copy/en";
 import type { Risk, WarningSign } from "../lib/schema";
+import { QuickExitButton } from "./QuickExit";
 
 // T018 — bottom sheet with one sign's explanation.
 // Native <dialog> + showModal(): focus is trapped inside, Esc closes, focus returns to the mark.
@@ -46,6 +47,8 @@ export default function SignSheet({
         if (start !== null && e.changedTouches[0].clientY - start > 80) onClose(); // swipe down
       }}
     >
+      {/* The modal makes the page behind inert, so the sheet carries its own Exit pill. */}
+      {sign && <QuickExitButton />}
       {sign && (
         <div className="px-5 pt-3 pb-[calc(1.75rem+env(safe-area-inset-bottom))] text-left">
           <div aria-hidden="true" className="mx-auto mb-4 h-1.5 w-12 rounded-full bg-ink/20" />
