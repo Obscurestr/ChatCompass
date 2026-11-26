@@ -98,8 +98,16 @@ export async function POST(request: Request): Promise<Response> {
     return fail("ai_unavailable", 502, started);
   } catch (error) {
     if (floor.triggered) return reply(floorOnlyResult(), 200, started);
-    // Log only the error type — API errors can echo request details.
-    console.warn(JSON.stringify({ route: "analyze", error: (error as Error)?.constructor?.name ?? "unknown" }));
+    // Log only status + error type (e.g. "authentication_error") — never the message, which can echo request details.
+    const apiError = error instanceof Anthropic.APIError ? error : null;
+    const errorType = (apiError?.error as { error?: { type?: string } } | undefined)?.error?.type;
+    console.warn(
+      JSON.stringify({
+        route: "analyze",
+        upstreamStatus: apiError?.status ?? null,
+        errorType: errorType ?? (error instanceof Anthropic.APIConnectionError ? "connection" : "other"),
+      }),
+    );
     const timedOut = error instanceof Anthropic.APIConnectionTimeoutError;
     return fail("ai_unavailable", timedOut ? 504 : 502, started);
   }
