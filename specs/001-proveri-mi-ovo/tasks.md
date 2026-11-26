@@ -57,7 +57,7 @@
 
 ### Phase 6: Polish pass
 - [x] T028a [US3] Help page + home hint: honest note that history may keep the visit; how to open in incognito (FR-016)
-- [x] T029 `src/app/manifest.ts` + neutral icons in `public/icons/` (installable PWA)
+- [x] T029 `src/app/manifest.ts` + neutral icons in `public/icons/` (installable PWA) — *name and icon now "ChatCompass" + compass-heart icon (team decision 2026-11-26); set `NEXT_PUBLIC_APP_NAME` to a neutral name for extra discretion*
 - [ ] T030 Visual review on real phone at 360 px and on projector; fix spacing, contrast, tap targets ≥ 44 px
 - [x] T030a `DEMO_MODE=fallback`: save real results for samples A–G as fixtures in `src/demo/`, serve them if the API fails (FR-017, depends on T012)
 - [ ] T031 Prompt tuning from QA results (focus: no `high` sample ever returns `low`)

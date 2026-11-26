@@ -29,7 +29,7 @@ Run on: Android Chrome, iPhone Safari, laptop Chrome. Log bugs as: *device – w
 | S14 | Keyboard only on laptop | every control reachable, visible focus ring |
 | S15 | Phone in reduced-motion mode | marks appear without animation |
 | S16 | Rotate phone / 360 px width | no horizontal scroll, nothing cut off |
-| S17 | Install to home screen | neutral name and icon |
+| S17 | Install to home screen | name and icon from config (now "ChatCompass" + compass icon) |
 | S18 | Run S1–S5 three times | `high` samples never come back `low` |
 | S19 | Type in the box | no autocomplete suggestions, no red spell-check underlines |
 | S20 | Set `DEMO_MODE=fallback`, break the API key, paste Sample D | pre-recorded `high` result appears |

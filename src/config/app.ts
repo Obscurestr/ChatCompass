@@ -1,6 +1,6 @@
 // App-level configuration. Values with NEXT_PUBLIC_ are safe to read in the browser.
 
-export const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "Notes";
+export const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "ChatCompass";
 
 // Neutral site that QuickExit replaces the page with (FR-008).
 export const EXIT_URL = process.env.NEXT_PUBLIC_EXIT_URL || "https://weather.com";
