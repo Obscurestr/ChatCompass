@@ -57,9 +57,9 @@
 
 ### Phase 6: Polish pass
 - [x] T028a [US3] Help page + home hint: honest note that history may keep the visit; how to open in incognito (FR-016)
-- [ ] T029 `src/app/manifest.ts` + neutral icons in `public/icons/` (installable PWA)
+- [x] T029 `src/app/manifest.ts` + neutral icons in `public/icons/` (installable PWA)
 - [ ] T030 Visual review on real phone at 360 px and on projector; fix spacing, contrast, tap targets ≥ 44 px
-- [ ] T030a `DEMO_MODE=fallback`: save real results for samples A–G as fixtures in `src/demo/`, serve them if the API fails (FR-017, depends on T012)
+- [x] T030a `DEMO_MODE=fallback`: save real results for samples A–G as fixtures in `src/demo/`, serve them if the API fails (FR-017, depends on T012)
 - [ ] T031 Prompt tuning from QA results (focus: no `high` sample ever returns `low`)
 - [ ] T032 **QA: S13–S22 full run**
 

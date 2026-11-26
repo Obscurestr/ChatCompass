@@ -35,7 +35,7 @@
 3. Drop any `quote` not found by `highlight.ts`; keep the sign.
 4. If `summary` or `nextSteps` say the chat or person is "safe / not dangerous / nothing to worry about", replace the summary with the default low-risk sentence from `copy/en.ts`.
 5. Cap `signs` at 6, `nextSteps` at 4 (top up to 2 from `copy/en.ts` defaults), and `summary` at 2 sentences.
-6. If the AI call fails and `DEMO_MODE=fallback`, return the fixture whose sample hash matches the input; otherwise 502.
+6. If the AI call fails and `DEMO_MODE=fallback`, return the best-matching fixture from `src/demo/fixtures.json` (word overlap ≥ 60%), unless the floor triggered and the fixture is not `high`; otherwise the floor-only `high` result if the floor triggered; otherwise 502.
 
 ## System prompt (`src/lib/prompt.ts`)
 

@@ -4,6 +4,8 @@
 
 import Anthropic from "@anthropic-ai/sdk";
 import { zodOutputFormat } from "@anthropic-ai/sdk/helpers/zod";
+import FIXTURES_JSON from "../../../demo/fixtures.json";
+import { findFixture, type DemoFixture } from "../../../lib/demo";
 import { floorOnlyResult, postprocess } from "../../../lib/postprocess";
 import { SYSTEM_PROMPT, buildUserMessage } from "../../../lib/prompt";
 import { safetyFloor } from "../../../lib/safetyFloor";
@@ -17,11 +19,23 @@ import {
   type ModelOutput,
 } from "../../../lib/schema";
 
+const FIXTURES = FIXTURES_JSON as DemoFixture[];
 const MODEL = process.env.ANTHROPIC_MODEL || "claude-sonnet-5-5";
 const TIMEOUT_MS = 20_000;
 
 // The SDK retries 429/5xx/connection errors once; our own loop retries once on an unusable answer.
-const client = new Anthropic({ timeout: TIMEOUT_MS, maxRetries: 1 });
+// Created on first use so a missing key fails inside the try below (and can fall back) instead of at import.
+let client: Anthropic | null = null;
+const getClient = () => (client ??= new Anthropic({ timeout: TIMEOUT_MS, maxRetries: 1 }));
+
+// T030a — demo fallback, only with DEMO_MODE=fallback.
+const DEMO_FALLBACK = process.env.DEMO_MODE === "fallback";
+// Never softer than the safety floor: a matched fixture below high is ignored when the floor triggered.
+const demoResult = (text: string, floorTriggered: boolean) => {
+  if (!DEMO_FALLBACK) return null;
+  const result = findFixture(text, FIXTURES)?.result ?? null;
+  return result && (!floorTriggered || result.risk === "high") ? result : null;
+};
 
 // ---- best-effort in-memory rate limit: 10 requests / 10 min / IP (per server instance) ----
 const WINDOW_MS = 10 * 60 * 1000;
@@ -53,7 +67,7 @@ const fail = (error: ApiError["error"], status: number, started: number) => repl
 type ModelAttempt = { kind: "ok"; output: ModelOutput } | { kind: "refusal" } | { kind: "unusable" };
 
 async function askModel(text: string): Promise<ModelAttempt> {
-  const response = await client.messages.parse({
+  const response = await getClient().messages.parse({
     model: MODEL,
     max_tokens: 4000,
     system: SYSTEM_PROMPT,
@@ -92,11 +106,15 @@ export async function POST(request: Request): Promise<Response> {
       const result = AnalysisResultSchema.parse(postprocess(text, attempt.output, floor.triggered));
       return reply(result, 200, started);
     }
-    // The model declined or gave nothing usable. If the floor already found danger, never leave her
-    // without an answer: return a conservative high result with help first.
+    // The model declined or gave nothing usable: demo fixture if enabled, else — if the floor already
+    // found danger — never leave her without an answer: a conservative high result with help first.
+    const demo = demoResult(text, floor.triggered);
+    if (demo) return reply(demo, 200, started);
     if (floor.triggered) return reply(floorOnlyResult(), 200, started);
     return fail("ai_unavailable", 502, started);
   } catch (error) {
+    const demo = demoResult(text, floor.triggered);
+    if (demo) return reply(demo, 200, started);
     if (floor.triggered) return reply(floorOnlyResult(), 200, started);
     // Log only status + error type (e.g. "authentication_error") — never the message, which can echo request details.
     const apiError = error instanceof Anthropic.APIError ? error : null;

@@ -27,6 +27,9 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
   referrer: "no-referrer",
   formatDetection: { telephone: false, email: false, address: false },
+  // iOS "Add to Home Screen": neutral name, runs full-screen like an app.
+  appleWebApp: { capable: true, title: APP_NAME, statusBarStyle: "default" },
+  applicationName: APP_NAME,
 };
 
 export const viewport: Viewport = {

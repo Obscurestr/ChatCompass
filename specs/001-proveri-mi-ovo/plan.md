@@ -11,7 +11,7 @@ A mobile-first PWA where a teenager pastes a conversation, the text is masked on
 **Styling**: Tailwind CSS v4 with the design tokens below; no component kit (keeps the look ours)
 **Motion**: CSS only (one orchestrated moment, see Design)
 **AI**: `@anthropic-ai/sdk`, model from `ANTHROPIC_MODEL` env (default `claude-sonnet-5-5`), `temperature: 0`, `max_tokens: 1200`, 20 s timeout, one retry on invalid JSON. Set a monthly spend limit on the API key.
-**Demo mode**: `DEMO_MODE=fallback` returns pre-recorded results for samples A–G (matched by hash) if the API fails, so the live demo never dies
+**Demo mode**: `DEMO_MODE=fallback` returns pre-recorded results for samples A–G and the test screenshots (matched by word overlap ≥ 60%, so screenshot text matches too) if the API fails; never softer than the safety floor, so the live demo never dies
 **Validation**: `zod` for request and response
 **Storage**: none
 **Testing**: manual (Tamara, `quickstart.md`) + 3–4 Vitest unit tests for `mask.ts`, `safetyFloor.ts`, `highlight.ts`
