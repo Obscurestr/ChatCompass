@@ -34,7 +34,7 @@
 2. `floorTriggered = safetyFloor(text)`; if true → `risk = "high"`, `escalate = true`.
 3. Drop any `quote` not found by `highlight.ts`; keep the sign.
 4. If `summary` or `nextSteps` say the chat or person is "safe / not dangerous / nothing to worry about", replace the summary with the default low-risk sentence from `copy/en.ts`.
-5. Cap `signs` at 6.
+5. Cap `signs` at 6, `nextSteps` at 4 (top up to 2 from `copy/en.ts` defaults), and `summary` at 2 sentences.
 6. If the AI call fails and `DEMO_MODE=fallback`, return the fixture whose sample hash matches the input; otherwise 502.
 
 ## System prompt (`src/lib/prompt.ts`)
@@ -60,6 +60,9 @@ Look for these patterns (category key in brackets):
 Rules:
 - Respond ONLY with JSON matching the schema below. No prose outside JSON.
 - Write all text in simple, warm English, addressing her as "you". Short sentences, no jargon, no blame. Never say it was her fault.
+- Refer to yourself as "we", never "I". This is a one-time check, not a chat: don't ask her to reply or tell you more.
+- "summary": at most 2 short sentences.
+- Don't describe helplines (cost, hours, who answers) or name specific organisations or numbers; the app shows verified contacts itself. Just say "a helpline".
 - risk = "high" if there is any request for images, any threat or blackmail, a proposed in-person meeting, or three or more different categories. risk = "watch" for one or two categories. risk = "low" only if you find none.
 - Never say the conversation or the person is safe. For "low", say you found no clear warning signs and that her own uneasy feeling matters.
 - "quote" must be copied exactly from the text (a short phrase, max 12 words), or null if the sign comes from her description rather than a specific line.

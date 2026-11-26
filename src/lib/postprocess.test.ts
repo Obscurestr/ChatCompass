@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { en } from "../copy/en";
-import { claimsSafe, floorOnlyResult, postprocess } from "./postprocess";
+import { claimsSafe, firstSentences, floorOnlyResult, postprocess } from "./postprocess";
 import type { ModelOutput } from "./schema";
 
 const TEXT = "Let's meet up in the park on Saturday. Don't tell your parents, they'd ruin everything.";
@@ -63,6 +63,17 @@ describe("postprocess", () => {
     );
     expect(r.signs).toHaveLength(6);
     expect(r.nextSteps).toHaveLength(4);
+  });
+});
+
+describe("summary length (FR-003)", () => {
+  it("keeps at most 2 sentences", () => {
+    const r = postprocess(TEXT, { ...base, summary: "One. Two! Three? Four." }, false);
+    expect(r.summary).toBe("One. Two!");
+  });
+
+  it("leaves a short summary alone", () => {
+    expect(firstSentences("Just one sentence.", 2)).toBe("Just one sentence.");
   });
 });
 

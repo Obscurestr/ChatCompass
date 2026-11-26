@@ -14,6 +14,12 @@ export function claimsSafe(sentence: string): boolean {
   return SAFE_CLAIM.test(sentence);
 }
 
+/** Keeps the first `n` sentences (split after . ! ? or … followed by whitespace). */
+export function firstSentences(text: string, n: number): string {
+  const sentences = text.trim().split(/(?<=[.!?…])\s+/);
+  return sentences.slice(0, n).join(" ");
+}
+
 /** A conservative result when the model can't answer but the safety floor already found danger. */
 export function floorOnlyResult(): AnalysisResult {
   return {
@@ -45,6 +51,9 @@ export function postprocess(text: string, model: ModelOutput, floorTriggered: bo
   if (anySafeClaim || (floorTriggered && model.risk !== "high")) {
     summary = en.result.summaryDefault[risk];
   }
+
+  // FR-003: summary is at most 2 sentences.
+  summary = firstSentences(summary, 2);
 
   if (nextSteps.length < MIN_NEXT_STEPS) {
     const defaults = en.result.nextStepsDefault[risk].filter((d) => !nextSteps.includes(d));

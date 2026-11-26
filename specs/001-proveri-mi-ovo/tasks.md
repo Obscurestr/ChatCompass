@@ -27,7 +27,7 @@
 - [x] T011 `src/lib/prompt.ts` — system prompt + user template from contracts/analyze-api.md
 - [x] T012 `src/app/api/analyze/route.ts` — validate, floor, Claude call (temp 0, 20 s timeout, 1 retry), post-processing rules 1–5, rate limit, no body logging
 
-**Checkpoint**: `curl` samples A–E against the route return valid JSON with expected risk. — *pending: Anthropic returns 401 (API key on Vercel is invalid); D and E already return `high` via the safety floor.*
+**Checkpoint**: `curl` samples A–E against the route return valid JSON with expected risk. — *passed 2026-11-26: A low, B watch, C high, D high, E high, F watch (no quotes), S22 low; 3–6 s per check.*
 
 ### Phase 3: User Story 1 — Check a conversation (P1) 🎯 MVP
 - [ ] T013 [US1] `src/app/layout.tsx` — `milk` background, neutral `<title>` from env, centered 560 px column, `lang="en"`, `noindex`; `Referrer-Policy: no-referrer` in `next.config`
