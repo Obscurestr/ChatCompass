@@ -16,7 +16,7 @@ export const HELP_CONTACTS: HelpContact[] = [
     id: "nadel",
     phone: "116111",
     displayPhone: "116 111",
-    verified: false,
+    verified: true, // confirmed by the team 2026-11-26
   },
   {
     id: "astra",
@@ -28,7 +28,7 @@ export const HELP_CONTACTS: HelpContact[] = [
     phone: "192",
     displayPhone: "192",
     showOnHighOnly: true,
-    verified: false,
+    verified: true, // confirmed by the team 2026-11-26
   },
 ];
 

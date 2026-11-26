@@ -49,7 +49,7 @@
 - [x] T023 [US2] Result ordering: `high` → header, HelpBlock, marked text, steps; others → header, text, steps, HelpBlock
 - [x] T024 [P] [US2] `src/app/help/page.tsx` — Get help page: contacts, what happens when you call, trusted-adult tips
 - [x] T025 [US2] `ErrorState.tsx` — explain + retry + HelpBlock + link to general signs — *general signs shown inline (no separate /signs page yet)*
-- [ ] T026 [US2] Verify helpline numbers with ASTRA, set `verified:true`
+- [ ] T026 [US2] Verify helpline numbers with ASTRA, set `verified:true` — *NADEL 116 111 and police 192 verified 2026-11-26; ASTRA SOS number still missing (hidden until added)*
 
 ### Phase 5: User Story 3 — Leave instantly (P1)
 - [ ] T027 [US3] `QuickExit.tsx` in layout — `location.replace(EXIT_URL)`, clears state; Esc-Esc listener
