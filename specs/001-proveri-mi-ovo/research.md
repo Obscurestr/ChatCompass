@@ -13,11 +13,11 @@
 
 ## safetyFloor keyword groups (English; starting point, extend on Day 2)
 - **meeting**: `meet up`, `meet in person`, `meet irl`, `let's meet`, `come to my place`, `come over to my`, `i'll pick you up`, `i can pick you up` (not bare `see you` — classmates say it every day; not bare `in person` / `live` — "we watched the game live")
-- **threats/blackmail**: `i'll show everyone`, `i will show everyone`, `i'll send it to your`, `i'll post it`, `if you don't send`, `if you dont send`, `if you tell anyone`, `blackmail` (never bare `if you don't` — it fires on harmless text like "if you don't make it today" and would wreck SC-003)
+- **threats/blackmail**: `i'll show everyone`, `i will show everyone`, `i'll send it to your`, `i'll post it`, `blackmail`; conditional threats only with a clear demand or threat after them: `if you don't send (me) (a/more/some) pic(s)/photo(s)/nudes/video` and `if you tell anyone/your mum…, I'll / I'm gonna …` (never bare `if you don't` or `if you don't send` — they fire on "if you don't make it today" and "if you don't send the notes I'll ask Ana"; never bare `if you tell anyone` — "if you tell anyone about the surprise party")
 - **images**: `pic of you`, `picture of you`, `photo of you`, `pics of you`, `send nudes`, `nudes`, `take a pic for me`, `just for me` + `pic`/`photo`/`picture` in the same message (not bare `send me a pic` / `send me a picture` — "send me a pic of the chemistry homework" is harmless)
 
 Rule of thumb: the floor only catches unambiguous emergencies; everything subtler is the model's job. Every new keyword gets a harmless counter-example test in Vitest.
-Match case-insensitively; normalise curly apostrophes (`’` → `'`) and collapse whitespace before matching.
+Match case-insensitively; drop apostrophes (`I'll` → `ill`, so "ill"/"I'll"/"I’ll" all match), strip diacritics and collapse whitespace before matching.
 
 ## Helplines (VERIFY before demo — `config/help.ts`, `verified: false` until checked)
 - NADEL — national helpline for children, 116 111

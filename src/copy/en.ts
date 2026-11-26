@@ -1,9 +1,7 @@
 // All UI copy, in English. Voice: calm older friend, "you", short sentences, plain words, no blame.
 // See plan.md → "Voice rules (copy)".
 
-export const MIN_CHARS = 20;
-export const MAX_CHARS = 6000;
-export const COUNTER_FROM = 5000;
+import { MAX_CHARS } from "../config/app";
 
 export const en = {
   home: {
@@ -119,6 +117,13 @@ export const en = {
     anonymity: "You don't have to give your name.",
     trustedAdult: "Or talk to an adult you trust: a parent, a teacher, the school counsellor.",
     unverified: "Number not verified yet.",
+    // Keyed by HelpContact.id in config/help.ts
+    contacts: {
+      // TODO(T026): confirm descriptions (cost, hours, anonymity) together with the numbers.
+      nadel: { name: "NADEL", description: "National helpline for children and young people." },
+      astra: { name: "ASTRA SOS", description: "SOS hotline run by ASTRA." },
+      police: { name: "Police", description: "If you are in danger right now." },
+    },
   },
 
   helpPage: {

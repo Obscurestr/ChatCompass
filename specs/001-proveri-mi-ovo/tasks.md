@@ -19,12 +19,12 @@
 - [ ] T005b [P] (Tamara) Get the judging criteria and pitch length from organisers; deck will follow them
 
 ### Phase 2: Foundational (blocks all stories)
-- [ ] T006 `src/lib/schema.ts` — zod request/response schemas per data-model.md
-- [ ] T007 [P] `src/lib/mask.ts` + Vitest tests (international + local phone formats, emails, URLs)
-- [ ] T008 [P] `src/lib/safetyFloor.ts` + Vitest tests (English keyword groups from research.md)
-- [ ] T009 [P] `src/lib/highlight.ts` + Vitest tests (exact, case-insensitive and whitespace-tolerant matching; returns `Mark[]`)
-- [ ] T010 [P] `src/config/help.ts` and `src/config/app.ts` (helplines with `verified:false`)
-- [ ] T011 `src/lib/prompt.ts` — system prompt + user template from contracts/analyze-api.md
+- [x] T006 `src/lib/schema.ts` — zod request/response schemas per data-model.md
+- [x] T007 [P] `src/lib/mask.ts` + Vitest tests (international + local phone formats, emails, URLs)
+- [x] T008 [P] `src/lib/safetyFloor.ts` + Vitest tests (English keyword groups from research.md)
+- [x] T009 [P] `src/lib/highlight.ts` + Vitest tests (exact, case-insensitive and whitespace-tolerant matching; returns `Mark[]`)
+- [x] T010 [P] `src/config/help.ts` and `src/config/app.ts` (helplines with `verified:false`)
+- [x] T011 `src/lib/prompt.ts` — system prompt + user template from contracts/analyze-api.md
 - [ ] T012 `src/app/api/analyze/route.ts` — validate, floor, Claude call (temp 0, 20 s timeout, 1 retry), post-processing rules 1–5, rate limit, no body logging
 
 **Checkpoint**: `curl` samples A–E against the route return valid JSON with expected risk.
