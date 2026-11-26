@@ -11,7 +11,16 @@ export const en = {
     placeholder:
       "For example:\nThem: Don't tell anyone about us.\nMe: Why?\n\nYou can also describe what's happening in your own words.",
     maskNote: "Phone numbers, emails and links are hidden before sending.",
-    textOnly: "Don't send photos — not to us, not to them.",
+    screenshot: {
+      add: "Add a screenshot",
+      note: "Screenshots are read on your phone and never uploaded.",
+      reading: (i: number, n: number, pct: number) =>
+        n > 1 ? `Reading screenshot ${i + 1} of ${n}… ${pct}%` : `Reading your screenshot… ${pct}%`,
+      done: "We added the text above. Check it and fix anything we misread.",
+      empty: "We couldn't find any text in that picture. Try a clearer screenshot, or paste the messages.",
+      failed: "Reading the screenshot didn't work this time. You can paste the messages instead.",
+      tooMany: "You can add up to 5 screenshots at a time.",
+    },
     disclosure: "Your text goes to an AI service for this check only. It isn't saved.",
     tooShort: "Paste a few messages, or write a couple of sentences about what's happening.",
     tooLong: "That's a lot. Paste just the latest messages, or the part that worries you most.",

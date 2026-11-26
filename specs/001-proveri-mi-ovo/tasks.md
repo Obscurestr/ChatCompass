@@ -63,6 +63,8 @@
 - [ ] T031 Prompt tuning from QA results (focus: no `high` sample ever returns `low`)
 - [ ] T032 **QA: S13–S22 full run**
 
+- [x] T030b [US1] On-device screenshot OCR (FR-018): `lib/ocr.ts`, `lib/ocrClean.ts` + tests, "Add a screenshot" in PasteSheet, OCR files self-hosted via `scripts/copy-ocr-assets.mjs` (constitution v1.2.0)
+
 **Midday checkpoint**: if T021–T028 are done, start P2. Otherwise skip Phase 7.
 
 ### Phase 7: User Story 4 — Who's really there (P2)

@@ -74,13 +74,13 @@ A short swipeable "Warning signs" guide explains the common patterns with one il
 - Input is expected in English; the response is always in English. Text in another language still gets analysed, but quality is only tested for English.
 - AI unavailable or times out: a calm error explains that the check didn't run, offers retry, and still shows the help block and the general warning-signs list.
 - AI returns a quoted phrase not present in her text: the sign is listed without an in-text highlight.
-- She tries to attach an image: there is no way to; copy near the input says not to share photos.
+- She adds a screenshot: it is read on her phone into text she can review and edit; the image never leaves the device. If no text is found, she is told to try a clearer screenshot or paste the messages.
 - Someone uses the app to test whether their own messages "pass": out of scope to prevent; the app only educates and never coaches how to avoid detection.
 
 ## Requirements *(mandatory)*
 
 ### Functional Requirements
-- **FR-001**: The system MUST accept free text (pasted chat or own description), 20–6,000 characters, and nothing else.
+- **FR-001**: The system MUST accept free text (pasted chat or own description), 20–6,000 characters. Screenshots are only a way to produce that text on the device (FR-018).
 - **FR-002**: The system MUST mask phone numbers, email addresses and URLs on the device before sending.
 - **FR-003**: The system MUST return a risk level of `low`, `watch` or `high`, a summary of at most 2 sentences, 0–6 warning signs and 2–4 next steps, all in English.
 - **FR-004**: Each warning sign MUST have a category, a short title, a plain explanation, and optionally an exact quote from the input.
@@ -96,6 +96,7 @@ A short swipeable "Warning signs" guide explains the common patterns with one il
 - **FR-014**: The home screen MUST state in one line that the text goes to an AI service only for this check and is not saved.
 - **FR-015**: The input MUST disable autocomplete and browser spell-check.
 - **FR-016**: The Help page MUST honestly explain that quick exit hides the screen but the visit can stay in browser history, and suggest using a private/incognito tab.
+- **FR-018**: The system MUST let her add up to 5 screenshots that are read into text on the device (OCR in the browser). The image MUST never be uploaded, sent to the AI, stored or cached; the extracted text is put into the input for her to review, and is masked on Check like any other text.
 - **FR-017**: The system SHOULD offer a demo fallback (pre-recorded results for the sample set) when the AI service is unavailable, enabled only by env flag.
 
 ### Key Entities

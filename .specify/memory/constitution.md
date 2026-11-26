@@ -1,6 +1,6 @@
 # Proveri — Project Constitution
 
-**Version**: 1.1.0 | **Ratified**: 2026-11-26 | **Amended**: 2026-11-26 (app language changed to English) | **Context**: SheSafe Online Regional Hackathon, 26–29 Nov 2026, Case 3 "Grooming and trust"
+**Version**: 1.2.0 | **Ratified**: 2026-11-26 | **Amended**: 2026-11-26 (app language changed to English; on-device screenshot reading) | **Context**: SheSafe Online Regional Hackathon, 26–29 Nov 2026, Case 3 "Grooming and trust"
 
 Proveri ("Check it") lets a teenager privately check whether an online conversation shows warning signs of grooming, understand why, and reach a real person for help — before the situation escalates.
 
@@ -12,7 +12,7 @@ The user is likely a minor in a vulnerable moment. Every decision is judged firs
 ### II. Privacy by design (NON-NEGOTIABLE)
 - No accounts, no sign-in, no analytics, no cookies beyond what the framework strictly needs.
 - No database. Conversation text is sent to the AI for one analysis and is never stored, logged or cached by our server.
-- Text only. The app never accepts images or files.
+- Text only leaves the device. A screenshot may be read into text inside the browser, but the image itself is never uploaded, sent to the AI, stored, or cached; only the extracted text, masked, is sent. All OCR files are served from our own domain.
 - The browser keeps nothing after the session ends (no localStorage of conversations).
 - Phone numbers, emails and links are masked on the device before the text leaves it.
 

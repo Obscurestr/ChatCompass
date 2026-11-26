@@ -11,6 +11,9 @@ export const MAX_CHARS = 6000;
 // Show the live counter only past this length.
 export const COUNTER_FROM = 5000;
 
+// Screenshots read on the device per pick (FR-018).
+export const MAX_SCREENSHOTS = 5;
+
 // Response limits (FR-003).
 export const MAX_SIGNS = 6;
 export const MIN_NEXT_STEPS = 2;

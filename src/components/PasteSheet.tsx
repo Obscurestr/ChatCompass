@@ -1,12 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef } from "react";
-import { COUNTER_FROM, MAX_CHARS, MIN_CHARS } from "../config/app";
+import { useEffect, useRef, useState } from "react";
+import { COUNTER_FROM, MAX_CHARS, MAX_SCREENSHOTS, MIN_CHARS } from "../config/app";
 import { en } from "../copy/en";
+import { readScreenshots } from "../lib/ocr";
+
+type OcrState =
+  | { kind: "idle" }
+  | { kind: "reading"; i: number; n: number; pct: number }
+  | { kind: "message"; text: string };
 
 // T014: the paper textarea, length hints, the Check button and the AI disclosure (FR-014).
-// No image or file input exists anywhere (FR-001).
+// FR-018: screenshots are read into text on the device; the image itself never leaves it.
 export default function PasteSheet({
   value,
   onChange,
@@ -17,6 +23,8 @@ export default function PasteSheet({
   onSubmit: () => void;
 }) {
   const ref = useRef<HTMLTextAreaElement>(null);
+  const fileRef = useRef<HTMLInputElement>(null);
+  const [ocr, setOcr] = useState<OcrState>({ kind: "idle" });
 
   // Focus on load so the caret is already blinking in the field.
   useEffect(() => {
@@ -26,7 +34,31 @@ export default function PasteSheet({
   const length = value.trim().length;
   const tooShort = length > 0 && length < MIN_CHARS;
   const tooLong = length > MAX_CHARS;
-  const canSubmit = length >= MIN_CHARS && !tooLong;
+  const reading = ocr.kind === "reading";
+  const canSubmit = length >= MIN_CHARS && !tooLong && !reading;
+
+  async function onPick(input: HTMLInputElement) {
+    const all = Array.from(input.files ?? []);
+    input.value = ""; // drop our reference to the picked files right away
+    if (all.length === 0) return;
+    const files = all.slice(0, MAX_SCREENSHOTS);
+
+    setOcr({ kind: "reading", i: 0, n: files.length, pct: 0 });
+    try {
+      const text = await readScreenshots(files, (i, n, fraction) =>
+        setOcr({ kind: "reading", i, n, pct: Math.round(fraction * 100) }),
+      );
+      if (!text) {
+        setOcr({ kind: "message", text: en.home.screenshot.empty });
+        return;
+      }
+      onChange(value.trim() ? `${value.trim()}\n\n${text}` : text);
+      const note = all.length > MAX_SCREENSHOTS ? `${en.home.screenshot.tooMany} ` : "";
+      setOcr({ kind: "message", text: note + en.home.screenshot.done });
+    } catch {
+      setOcr({ kind: "message", text: en.home.screenshot.failed });
+    }
+  }
 
   return (
     <form
@@ -64,8 +96,40 @@ export default function PasteSheet({
         )}
       </div>
 
+      {/* Screenshot → text, on the device */}
+      <input
+        ref={fileRef}
+        type="file"
+        accept="image/*"
+        multiple
+        hidden
+        onChange={(e) => onPick(e.currentTarget)}
+      />
+      <button
+        type="button"
+        disabled={reading}
+        onClick={() => fileRef.current?.click()}
+        className="mt-3 inline-flex min-h-11 items-center gap-2 rounded-full border-2 border-ink bg-paper px-5 font-display font-bold disabled:cursor-wait disabled:opacity-60"
+      >
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <rect x="3.5" y="5" width="17" height="14" rx="3" />
+          <circle cx="9" cy="10" r="1.6" />
+          <path d="M5 17.5l4.6-4.4 3.2 3 2.6-2.3 3.6 3.4" />
+        </svg>
+        {en.home.screenshot.add}
+      </button>
+      <p role="status" aria-live="polite" className="mx-auto mt-2 min-h-5 text-small">
+        {ocr.kind === "reading" && (
+          <span className="inline-flex items-center gap-2">
+            <span aria-hidden="true" className="pulse-dot inline-block size-2 rounded-full bg-ink" />
+            {en.home.screenshot.reading(ocr.i, ocr.n, ocr.pct)}
+          </span>
+        )}
+        {ocr.kind === "message" && ocr.text}
+      </p>
+
       <p id="paste-note" className="mx-auto mt-2 text-small text-ink-muted">
-        {en.home.maskNote} {en.home.textOnly}
+        {en.home.maskNote} {en.home.screenshot.note}
       </p>
 
       <button

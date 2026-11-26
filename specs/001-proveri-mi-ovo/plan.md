@@ -24,7 +24,7 @@ A mobile-first PWA where a teenager pastes a conversation, the text is masked on
 | Principle | How the plan complies |
 |---|---|
 | I. Safety over features | Safety floor overrides the model; help block on every result and error; never says "safe" (enforced in prompt and in a post-check) |
-| II. Privacy | Textarea has `autocomplete="off"`, `spellcheck={false}` (cloud spell-check could send text elsewhere); one-line disclosure under the button that the text goes to an AI service for this check only and is not saved; No DB, no analytics, on-device masking, no localStorage, route never logs the body, text-only input |
+| II. Privacy | Textarea has `autocomplete="off"`, `spellcheck={false}` (cloud spell-check could send text elsewhere); one-line disclosure under the button that the text goes to an AI service for this check only and is not saved; No DB, no analytics, on-device masking, no localStorage, route never logs the body; screenshots are read on the device (OCR in a Web Worker, files self-hosted, nothing cached) and only masked text is sent |
 | III. Discretion | `QuickExit` component in root layout, `location.replace`, Esc-Esc shortcut, neutral title from env, `Referrer-Policy: no-referrer`, `noindex`. Honest limit: the visit still appears in browser history, so the Help page and home hint suggest a private/incognito tab |
 | IV. Human help | `HelpBlock` component reused on result, error and help screens |
 | V. Calm language | All copy in `src/copy/en.ts`, reviewed against the voice rules below |
@@ -71,6 +71,8 @@ src/
 │   └── ErrorState.tsx
 ├── lib/
 │   ├── mask.ts               # phone/email/URL masking
+│   ├── ocr.ts                # on-device screenshot → text (tesseract.js, lazy-loaded)
+│   ├── ocrClean.ts           # drop times, status bar and chat-app labels from OCR text
 │   ├── safetyFloor.ts        # keyword/regex danger detector (English)
 │   ├── highlight.ts          # find quote ranges in text, tolerant of whitespace/case
 │   ├── prompt.ts             # system prompt (from contracts/analyze-api.md)
@@ -152,6 +154,7 @@ On `low`/`watch`, the order is: header → marked text → next steps → help b
 
 ### Components
 - **QuickExit**: fixed top-right pill, 2 px `ink` outline on `paper`, label "Exit", always visible (also inside open sheets, which make the page behind inert), 44 px tap target. Esc twice on desktop (a single Esc closes an open sheet). Internal links use `replace` so Back never returns to the app.
+- **Add a screenshot**: outlined pill under the textarea; reads up to 5 screenshots on the device, shows calm progress ("Reading your screenshot… 40%"), appends the text to the textarea for her to check. One line says screenshots are read on the phone and never uploaded. No image preview.
 - **PasteSheet**: textarea on `paper` with 2 px `ink` outline, no visible label (screen-reader label only), fixed height that scrolls inside (never grows or resizes), placeholder with a short example, live counter only past 5,000 chars, masked items shown as soft grey chips after masking.
 - **AnalyzingState**: the pasted text stays visible and slightly dimmed; copy "Reading carefully…"; no spinner.
 - **RiskHeader**: headline + summary; `low` gets a mint wash, `watch` a yellow underline, `high` the rose label. Headlines: low "We didn't find clear warning signs", watch "Some things are worth a closer look", high "This is worth taking seriously".
