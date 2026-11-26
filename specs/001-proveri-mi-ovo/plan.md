@@ -117,7 +117,7 @@ No traffic-light red anywhere. Danger is communicated by order (help first), wor
 - Sentence case everywhere. No all-caps labels, no eyebrows above headings, no monospace, no arrows appended to buttons.
 
 ### Layout
-Single left-aligned column, `max-width: 560px`, 20 px side padding, generous vertical rhythm (8 px base). One sheet of `paper` per screen floats on `mist` with a single soft edge (1 px `#DCDFEA` border + 0 8px 24px rgba(38,35,63,.06)). Corner radius: 20 px for sheets, 999 px for buttons, 6 px for marks — radius reflects hierarchy, not one value everywhere.
+Single centered column (horizontally, and vertically on the home screen), `max-width: 560px`, 20 px side padding. Headlines and short copy are center-aligned; long text (the textarea, her marked messages, explanations, lists) stays left-aligned for readability, generous vertical rhythm (8 px base). One sheet of `paper` per screen floats on `mist` with a single soft edge (1 px `#DCDFEA` border + 0 8px 24px rgba(38,35,63,.06)). Corner radius: 20 px for sheets, 999 px for buttons, 6 px for marks — radius reflects hierarchy, not one value everywhere.
 
 ```
 Home                               Result (high)
