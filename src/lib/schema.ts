@@ -49,6 +49,25 @@ export const ModelOutputSchema = z.object({
   escalate: z.boolean().default(false),
 });
 
+/**
+ * Plain JSON shape sent to the API as the structured-output format (output_config.format).
+ * No transforms, defaults or length limits — those don't translate to JSON Schema; we enforce them in code.
+ */
+export const ModelOutputFormatSchema = z.object({
+  risk: RiskSchema,
+  summary: z.string(),
+  signs: z.array(
+    z.object({
+      category: SignCategorySchema,
+      title: z.string(),
+      explanation: z.string(),
+      quote: z.string().nullable(),
+    }),
+  ),
+  nextSteps: z.array(z.string()),
+  escalate: z.boolean(),
+});
+
 /** What the route returns to the client. */
 export const AnalysisResultSchema = z.object({
   risk: RiskSchema,

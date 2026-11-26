@@ -38,9 +38,30 @@ export const en = {
       watch: "Some things are worth a closer look",
       high: "This is worth taking seriously",
     },
-    // Used by the server when the model's summary must be replaced (contract rule 4).
-    lowSummaryDefault:
-      "We didn't find clear warning signs. If something still feels wrong, that feeling matters.",
+    // Used by the server when the model's summary must be replaced (contract rules 2 and 4).
+    summaryDefault: {
+      low: "We didn't find clear warning signs. If something still feels wrong, that feeling matters.",
+      watch: "Some things in this chat are worth a closer look. You don't have to figure it out alone.",
+      high: "Some things in this chat can be signs of danger. Please talk to someone you trust soon.",
+    },
+    // Used when the model returns fewer than 2 usable next steps.
+    nextStepsDefault: {
+      low: [
+        "Trust your feelings. If something feels off later, you can check again.",
+        "Talk to an adult you trust if anything bothers you.",
+      ],
+      watch: [
+        "You don't have to reply right away.",
+        "Talk to an adult you trust or call a helpline.",
+        "Take screenshots and save them somewhere safe.",
+      ],
+      high: [
+        "Don't send anything else and don't agree to meet.",
+        "Take screenshots and save them somewhere safe.",
+        "Talk to an adult you trust or call a helpline today.",
+        "This is not your fault.",
+      ],
+    },
     trustFeeling: "Your feeling counts. If something bothers you, that's reason enough to talk to someone.",
     yourMessages: "Your messages",
     markHint: "Tap a highlighted part to see why it matters.",
