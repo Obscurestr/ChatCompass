@@ -65,7 +65,7 @@ export const en = {
     trustFeeling: "Your feeling counts. If something bothers you, that's reason enough to talk to someone.",
     yourMessages: "Your messages",
     markHint: "Tap a highlighted part to see why it matters.",
-    signsWithoutQuote: "Other things we noticed",
+    signsWithoutQuote: "Things we noticed",
     notYourFault: "It's not your fault.",
     checkAnother: "Check another chat",
     identityLink: "How to check who's on the other side",
