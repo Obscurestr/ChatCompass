@@ -68,8 +68,10 @@
 **Midday checkpoint**: if T021–T028 are done, start P2. Otherwise skip Phase 7.
 
 ### Phase 7: User Story 4 — Who's really there (P2)
-- [ ] T033 [P] [US4] `src/app/who/page.tsx` — 6 yes/no questions, tally, advice; reverse image search link with instructions (no upload)
-- [ ] T034 [US4] Link from result screen when `identity_doubt` sign present
+- [x] T033 [P] [US4] `src/app/who/page.tsx` — 6 yes/no questions, tally, advice; reverse image search link with instructions (no upload)
+- [x] T034 [US4] Link from result screen when `identity_doubt` sign present — *opens in a sheet on the result (the result lives only in memory and would be lost by navigating), highlighted when `identity_doubt` is present*
+- [x] T034a [US2] "Help me tell someone": ready-made messages to copy or share (fixed text, never her chat) on the result and Help page
+- [x] T034b [US2] "How to block and report": save evidence first (never sexual images), then steps for Instagram, Snapchat, TikTok, Discord; `/block` page + sheet on the result
 
 ---
 

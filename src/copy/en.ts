@@ -194,6 +194,108 @@ export const en = {
     aria: "Leave this page quickly",
     hint: "You can also press Esc twice.",
   },
+
+  // Links from the result screen and the Help page to the extra guides.
+  more: {
+    title: "More ways to get help",
+    who: "Check who's on the other side",
+    whoHighlight: "Not sure who they really are? Check it here.",
+    block: "How to block and report",
+  },
+
+  // T034a — ready-made messages she can copy and send to someone she trusts. Never include her chat.
+  tell: {
+    title: "Help me tell someone",
+    intro: "Not sure how to start? Pick a message, copy it and send it to someone you trust.",
+    copy: "Copy",
+    copied: "Copied",
+    send: "Send",
+    copyFailed: "Couldn't copy. Press and hold the message to copy it.",
+    messages: [
+      {
+        to: "To a parent or family member",
+        text: "Hey, something happened online and I don't know what to do. Can we talk today? Please don't be angry, I just need your help.",
+      },
+      {
+        to: "To a teacher or school counsellor",
+        text: "Hi, could I talk to you privately? Something is happening online that's worrying me, and I'd like some advice.",
+      },
+      {
+        to: "Short and simple",
+        text: "Can we talk soon? Something online is bothering me and I need help.",
+      },
+    ],
+  },
+
+  // T033 — Who's on the other side? (identity checklist)
+  who: {
+    title: "Who's on the other side?",
+    intro: "Answer a few quick questions about the person you're chatting with. It only takes a minute, and nothing is saved.",
+    yes: "Yes",
+    no: "No",
+    questions: [
+      "Do they avoid video calls, or always have an excuse not to show their face?",
+      "Has their story changed, like their age, school or where they live?",
+      "Is their account new, or does it have very few posts or friends?",
+      "Does nobody you know actually know them in real life?",
+      "Do their photos look too perfect, like a model's or something from the internet?",
+      "Do they say they're your age, but write or act a lot older?",
+    ],
+    tally: (n: number, total: number) => `${n} of ${total} red flags`,
+    advice: {
+      none: "Nothing here stands out. Still, take your time getting to know people online, and trust your gut.",
+      some: "A few things don't add up. Be careful what you share, and don't agree to meet. It's a good idea to talk to someone you trust.",
+      many: "Lots of things don't add up. This person may not be who they say they are. Don't share anything else, don't meet, and talk to an adult you trust soon.",
+    },
+    unanswered: "Answer all the questions to see your result.",
+    reverseTitle: "Check their profile photo",
+    reverseIntro: "Fake accounts often use photos copied from someone else. A reverse image search shows where else a photo appears online. We never see the photo: you do this in another app.",
+    reverseSteps: [
+      "Take a screenshot of their profile photo.",
+      "Open Google Lens (in the Google app or Google Photos), or go to images.google.com on a computer.",
+      "Search with the screenshot. If the same photo shows up under a different name, or on a model's or stock photo page, be careful.",
+    ],
+    reverseTools: "Other free tools: TinEye (tineye.com) and Bing Visual Search.",
+    back: "Back",
+  },
+
+  // T034b — How to block and report
+  block: {
+    title: "How to block and report",
+    intro: "You can block someone at any time. You don't have to explain why.",
+    evidenceTitle: "Before you block: save what happened",
+    evidence: [
+      "Take screenshots of the chat, their username and their profile.",
+      "Write down the date and the app.",
+      "Save them somewhere private, or show them to an adult you trust.",
+    ],
+    imagesWarning:
+      "If they sent sexual pictures or videos, or asked for yours, don't save or forward them, not even as proof. Tell an adult you trust or the police instead. They know how to handle it.",
+    appsTitle: "Block and report in each app",
+    apps: [
+      {
+        name: "Instagram",
+        steps: ["Go to their profile.", "Tap ⋯ in the top corner.", "Choose Report, then Block."],
+      },
+      {
+        name: "Snapchat",
+        steps: ["Press and hold their name in your chat list.", "Tap Manage Friendship.", "Choose Report, then Block."],
+      },
+      {
+        name: "TikTok",
+        steps: ["Go to their profile.", "Tap the share arrow or ⋯ in the top corner.", "Choose Report, then Block."],
+      },
+      {
+        name: "Discord",
+        steps: [
+          "To report a message, press and hold it (or right-click on a computer) and choose Report.",
+          "To block, tap their name or profile picture, then ⋯, then Block.",
+        ],
+      },
+    ],
+    note: "Menus can look a little different depending on your app version. Look for Report and Block on their profile or in the chat.",
+    back: "Back",
+  },
 } as const;
 
 export type Copy = typeof en;

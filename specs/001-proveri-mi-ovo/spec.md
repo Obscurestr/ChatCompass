@@ -97,6 +97,8 @@ A short swipeable "Warning signs" guide explains the common patterns with one il
 - **FR-015**: The input MUST disable autocomplete and browser spell-check.
 - **FR-016**: The Help page MUST honestly explain that quick exit hides the screen but the visit can stay in browser history, and suggest using a private/incognito tab.
 - **FR-018**: The system MUST let her add up to 5 screenshots that are read into text on the device (OCR in the browser). The image MUST never be uploaded, sent to the AI, stored or cached; the extracted text is kept in memory (not put into the input), shown as "N screenshots ready" with a Remove option, sent together with any typed text on Check, and masked like any other text. She sees the text on the result screen.
+- **FR-019** (P2): The result and Help page SHOULD offer ready-made messages she can copy or share to start talking to a trusted adult. They MUST be fixed text and never contain her conversation.
+- **FR-020** (P2): The system SHOULD explain how to save evidence and block/report on common apps, and MUST tell her not to save or forward sexual images, even as evidence.
 - **FR-017**: The system SHOULD offer a demo fallback (pre-recorded results for the sample set) when the AI service is unavailable, enabled only by env flag.
 
 ### Key Entities

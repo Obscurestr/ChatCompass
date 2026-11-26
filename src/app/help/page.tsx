@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Doodle from "../../components/Doodle";
 import HelpBlock from "../../components/HelpBlock";
+import MoreHelp from "../../components/MoreHelp";
+import TellSomeone from "../../components/TellSomeone";
 import { en } from "../../copy/en";
 
 // T024 + T028a — Get help: contacts, what happens when you call, telling an adult,
@@ -40,6 +42,14 @@ export default function HelpPage() {
           ))}
         </ul>
       </section>
+
+      <div className="mt-10">
+        <TellSomeone />
+      </div>
+
+      <div className="mt-10 text-center">
+        <MoreHelp />
+      </div>
 
       <section className="mt-10 rounded-sheet bg-blush px-5 py-4" aria-labelledby="history">
         <h2 id="history" className="text-section">

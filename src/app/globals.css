@@ -157,6 +157,8 @@ dialog.sheet {
   width: 100%;
   max-width: var(--container-column);
   max-height: 85dvh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 0;
   border: 2px solid var(--color-ink);
   border-bottom: 0;

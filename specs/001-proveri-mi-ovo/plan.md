@@ -162,6 +162,9 @@ On `low`/`watch`, the order is: header → marked text → next steps → help b
 - **SignSheet**: title, 2–3 sentence explanation, "Why this matters".
 - **NextSteps**: non-interactive; each step in its own soft `blush` speech bubble (one small corner, like a chat bubble).
 - **HelpBlock**: contact rows with tap-to-call; one line on anonymity.
+- **TellSomeone**: three ready-made messages (parent, teacher/counsellor, short) in outlined cards with Copy and, where supported, Send (Web Share).
+- **MoreHelp**: two outlined rows ("Check who's on the other side", "How to block and report"). On the result they open a bottom sheet (`BottomSheet`), so the in-memory result is never lost; on Help they link to `/who` and `/block`. The "who" row turns marker-yellow when an `identity_doubt` sign is present.
+- **BottomSheet**: shared native-`<dialog>` sheet used by SignSheet and the guides; scrolls inside; swipe-down closes only when scrolled to the top; carries its own Exit pill.
 
 ### Voice rules (copy)
 Address her as "you", warm and direct. Short sentences, plain words (aim for a 12-year-old reading level). Name feelings without dramatising. Never blame ("It's not your fault" where relevant). Buttons say what happens: "Check", "Call", "Exit". Errors explain and give the next action, without apologising.

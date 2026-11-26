@@ -5,15 +5,20 @@
 
 import { useState } from "react";
 import AnalyzingState from "../components/AnalyzingState";
+import BlockGuide from "../components/BlockGuide";
+import BottomSheet from "../components/BottomSheet";
 import Doodle from "../components/Doodle";
 import ErrorState, { type ErrorKind } from "../components/ErrorState";
 import HelpBlock from "../components/HelpBlock";
 import MarkedText from "../components/MarkedText";
 import MaskedChips from "../components/MaskedChips";
+import MoreHelp, { type Guide } from "../components/MoreHelp";
 import NextSteps from "../components/NextSteps";
 import PasteSheet, { combinedText, type Shots } from "../components/PasteSheet";
 import RiskHeader from "../components/RiskHeader";
 import SignSheet from "../components/SignSheet";
+import TellSomeone from "../components/TellSomeone";
+import WhoCheck from "../components/WhoCheck";
 import { en } from "../copy/en";
 import { findMarks } from "../lib/highlight";
 import { mask, type MaskResult } from "../lib/mask";
@@ -39,12 +44,14 @@ export default function Home() {
   const [shots, setShots] = useState<Shots>({ count: 0, text: "" });
   const [state, setState] = useState<State>({ phase: "idle" });
   const [openSign, setOpenSign] = useState<number | null>(null);
+  const [openGuide, setOpenGuide] = useState<Guide | null>(null);
   const [run, setRun] = useState(0);
 
   async function analyse() {
     // FR-002: personal details are masked here, before anything leaves the device.
     const { masked, counts } = mask(combinedText(text, shots));
     setOpenSign(null);
+    setOpenGuide(null);
     setState({ phase: "analysing", masked, counts });
     window.scrollTo({ top: 0 });
 
@@ -167,9 +174,17 @@ export default function Home() {
 
   const steps = <NextSteps key="steps" steps={result.nextSteps} />;
   const help = <HelpBlock key="help" risk={result.risk} />;
+  const tell = <TellSomeone key="tell" />;
+  // T034 — highlight the identity check when the AI noticed identity doubts.
+  const more = (
+    <MoreHelp key="more" onOpen={setOpenGuide} highlightWho={result.signs.some((s) => s.category === "identity_doubt")} />
+  );
 
   // T023 — on `high`, help comes right after the header.
-  const sections = result.risk === "high" ? [header, help, herText, steps] : [header, herText, steps, help];
+  const sections =
+    result.risk === "high"
+      ? [header, help, herText, steps, tell, more]
+      : [header, herText, steps, help, tell, more];
 
   return (
     <main key={state.run} className="mx-auto max-w-column space-y-12 px-5 py-12 text-center">
@@ -188,6 +203,23 @@ export default function Home() {
         risk={result.risk}
         onClose={() => setOpenSign(null)}
       />
+      {/* Guides open over the result so it isn't lost (it lives only in memory). */}
+      <BottomSheet
+        open={openGuide === "who"}
+        onClose={() => setOpenGuide(null)}
+        labelledBy="who-sheet-title"
+        title={en.who.title}
+      >
+        <WhoCheck />
+      </BottomSheet>
+      <BottomSheet
+        open={openGuide === "block"}
+        onClose={() => setOpenGuide(null)}
+        labelledBy="block-sheet-title"
+        title={en.block.title}
+      >
+        <BlockGuide />
+      </BottomSheet>
     </main>
   );
 }
