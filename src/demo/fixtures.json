@@ -223,5 +223,164 @@
       "escalate": false,
       "floorTriggered": false
     }
+  },
+  {
+    "id": "screenshot-1-high-photo-request",
+    "text": "jake_16\nhey u up?\nyeah why\nyou're so much more mature than\nother girls your age\nhaha thanks\nsend me a pic of you, just for me.\nnobody else will see it\nidk...\ncome on, don't you trust me? and\ndon't tell your parents about us",
+    "result": {
+      "risk": "high",
+      "summary": "This chat has several warning signs, including a request for a picture of you and a request to keep things secret. You did nothing wrong by feeling unsure.",
+      "signs": [
+        {
+          "category": "fast_intimacy",
+          "title": "Flattery that moves fast",
+          "explanation": "Telling you that you're more mature than other girls can make you feel special. Predators often use this kind of flattery early on to get close to young people.",
+          "quote": "you're so much more mature than other girls your age"
+        },
+        {
+          "category": "images",
+          "title": "Asking for a picture of you",
+          "explanation": "They asked for a photo and promised nobody else would see it. Once a photo is sent, you can't control where it goes, and that promise can't be trusted.",
+          "quote": "send me a pic of you, just for me."
+        },
+        {
+          "category": "pressure",
+          "title": "Pushing after your hesitation",
+          "explanation": "You said you weren't sure, and they answered by questioning whether you trust them. Your \"no\" or \"I'm not sure\" should be enough, and you don't have to prove trust.",
+          "quote": "come on, don't you trust me?"
+        },
+        {
+          "category": "secrecy",
+          "title": "Asking you to hide it from your parents",
+          "explanation": "Wanting you to keep things from the adults who care about you is a big red flag. Safe people don't need secrets like this.",
+          "quote": "don't tell your parents about us"
+        }
+      ],
+      "nextSteps": [
+        "Don't send any pictures or anything else, and you don't have to keep replying.",
+        "Take screenshots of the chat and save them, then block the account and report it on the app.",
+        "Talk to a parent, a teacher or another adult you trust, or reach out to a helpline.",
+        "Remember it's not your fault. You didn't do anything wrong, and telling someone is a strong and smart thing to do."
+      ],
+      "escalate": true,
+      "floorTriggered": true
+    }
+  },
+  {
+    "id": "screenshot-2-high-meeting",
+    "text": "Marko\n\nI had so much fun talking to you\nlet's meet up in the park on\nSaturday, just us two\nI'd have to ask my mom\n\nno don't tell her, she would ruin\neverything\nI'll pick you up after school, ok?",
+    "result": {
+      "risk": "high",
+      "summary": "Marko wants to meet you in person and asked you to keep it from your mom. These are serious warning signs, and we'd take them seriously.",
+      "signs": [
+        {
+          "category": "meeting",
+          "title": "He wants to meet in person",
+          "explanation": "He's pushing for a meeting in the park, just the two of you, and even offered to pick you up after school. Meeting someone you only know online can be risky, especially when no one else knows about it.",
+          "quote": "let's meet up in the park on Saturday, just us two"
+        },
+        {
+          "category": "secrecy",
+          "title": "He asked you to keep it from your mom",
+          "explanation": "When you said you'd ask your mom, he told you not to. Someone with good intentions wouldn't mind a parent knowing. This is a common way predators try to keep young people away from help.",
+          "quote": "no don't tell her, she would ruin everything"
+        },
+        {
+          "category": "isolation",
+          "title": "He made your mom sound like the problem",
+          "explanation": "Saying your mom would \"ruin everything\" tries to put distance between you and someone who cares about you. It can make you feel like you can't go to her.",
+          "quote": "she would ruin everything"
+        },
+        {
+          "category": "personal_info",
+          "title": "He's trying to learn your school schedule",
+          "explanation": "Offering to pick you up after school means he wants to know where you'll be and when. That's private information, and you don't have to share it.",
+          "quote": "I'll pick you up after school, ok?"
+        }
+      ],
+      "nextSteps": [
+        "Don't meet Marko, and don't tell him where you go to school or when you finish.",
+        "Don't send him anything else, like photos or personal details.",
+        "Save screenshots of this chat, and don't delete it.",
+        "Talk to your mom or another adult you trust today, or contact a helpline. Asking your mom was the right thing to do."
+      ],
+      "escalate": true,
+      "floorTriggered": true
+    }
+  },
+  {
+    "id": "screenshot-3-watch-secret",
+    "text": "alex.k\n\nI really like talking to you\nme too\n\njust don't tell anyone about us, it's\nour secret\nother people wouldn't understand",
+    "result": {
+      "risk": "watch",
+      "summary": "This person asked you to keep your chat secret and said other people wouldn't understand. That's a warning sign worth taking seriously.",
+      "signs": [
+        {
+          "category": "secrecy",
+          "title": "Asking you to keep it secret",
+          "explanation": "Someone who cares about you doesn't need you to hide the friendship. Predators often use secrecy so nobody else can step in and help.",
+          "quote": "just don't tell anyone about us"
+        },
+        {
+          "category": "isolation",
+          "title": "Saying others wouldn't understand",
+          "explanation": "Telling you that other people won't understand can make you feel like only they get you. It's a common way predators try to pull young people away from those who care about them.",
+          "quote": "other people wouldn't understand"
+        }
+      ],
+      "nextSteps": [
+        "Talk to an adult you trust, like a parent, relative, teacher or school counsellor, about this chat.",
+        "If it's hard to talk to someone you know, you can reach out to a helpline.",
+        "Keep the messages and take screenshots, and don't delete anything.",
+        "You don't have to keep any secret that makes you uncomfortable. It's okay to stop replying."
+      ],
+      "escalate": false,
+      "floorTriggered": false
+    }
+  },
+  {
+    "id": "screenshot-4-low-homework",
+    "text": "Ana\ndid you do the maths homework?\nyeah question 4 was a pain\nsame lol, let's ask the teacher\ntomorrow\nok see you in class",
+    "result": {
+      "risk": "low",
+      "summary": "We didn't spot any clear warning signs in this conversation. It looks like a normal chat about homework and class.",
+      "signs": [],
+      "nextSteps": [
+        "If something about this chat or anyone else you talk to online starts to feel off, you can come back and check again.",
+        "If you ever feel uneasy, talk to a trusted adult or call a helpline."
+      ],
+      "escalate": false,
+      "floorTriggered": false
+    }
+  },
+  {
+    "id": "screenshot-5-masking-phone-link",
+    "text": "unknown\ntext me on [phone]\ninstead\nor check my profile\n[link]\ndon't tell your mum we talk",
+    "result": {
+      "risk": "watch",
+      "summary": "This person asked you to move the chat somewhere else and to keep it from your mum. Those are two warning signs worth taking seriously.",
+      "signs": [
+        {
+          "category": "secrecy",
+          "title": "Asking you to hide the chat from your mum",
+          "explanation": "A person who's safe to talk to doesn't need you to keep things from your parents. This is a common way predators try to keep young people to themselves.",
+          "quote": "don't tell your mum we talk"
+        },
+        {
+          "category": "move_platform",
+          "title": "Wanting to move to private messages",
+          "explanation": "They're pushing you to leave this chat and text them directly. Away from the app, it's harder for anyone else to see what's going on.",
+          "quote": "text me on [phone]"
+        }
+      ],
+      "nextSteps": [
+        "Don't give out your phone number or open the link for now.",
+        "Talk to your mum or another adult you trust about this chat. You're not in trouble for it.",
+        "If it's hard to talk to someone close, a helpline can listen and help you decide what to do.",
+        "Take screenshots of the messages, then block or report the account if you want to stop the chat."
+      ],
+      "escalate": false,
+      "floorTriggered": false
+    }
   }
 ]
