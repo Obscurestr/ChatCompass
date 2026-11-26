@@ -157,7 +157,7 @@ On `low`/`watch`, the order is: header → marked text → next steps → help b
 - **RiskHeader**: headline + summary; `low` gets a mint wash, `watch` a yellow underline, `high` the rose label. Headlines: low "We didn't find clear warning signs", watch "Some things are worth a closer look", high "This is worth taking seriously".
 - **MarkedText**: the signature; marks are focusable `role="button"` spans inside the text (Tab, Enter, Space). Not `<button>`: browsers render buttons inline-block, which breaks multi-line marks out of the text flow.
 - **SignSheet**: title, 2–3 sentence explanation, "Why this matters".
-- **NextSteps**: plain, non-interactive list with small ink-dot bullets.
+- **NextSteps**: non-interactive; each step in its own soft `blush` speech bubble (one small corner, like a chat bubble).
 - **HelpBlock**: contact rows with tap-to-call; one line on anonymity.
 
 ### Voice rules (copy)
