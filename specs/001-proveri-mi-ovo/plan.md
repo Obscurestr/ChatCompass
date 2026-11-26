@@ -133,8 +133,8 @@ Home                               Result (high)
 ┌────────────────────── [Exit] ┐   ┌────────────────────── [Exit] ┐
 │ Something feels off in       │   │ This is worth taking         │
 │ a chat?                      │   │ seriously                    │
-│ Paste the messages. We'll    │   │ one-line summary             │
-│ look at them together.       │   │ ┌ Talk to someone now ─────┐ │
+│ Paste the messages or upload │   │ one-line summary             │
+│ screenshots.                 │   │ ┌ Talk to someone now ─────┐ │
 │ ┌──────────────────────────┐ │   │ │ NADEL 116 111    [Call]  │ │
 │ │ paper sheet / textarea   │ │   │ └──────────────────────────┘ │
 │ │                          │ │   │ ┌ paper ───────────────────┐ │
