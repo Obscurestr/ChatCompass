@@ -40,7 +40,7 @@ export const en = {
     },
     // Used by the server when the model's summary must be replaced (contract rules 2 and 4).
     summaryDefault: {
-      low: "We didn't find clear warning signs. If something still feels wrong, that feeling matters.",
+      low: "We didn't spot any clear warning signs in this chat.",
       watch: "Some things in this chat are worth a closer look. You don't have to figure it out alone.",
       high: "Some things in this chat can be signs of danger. Please talk to someone you trust soon.",
     },
@@ -62,7 +62,8 @@ export const en = {
         "This is not your fault.",
       ],
     },
-    trustFeeling: "Your feeling counts. If something bothers you, that's reason enough to talk to someone.",
+    trustFeeling:
+      "But if something still doesn't feel right, trust that. It's always okay to talk to someone about it.",
     yourMessages: "Your messages",
     markHint: "Tap a highlighted part to see why it matters.",
     signsWithoutQuote: "Things we noticed",
