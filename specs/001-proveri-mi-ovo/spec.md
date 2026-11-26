@@ -12,13 +12,13 @@ A teenager pastes part of a chat (or describes it in her own words) and gets a c
 
 **Why this priority**: This is the product. Without it there is nothing to demo.
 
-**Independent Test**: Paste a sample conversation from `quickstart.md`, tap "Proveri", and see a risk level, highlighted phrases and plain-language explanations.
+**Independent Test**: Paste a sample conversation from `quickstart.md`, tap "Check", and see a risk level, highlighted phrases and plain-language explanations.
 
 **Acceptance Scenarios**:
-1. **Given** the home screen, **When** the user pastes a conversation and taps "Proveri", **Then** within ~10 seconds she sees a risk level (Low / Worth watching / High), a one-sentence summary, and a list of warning signs.
+1. **Given** the home screen, **When** the user pastes a conversation and taps "Check", **Then** within ~10 seconds she sees a risk level (Low / Worth watching / High), a one-sentence summary, and a list of warning signs.
 2. **Given** a result with warning signs, **When** she looks at her text, **Then** each phrase that triggered a sign is highlighted in place, and tapping it opens a short explanation of why it matters.
 3. **Given** a conversation with no clear warning signs, **When** analysed, **Then** the app says no clear signs were found, reminds her that her own uneasy feeling counts, and still shows how to talk to someone.
-4. **Given** text containing phone numbers, emails or links, **When** she taps "Proveri", **Then** those are masked before the text leaves her device, and she can see that they were masked.
+4. **Given** text containing phone numbers, emails or links, **When** she taps "Check", **Then** those are masked before the text leaves her device, and she can see that they were masked.
 
 ---
 
@@ -44,7 +44,7 @@ If someone walks in, one tap hides the app.
 **Independent Test**: Tap the quick-exit control on any screen; a neutral website loads and the back button does not return to Proveri.
 
 **Acceptance Scenarios**:
-1. **Given** any screen, **When** she taps "Izađi brzo" or presses Esc twice, **Then** the page is replaced by a neutral site (default: a weather page) and the analysis is cleared from memory.
+1. **Given** any screen, **When** she taps "Exit" or presses Esc twice, **Then** the page is replaced by a neutral site (default: a weather page) and the analysis is cleared from memory.
 2. **Given** she exited, **When** she presses Back, **Then** Proveri is not shown.
 
 ---
@@ -54,7 +54,7 @@ A short guided checklist helps her verify the other person: reverse image search
 
 **Why this priority**: Directly addresses "she does not know how to check whether the person is who they claim to be". Mostly static content, so cheap — but not needed for the core demo.
 
-**Independent Test**: Open "Ko je s druge strane?" from a result and complete the checklist; the result is a simple tally with advice.
+**Independent Test**: Open "Who's on the other side?" from a result and complete the checklist; the result is a simple tally with advice.
 
 **Acceptance Scenarios**:
 1. **Given** the checklist, **When** she answers 5–7 yes/no questions, **Then** she sees how many red flags she found and what that means.
@@ -63,7 +63,7 @@ A short guided checklist helps her verify the other person: reverse image search
 ---
 
 ### User Story 5 — Learn the signs (Priority: P3)
-A short swipeable "Znaci upozorenja" guide explains the common patterns with one illustrative example each.
+A short swipeable "Warning signs" guide explains the common patterns with one illustrative example each.
 
 **Why this priority**: Nice for the pitch and for prevention; first to cut.
 
@@ -71,7 +71,7 @@ A short swipeable "Znaci upozorenja" guide explains the common patterns with one
 - Empty or very short input (< 20 characters): the button stays disabled with a hint about what to paste.
 - Very long input (> 6,000 characters): she is asked to paste the most recent or most worrying part.
 - Input describes immediate danger (meeting in person soon, threats, blackmail, existing photos being used against her): result is High regardless of model output, and the help block includes the police number.
-- Input in Serbian, Croatian, Bosnian, Montenegrin, English, or mixed: all supported; the response is always in Serbian (Latin).
+- Input is expected in English; the response is always in English. Text in another language still gets analysed, but quality is only tested for English.
 - AI unavailable or times out: a calm error explains that the check didn't run, offers retry, and still shows the help block and the general warning-signs list.
 - AI returns a quoted phrase not present in her text: the sign is listed without an in-text highlight.
 - She tries to attach an image: there is no way to; copy near the input says not to share photos.
@@ -82,7 +82,7 @@ A short swipeable "Znaci upozorenja" guide explains the common patterns with one
 ### Functional Requirements
 - **FR-001**: The system MUST accept free text (pasted chat or own description), 20–6,000 characters, and nothing else.
 - **FR-002**: The system MUST mask phone numbers, email addresses and URLs on the device before sending.
-- **FR-003**: The system MUST return a risk level of `low`, `watch` or `high`, a summary of at most 2 sentences, 0–6 warning signs and 2–4 next steps, all in Serbian (Latin script).
+- **FR-003**: The system MUST return a risk level of `low`, `watch` or `high`, a summary of at most 2 sentences, 0–6 warning signs and 2–4 next steps, all in English.
 - **FR-004**: Each warning sign MUST have a category, a short title, a plain explanation, and optionally an exact quote from the input.
 - **FR-005**: The system MUST highlight quoted phrases in the user's text and let her open the explanation by tapping them.
 - **FR-006**: The system MUST apply a server-side safety floor: if the input contains signs of imminent danger (in-person meeting, threats, blackmail, existing intimate images), the risk level is forced to `high`.

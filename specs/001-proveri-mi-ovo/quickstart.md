@@ -13,7 +13,7 @@ Run on: Android Chrome, iPhone Safari, laptop Chrome. Log bugs as: *device – w
 
 | # | Paste | Expected |
 |---|---|---|
-| S1 | Sample A (harmless) | `low`, no marks or 1 at most, help block at bottom, no word "bezbedno" |
+| S1 | Sample A (harmless) | `low`, no marks or 1 at most, help block at bottom, never says "safe" |
 | S2 | Sample B (secrecy) | `watch`, the secrecy line is highlighted |
 | S3 | Sample C (move platform + personal info) | `watch` or `high`, 2 marks |
 | S4 | Sample D (photo request) | `high`, help block first |
@@ -23,7 +23,7 @@ Run on: Android Chrome, iPhone Safari, laptop Chrome. Log bugs as: *device – w
 | S8 | 10 characters | button disabled, hint shown |
 | S9 | 7,000 characters | asked to shorten |
 | S10 | Turn on airplane mode, tap Proveri | calm error, retry, help block |
-| S11 | Tap "Izađi" on home, result, help pages | neutral site in < 1 s; Back does not return |
+| S11 | Tap "Exit" on home, result, help pages | neutral site in < 1 s; Back does not return |
 | S12 | Laptop: press Esc twice | same as S11 |
 | S13 | Tap each mark | sheet opens with explanation; closes with swipe / X / Esc |
 | S14 | Keyboard only on laptop | every control reachable, visible focus ring |
@@ -33,27 +33,27 @@ Run on: Android Chrome, iPhone Safari, laptop Chrome. Log bugs as: *device – w
 | S18 | Run S1–S5 three times | `high` samples never come back `low` |
 | S19 | Type in the box | no autocomplete suggestions, no red spell-check underlines |
 | S20 | Set `DEMO_MODE=fallback`, break the API key, paste Sample D | pre-recorded `high` result appears |
-| S21 | Paste "Ako ne stignem danas, vidimo se sutra u školi" | NOT forced to `high` by the keyword check |
-| S22 | Paste "Pošalji mi sliku domaćeg iz hemije, gledali smo utakmicu uživo pa nisam stigla" | `low`, NOT forced to `high` |
+| S21 | Paste "If you don't make it today, see you tomorrow at school" | NOT forced to `high` by the keyword check |
+| S22 | Paste "Send me a pic of the chemistry homework, we watched the game live so I didn't finish" | `low`, NOT forced to `high` |
 
 ## Sample conversations (fictional)
 **A — harmless**
-> Jesi uradila domaći iz matematike? / Jesam, mučila sam se sa zadatkom 4. / Haha i ja, sutra ćemo pitati profesorku.
+> Did you do the maths homework? / Yeah, question 4 was a pain. / Haha same, let's ask the teacher tomorrow.
 
 **B — secrecy**
-> Baš mi je lepo da pričam s tobom. / I meni. / Samo nemoj nikome da pričaš o nama, ovo je naša tajna, drugi ne bi razumeli.
+> I really like talking to you. / Me too. / Just don't tell anyone about us, it's our secret, other people wouldn't understand.
 
 **C — move platform + personal info**
-> Ajde da pređemo na drugu aplikaciju, tamo je privatnije. / Zašto? / Samo tako. Koja je tvoja škola i kad završavaš časove?
+> Let's switch to another app, it's more private there. / Why? / No reason. Which school do you go to and when do your classes end?
 
 **D — photo request**
-> Ti si mnogo zrelija od drugih. / Hvala. / Pošalji mi neku tvoju sliku, samo za mene, niko neće videti. / Ne znam baš… / Ma ajde, zar mi ne veruješ?
+> You're so much more mature than other girls your age. / Thanks. / Send me a pic of you, just for me, nobody else will see it. / I don't know… / Come on, don't you trust me?
 
 **E — meeting + secrecy**
-> Hajde da se nađemo u subotu u parku. Nemoj reći roditeljima, oni bi sve pokvarili.
+> Let's meet up in the park on Saturday. Don't tell your parents, they'd ruin everything.
 
 **F — own description**
-> Dopisujem se sa jednim dečkom već mesec dana. Kaže da ima 16 ali nikad neće video poziv. U poslednje vreme stalno traži da mu pričam stvari o kući i ljuti se kad neću.
+> I've been chatting with a guy for a month. He says he's 16 but he never wants to video call. Lately he keeps asking me about things at home and gets angry when I don't answer.
 
 **G — contains data**
-> Javi mi se na 064 123 4567 ili piši na primer.mail@gmail.com, evo i link https://example.com/profil. Nemoj da kažeš mami.
+> Text me on +381 64 123 4567 or email me at example.mail@gmail.com, here's my link https://example.com/profile. Don't tell your mum.

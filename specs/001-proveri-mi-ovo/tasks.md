@@ -2,7 +2,7 @@
 
 **Input**: `spec.md`, `plan.md`, `research.md`, `data-model.md`, `contracts/analyze-api.md`, `quickstart.md`
 **Format**: `[ID] [P?] [Story] Description` — `[P]` = can run in parallel (different files, no dependency)
-**Done means**: works at 360 px, keyboard focusable, copy from `copy/sr.ts`, no conversation text in logs or storage.
+**Done means**: works at 360 px, keyboard focusable, copy from `copy/en.ts`, no conversation text in logs or storage.
 **Owners**: Dev = you, QA = Tamara (manual, per `quickstart.md`)
 
 ---
@@ -14,14 +14,14 @@
 - [ ] T002 [P] Add `.env.example` (`ANTHROPIC_API_KEY`, `ANTHROPIC_MODEL`, `NEXT_PUBLIC_EXIT_URL`, `NEXT_PUBLIC_APP_NAME`, `DEMO_MODE`); connect repo to Vercel, set env vars, confirm preview deploy — *deployed to chatcompass.vercel.app; GitHub auto-deploy + `ANTHROPIC_API_KEY` pending (manual)*
 - [x] T003 [P] Design tokens in `src/app/globals.css` (`@theme`): colors, radii, shadow, type scale from plan.md
 - [x] T004 [P] Fonts via `next/font/google`: Bricolage Grotesque (display) + Atkinson Hyperlegible Next (body), `latin-ext`, wired in `src/app/layout.tsx`
-- [x] T005 [P] `src/copy/sr.ts` with all strings from plan.md (headlines, buttons, errors, hints)
+- [x] T005 [P] `src/copy/en.ts` with all strings from plan.md (headlines, buttons, errors, hints)
 - [ ] T005a [P] Set a spend limit on the API key before sharing any URL — *manual*
 - [ ] T005b [P] (Tamara) Get the judging criteria and pitch length from organisers; deck will follow them
 
 ### Phase 2: Foundational (blocks all stories)
 - [ ] T006 `src/lib/schema.ts` — zod request/response schemas per data-model.md
-- [ ] T007 [P] `src/lib/mask.ts` + Vitest tests (Serbian phone formats, emails, URLs)
-- [ ] T008 [P] `src/lib/safetyFloor.ts` + Vitest tests (diacritic-insensitive groups from research.md)
+- [ ] T007 [P] `src/lib/mask.ts` + Vitest tests (international + local phone formats, emails, URLs)
+- [ ] T008 [P] `src/lib/safetyFloor.ts` + Vitest tests (English keyword groups from research.md)
 - [ ] T009 [P] `src/lib/highlight.ts` + Vitest tests (exact, case-insensitive and whitespace-tolerant matching; returns `Mark[]`)
 - [ ] T010 [P] `src/config/help.ts` and `src/config/app.ts` (helplines with `verified:false`)
 - [ ] T011 `src/lib/prompt.ts` — system prompt + user template from contracts/analyze-api.md
@@ -30,9 +30,9 @@
 **Checkpoint**: `curl` samples A–E against the route return valid JSON with expected risk.
 
 ### Phase 3: User Story 1 — Check a conversation (P1) 🎯 MVP
-- [ ] T013 [US1] `src/app/layout.tsx` — `mist` background, neutral `<title>` from env, centered 560 px column, `lang="sr-Latn"`, `noindex`; `Referrer-Policy: no-referrer` in `next.config`
-- [ ] T014 [P] [US1] `PasteSheet.tsx` — paper textarea (`autocomplete="off"`, `spellcheck={false}`), AI disclosure line (FR-014), placeholder, length hints, masked chips after masking, "Proveri" button (disabled < 20 chars)
-- [ ] T015 [P] [US1] `AnalyzingState.tsx` — dimmed text + "Čitam pažljivo…" + ink pulse dot
+- [ ] T013 [US1] `src/app/layout.tsx` — `mist` background, neutral `<title>` from env, centered 560 px column, `lang="en"`, `noindex`; `Referrer-Policy: no-referrer` in `next.config`
+- [ ] T014 [P] [US1] `PasteSheet.tsx` — paper textarea (`autocomplete="off"`, `spellcheck={false}`), AI disclosure line (FR-014), placeholder, length hints, masked chips after masking, "Check" button (disabled < 20 chars)
+- [ ] T015 [P] [US1] `AnalyzingState.tsx` — dimmed text + "Reading carefully…" + ink pulse dot
 - [ ] T016 [P] [US1] `RiskHeader.tsx` — three variants per plan.md
 - [ ] T017 [US1] `MarkedText.tsx` — render text with `<button>` marks (yellow / rose by risk), draw-in animation, reduced-motion fallback
 - [ ] T018 [US1] `SignSheet.tsx` — bottom sheet; close via X, swipe down, Esc; focus trapped and returned
@@ -45,9 +45,9 @@
 
 ### Phase 4: User Story 2 — Know what to do next (P1)
 - [ ] T021 [P] [US2] `HelpBlock.tsx` — contact rows, tap-to-call `tel:` links, anonymity line; `showOnHighOnly` support
-- [ ] T022 [P] [US2] `NextSteps.tsx` — list with mint tick when tapped ("uradila sam"), state in memory only
+- [ ] T022 [P] [US2] `NextSteps.tsx` — list with mint tick when tapped ("done"), state in memory only
 - [ ] T023 [US2] Result ordering: `high` → header, HelpBlock, marked text, steps; others → header, text, steps, HelpBlock
-- [ ] T024 [P] [US2] `src/app/pomoc/page.tsx` — Get help page: contacts, what happens when you call, trusted-adult tips
+- [ ] T024 [P] [US2] `src/app/help/page.tsx` — Get help page: contacts, what happens when you call, trusted-adult tips
 - [ ] T025 [US2] `ErrorState.tsx` — explain + retry + HelpBlock + link to general signs
 - [ ] T026 [US2] Verify helpline numbers with ASTRA, set `verified:true`
 
@@ -66,7 +66,7 @@
 **Midday checkpoint**: if T021–T028 are done, start P2. Otherwise skip Phase 7.
 
 ### Phase 7: User Story 4 — Who's really there (P2)
-- [ ] T033 [P] [US4] `src/app/ko-je/page.tsx` — 6 yes/no questions, tally, advice; reverse image search link with instructions (no upload)
+- [ ] T033 [P] [US4] `src/app/who/page.tsx` — 6 yes/no questions, tally, advice; reverse image search link with instructions (no upload)
 - [ ] T034 [US4] Link from result screen when `identity_doubt` sign present
 
 ---
@@ -74,7 +74,7 @@
 ## Day 3 — Freeze & pitch
 
 - [ ] T035 Bug fixes from QA until 12:00, then **code freeze**
-- [ ] T036 [P] (P3, optional) `src/app/znaci/page.tsx` — warning-signs guide, one card per category
+- [ ] T036 [P] (P3, optional) `src/app/signs/page.tsx` — warning-signs guide, one card per category
 - [ ] T037 Production deploy; run S18 three times on the production URL
 - [ ] T038 [P] Pitch deck (Tamara): problem (T.T.), solution, live demo, privacy-by-design, test results (SC-002/003 numbers), next steps (partnership with ASTRA/NADEL, school workshops)
 - [ ] T039 Demo script: Sample D on phone mirrored to projector → highlight moment → help block → quick exit as finale

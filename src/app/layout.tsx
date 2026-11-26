@@ -22,12 +22,12 @@ const atkinson = Atkinson_Hyperlegible_Next({
 
 // Neutral title and noindex are finished in T013.
 export const metadata: Metadata = {
-  title: process.env.NEXT_PUBLIC_APP_NAME || "Beleške",
+  title: process.env.NEXT_PUBLIC_APP_NAME || "Notes",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="sr-Latn" className={`${bricolage.variable} ${atkinson.variable}`}>
+    <html lang="en" className={`${bricolage.variable} ${atkinson.variable}`}>
       <body className="min-h-dvh">{children}</body>
     </html>
   );

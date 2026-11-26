@@ -1,6 +1,6 @@
 # Proveri — Project Constitution
 
-**Version**: 1.0.0 | **Ratified**: 2026-11-26 | **Context**: SheSafe Online Regional Hackathon, 26–29 Nov 2026, Case 3 "Grooming and trust"
+**Version**: 1.1.0 | **Ratified**: 2026-11-26 | **Amended**: 2026-11-26 (app language changed to English) | **Context**: SheSafe Online Regional Hackathon, 26–29 Nov 2026, Case 3 "Grooming and trust"
 
 Proveri ("Check it") lets a teenager privately check whether an online conversation shows warning signs of grooming, understand why, and reach a real person for help — before the situation escalates.
 
@@ -23,7 +23,7 @@ A persistent quick-exit control replaces the page and history entry with a neutr
 The AI explains; people help. Every result screen, error screen and empty state shows how to reach a helpline or a trusted adult.
 
 ### V. Calm, clear, age-appropriate language
-UI copy is Serbian (Latin script), written for a 13–17-year-old: short sentences, no jargon, no blame, no alarmist red. The app speaks like a calm older friend, not a police officer or a teacher.
+UI copy is in English, written for a 13–17-year-old: short sentences, no jargon, no blame, no alarmist red. The whole app is in English: UI, pasted conversations and AI responses. The app speaks like a calm older friend, not a police officer or a teacher.
 
 ### VI. Beautiful is part of the brief
 A frightened user needs a screen that feels safe. Visual quality is a requirement, not polish: the design system in `plan.md` is binding, and every screen must work on a 360 px-wide phone.

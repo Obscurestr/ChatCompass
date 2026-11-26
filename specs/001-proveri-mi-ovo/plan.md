@@ -27,7 +27,7 @@ A mobile-first PWA where a teenager pastes a conversation, the text is masked on
 | II. Privacy | Textarea has `autocomplete="off"`, `spellcheck={false}` (cloud spell-check could send text elsewhere); one-line disclosure under the button that the text goes to an AI service for this check only and is not saved; No DB, no analytics, on-device masking, no localStorage, route never logs the body, text-only input |
 | III. Discretion | `QuickExit` component in root layout, `location.replace`, Esc-Esc shortcut, neutral title from env, `Referrer-Policy: no-referrer`, `noindex`. Honest limit: the visit still appears in browser history, so the Help page and home hint suggest a private/incognito tab |
 | IV. Human help | `HelpBlock` component reused on result, error and help screens |
-| V. Calm language | All copy in `src/copy/sr.ts`, reviewed against the voice rules below |
+| V. Calm language | All copy in `src/copy/en.ts`, reviewed against the voice rules below |
 | VI. Beautiful | Design system below is binding; 360 px check in every task's done-definition |
 | VII. Scope | P1 = US1–US3; P2/P3 only after Day 2 midday checkpoint |
 
@@ -54,9 +54,9 @@ src/
 ├── app/
 │   ├── layout.tsx            # fonts, tokens, QuickExit, neutral <title>
 │   ├── page.tsx              # input → loading → result state machine (no URL state)
-│   ├── pomoc/page.tsx        # Get help
-│   ├── ko-je/page.tsx        # P2 identity checklist
-│   ├── znaci/page.tsx        # P3 warning-signs guide
+│   ├── help/page.tsx        # Get help
+│   ├── who/page.tsx          # P2 identity checklist
+│   ├── signs/page.tsx        # P3 warning-signs guide
 │   ├── api/analyze/route.ts  # POST, calls Claude
 │   └── manifest.ts           # PWA manifest (name from env)
 ├── components/
@@ -71,14 +71,14 @@ src/
 │   └── ErrorState.tsx
 ├── lib/
 │   ├── mask.ts               # phone/email/URL masking
-│   ├── safetyFloor.ts        # keyword/regex danger detector (sr/hr/bs/en)
+│   ├── safetyFloor.ts        # keyword/regex danger detector (English)
 │   ├── highlight.ts          # find quote ranges in text, tolerant of whitespace/case
 │   ├── prompt.ts             # system prompt (from contracts/analyze-api.md)
 │   └── schema.ts             # zod schemas
 ├── config/
 │   ├── help.ts               # helplines (verified flag)
 │   └── app.ts                # app name, exit URL
-└── copy/sr.ts                # all UI strings
+└── copy/en.ts                # all UI strings
 public/icons/                 # neutral PWA icons
 ```
 
@@ -88,7 +88,7 @@ public/icons/                 # neutral PWA icons
 1. User pastes text → `mask()` runs client-side → masked text shown as the analysed version.
 2. `POST /api/analyze { text }` → zod validates length → `safetyFloor(text)` computed.
 3. Claude call with system prompt + text in a `<conversation>` block; JSON parsed and zod-validated; one retry on failure.
-4. Post-processing: if floor triggered, `risk = "high"` and `escalate = true`; drop any quote not found in the text (keep the sign); strip any sentence claiming the chat is "safe/bezbedno".
+4. Post-processing: if floor triggered, `risk = "high"` and `escalate = true`; drop any quote not found in the text (keep the sign); strip any sentence claiming the chat is "safe".
 5. Response returned; nothing logged except status code and latency.
 6. Client renders result; marks animate in once.
 
@@ -102,7 +102,7 @@ public/icons/                 # neutral PWA icons
 | `mist` | `#EEF0F7` | App background (cool, paper-like — deliberately not cream) |
 | `paper` | `#FFFFFF` | The paste sheet and the marked-text sheet only |
 | `ink` | `#26233F` | Text, primary buttons (a blue-violet ink, not grey-black) |
-| `violet` | `#5B3FD0` | Links, focus ring, the "Proveri" button hover/active; nods to the SheSafe purple |
+| `violet` | `#5B3FD0` | Links, focus ring, the "Check" button hover/active; nods to the SheSafe purple |
 | `marker-yellow` | `#FFE27A` | "Worth watching" marks |
 | `marker-rose` | `#FFB8CB` | "High" marks; rose text `#A3214A` for the high-risk label |
 | `marker-mint` | `#BDEBD2` | Low-risk header wash and "done" ticks |
@@ -112,7 +112,7 @@ No traffic-light red anywhere. Danger is communicated by order (help first), wor
 ### Type
 - **Display**: *Bricolage Grotesque* (variable; opsz + wdth), weights 600–700, slightly condensed for headlines. It has warmth and a hand-made quirk that suits a teen audience without being childish.
 - **Body/UI**: *Atkinson Hyperlegible Next*, 400/700. Designed for legibility; important when someone is reading quickly and stressed.
-- Load the `latin-ext` subset (š, č, ć, ž, đ). Set `<html lang="sr-Latn">` so screen readers pronounce Serbian correctly.
+- Set `<html lang="en">`. Keep the `latin-ext` subset so names with š, č, ć, ž, đ still render in our fonts.
 - Scale (mobile → ≥ 768 px): 34/40 headline, 22/26 section, 17/18 body (line-height 1.55), 14/15 small. Max line length 62ch.
 - Sentence case everywhere. No all-caps labels, no eyebrows above headings, no monospace, no arrows appended to buttons.
 
@@ -121,19 +121,20 @@ Single left-aligned column, `max-width: 560px`, 20 px side padding, generous ver
 
 ```
 Home                               Result (high)
-┌───────────────────── [Izađi] ┐   ┌──────────────────── [Izađi] ┐
-│ Nešto ti nije prijatno       │   │ Ovo vredi shvatiti ozbiljno │
-│ u dopisivanju?               │   │ one-line summary            │
-│ Zalepi poruke. Proverićemo   │   │ ┌ Talk to someone now ─────┐ │
-│ ih zajedno.                  │   │ │ NADEL 116 111  [Pozovi]  │ │
-│ ┌──────────────────────────┐ │   │ └──────────────────────────┘ │
-│ │ paper sheet / textarea   │ │   │ ┌ paper ───────────────────┐ │
-│ │                          │ │   │ │ her text with ▓marks▓    │ │
-│ └──────────────────────────┘ │   │ │ tap a mark → bottom sheet│ │
-│ Brojevi i linkovi se         │   │ └──────────────────────────┘ │
-│ sakrivaju pre slanja.        │   │ Šta sada možeš               │
-│ [        Proveri        ]    │   │ • ne moraš da odgovoriš      │
-│ Pomoć odmah                  │   │ • sačuvaj snimke ekrana      │
+┌────────────────────── [Exit] ┐   ┌────────────────────── [Exit] ┐
+│ Something feels off in       │   │ This is worth taking         │
+│ a chat?                      │   │ seriously                    │
+│ Paste the messages. We'll    │   │ one-line summary             │
+│ look at them together.       │   │ ┌ Talk to someone now ─────┐ │
+│ ┌──────────────────────────┐ │   │ │ NADEL 116 111    [Call]  │ │
+│ │ paper sheet / textarea   │ │   │ └──────────────────────────┘ │
+│ │                          │ │   │ ┌ paper ───────────────────┐ │
+│ └──────────────────────────┘ │   │ │ her text with ▓marks▓    │ │
+│ Numbers and links are hidden │   │ │ tap a mark → bottom sheet│ │
+│ before sending.              │   │ └──────────────────────────┘ │
+│ [         Check          ]   │   │ What you can do now          │
+│ Get help now                 │   │ • you don't have to reply    │
+│                              │   │ • save screenshots           │
 └──────────────────────────────┘   └──────────────────────────────┘
 ```
 On `low`/`watch`, the order is: header → marked text → next steps → help block.
@@ -143,16 +144,16 @@ On `low`/`watch`, the order is: header → marked text → next steps → help b
 - Response to action only: the sign bottom sheet slides up (200 ms); the button shows a calm pulsing ink dot while analysing. No scroll-triggered entrances, no hover effects on cards.
 
 ### Components
-- **QuickExit**: top-right pill, `ink` outline, label "Izađi", always visible, 44 px tap target.
+- **QuickExit**: top-right pill, `ink` outline, label "Exit", always visible, 44 px tap target.
 - **PasteSheet**: textarea on `paper`, placeholder with a short example, live counter only past 5,000 chars, masked items shown as soft grey chips after masking.
-- **AnalyzingState**: the pasted text stays visible and slightly dimmed; copy "Čitam pažljivo…"; no spinner.
-- **RiskHeader**: headline + summary; `low` gets a mint wash, `watch` a yellow underline, `high` the rose label. Headlines: low "Nismo našli jasne znake upozorenja", watch "Ima stvari na koje vredi obratiti pažnju", high "Ovo vredi shvatiti ozbiljno".
+- **AnalyzingState**: the pasted text stays visible and slightly dimmed; copy "Reading carefully…"; no spinner.
+- **RiskHeader**: headline + summary; `low` gets a mint wash, `watch` a yellow underline, `high` the rose label. Headlines: low "We didn't find clear warning signs", watch "Some things are worth a closer look", high "This is worth taking seriously".
 - **MarkedText**: the signature; marks are `<button>`s (keyboard focusable) inside the text.
-- **SignSheet**: title, 2–3 sentence explanation, "Zašto je ovo važno".
+- **SignSheet**: title, 2–3 sentence explanation, "Why this matters".
 - **HelpBlock**: contact rows with tap-to-call; one line on anonymity.
 
 ### Voice rules (copy)
-Address her as "ti". Short sentences. Name feelings without dramatising. Never blame ("Nisi ti kriva" where relevant). Buttons say what happens: "Proveri", "Pozovi", "Izađi". Errors explain and give the next action, without apologising.
+Address her as "you", warm and direct. Short sentences, plain words (aim for a 12-year-old reading level). Name feelings without dramatising. Never blame ("It's not your fault" where relevant). Buttons say what happens: "Check", "Call", "Exit". Errors explain and give the next action, without apologising.
 
 ### Design review against defaults
 - Considered and rejected: cream + serif + terracotta (generic "warm AI" look), and dark mode with neon accent (feels like a hacker tool, wrong for a scared teen).
