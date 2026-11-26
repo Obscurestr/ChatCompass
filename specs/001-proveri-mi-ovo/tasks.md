@@ -30,13 +30,13 @@
 **Checkpoint**: `curl` samples A–E against the route return valid JSON with expected risk. — *passed 2026-11-26: A low, B watch, C high, D high, E high, F watch (no quotes), S22 low; 3–6 s per check.*
 
 ### Phase 3: User Story 1 — Check a conversation (P1) 🎯 MVP
-- [ ] T013 [US1] `src/app/layout.tsx` — `milk` background, neutral `<title>` from env, centered 560 px column, `lang="en"`, `noindex`; `Referrer-Policy: no-referrer` in `next.config`
-- [ ] T014 [P] [US1] `PasteSheet.tsx` — paper textarea (`autocomplete="off"`, `spellcheck={false}`), AI disclosure line (FR-014), placeholder, length hints, masked chips after masking, "Check" button (disabled < 20 chars)
-- [ ] T015 [P] [US1] `AnalyzingState.tsx` — dimmed text + "Reading carefully…" + ink pulse dot
-- [ ] T016 [P] [US1] `RiskHeader.tsx` — three variants per plan.md
-- [ ] T017 [US1] `MarkedText.tsx` — render text with `<button>` marks (yellow / rose by risk), draw-in animation, reduced-motion fallback
-- [ ] T018 [US1] `SignSheet.tsx` — bottom sheet; close via X, swipe down, Esc; focus trapped and returned
-- [ ] T019 [US1] `src/app/page.tsx` — state machine `idle → analysing → result | error`; signs without quotes listed under the text
+- [x] T013 [US1] `src/app/layout.tsx` — `milk` background, neutral `<title>` from env, centered 560 px column, `lang="en"`, `noindex`; `Referrer-Policy: no-referrer` in `next.config`
+- [x] T014 [P] [US1] `PasteSheet.tsx` — paper textarea (`autocomplete="off"`, `spellcheck={false}`), AI disclosure line (FR-014), placeholder, length hints, masked chips after masking, "Check" button (disabled < 20 chars)
+- [x] T015 [P] [US1] `AnalyzingState.tsx` — dimmed text + "Reading carefully…" + ink pulse dot
+- [x] T016 [P] [US1] `RiskHeader.tsx` — three variants per plan.md
+- [x] T017 [US1] `MarkedText.tsx` — render text with `<button>` marks (yellow / rose by risk), draw-in animation, reduced-motion fallback
+- [x] T018 [US1] `SignSheet.tsx` — bottom sheet; close via X, swipe down, Esc; focus trapped and returned
+- [x] T019 [US1] `src/app/page.tsx` — state machine `idle → analysing → result | error`; signs without quotes listed under the text
 - [ ] T020 [US1] Deploy preview → **QA: S1–S3, S6–S9, S13**
 
 ---
@@ -44,11 +44,11 @@
 ## Day 2 — Help, exit, polish (US2, US3)
 
 ### Phase 4: User Story 2 — Know what to do next (P1)
-- [ ] T021 [P] [US2] `HelpBlock.tsx` — contact rows, tap-to-call `tel:` links, anonymity line; `showOnHighOnly` support
-- [ ] T022 [P] [US2] `NextSteps.tsx` — list with mint tick when tapped ("done"), state in memory only
-- [ ] T023 [US2] Result ordering: `high` → header, HelpBlock, marked text, steps; others → header, text, steps, HelpBlock
-- [ ] T024 [P] [US2] `src/app/help/page.tsx` — Get help page: contacts, what happens when you call, trusted-adult tips
-- [ ] T025 [US2] `ErrorState.tsx` — explain + retry + HelpBlock + link to general signs
+- [x] T021 [P] [US2] `HelpBlock.tsx` — contact rows, tap-to-call `tel:` links, anonymity line; `showOnHighOnly` support
+- [x] T022 [P] [US2] `NextSteps.tsx` — list with mint tick when tapped ("done"), state in memory only
+- [x] T023 [US2] Result ordering: `high` → header, HelpBlock, marked text, steps; others → header, text, steps, HelpBlock
+- [x] T024 [P] [US2] `src/app/help/page.tsx` — Get help page: contacts, what happens when you call, trusted-adult tips
+- [x] T025 [US2] `ErrorState.tsx` — explain + retry + HelpBlock + link to general signs — *general signs shown inline (no separate /signs page yet)*
 - [ ] T026 [US2] Verify helpline numbers with ASTRA, set `verified:true`
 
 ### Phase 5: User Story 3 — Leave instantly (P1)
@@ -56,7 +56,7 @@
 - [ ] T028 [US3] **QA: S4, S5, S10–S12**
 
 ### Phase 6: Polish pass
-- [ ] T028a [US3] Help page + home hint: honest note that history may keep the visit; how to open in incognito (FR-016)
+- [x] T028a [US3] Help page + home hint: honest note that history may keep the visit; how to open in incognito (FR-016)
 - [ ] T029 `src/app/manifest.ts` + neutral icons in `public/icons/` (installable PWA)
 - [ ] T030 Visual review on real phone at 360 px and on projector; fix spacing, contrast, tap targets ≥ 44 px
 - [ ] T030a `DEMO_MODE=fallback`: save real results for samples A–G as fixtures in `src/demo/`, serve them if the API fails (FR-017, depends on T012)

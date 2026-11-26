@@ -1,7 +1,16 @@
-// Hand-drawn doodle icons: felt-tip ink lines, slightly uneven, on a blush circle.
+// Hand-drawn doodle icons: felt-tip ink lines, slightly uneven, on a soft circle.
 // Decorative only (aria-hidden); meaning always comes from the text next to them.
 
 type DoodleName = "chat" | "heart" | "phone";
+type Tone = "blush" | "mint" | "yellow" | "rose" | "paper";
+
+const TONES: Record<Tone, string> = {
+  blush: "bg-blush",
+  mint: "bg-marker-mint",
+  yellow: "bg-marker-yellow",
+  rose: "bg-marker-rose",
+  paper: "bg-paper",
+};
 
 const paths: Record<DoodleName, React.ReactNode> = {
   // Speech bubble with three dots, and a small magnifier peeking over its corner.
@@ -26,16 +35,18 @@ const paths: Record<DoodleName, React.ReactNode> = {
 export default function Doodle({
   name,
   size = 88,
+  tone = "blush",
   className = "",
 }: {
   name: DoodleName;
   size?: number;
+  tone?: Tone;
   className?: string;
 }) {
   return (
     <span
       aria-hidden="true"
-      className={`inline-grid place-items-center rounded-full bg-blush text-ink ${className}`}
+      className={`inline-grid shrink-0 place-items-center rounded-full text-ink ${TONES[tone]} ${className}`}
       style={{ width: size, height: size }}
     >
       <svg

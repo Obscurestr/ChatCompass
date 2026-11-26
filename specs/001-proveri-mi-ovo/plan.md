@@ -155,7 +155,7 @@ On `low`/`watch`, the order is: header → marked text → next steps → help b
 - **PasteSheet**: textarea on `paper` with 2 px `ink` outline, no visible label (screen-reader label only), fixed height that scrolls inside (never grows or resizes), placeholder with a short example, live counter only past 5,000 chars, masked items shown as soft grey chips after masking.
 - **AnalyzingState**: the pasted text stays visible and slightly dimmed; copy "Reading carefully…"; no spinner.
 - **RiskHeader**: headline + summary; `low` gets a mint wash, `watch` a yellow underline, `high` the rose label. Headlines: low "We didn't find clear warning signs", watch "Some things are worth a closer look", high "This is worth taking seriously".
-- **MarkedText**: the signature; marks are `<button>`s (keyboard focusable) inside the text.
+- **MarkedText**: the signature; marks are focusable `role="button"` spans inside the text (Tab, Enter, Space). Not `<button>`: browsers render buttons inline-block, which breaks multi-line marks out of the text flow.
 - **SignSheet**: title, 2–3 sentence explanation, "Why this matters".
 - **HelpBlock**: contact rows with tap-to-call; one line on anonymity.
 

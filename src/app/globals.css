@@ -102,6 +102,75 @@
   color: var(--color-ink-muted);
 }
 
+/* ---- The one moment: highlighter marks draw left-to-right (350 ms, 90 ms stagger) ---- */
+@keyframes marker-draw {
+  from {
+    background-size: 0% 100%;
+  }
+  to {
+    background-size: 100% 100%;
+  }
+}
+
+.mark {
+  display: inline;
+  background-image: linear-gradient(var(--mark-color), var(--mark-color));
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  border-radius: var(--radius-mark);
+  padding-inline: 2px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  cursor: pointer;
+  text-align: inherit;
+  animation: marker-draw 350ms var(--ease-calm) both;
+  animation-delay: calc(var(--i, 0) * 90ms + 150ms);
+}
+
+/* ---- Calm pulsing ink dot while analysing ---- */
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.pulse-dot {
+  animation: pulse-dot 1.2s ease-in-out infinite;
+}
+
+/* ---- Bottom sheet (native <dialog>: focus trap + Esc built in) ---- */
+@keyframes sheet-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+dialog.sheet {
+  margin: auto auto 0;
+  width: 100%;
+  max-width: var(--container-column);
+  max-height: 85dvh;
+  padding: 0;
+  border: 2px solid var(--color-ink);
+  border-bottom: 0;
+  border-radius: 24px 24px 0 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+dialog.sheet[open] {
+  animation: sheet-up 200ms var(--ease-calm);
+}
+dialog.sheet::backdrop {
+  background: rgb(42 36 34 / 0.35);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -109,5 +178,9 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+  /* Marks appear instantly (no stagger delay either). */
+  .mark {
+    animation: none !important;
   }
 }

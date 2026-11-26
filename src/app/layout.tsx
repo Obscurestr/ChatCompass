@@ -1,5 +1,6 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Atkinson_Hyperlegible_Next, Quicksand } from "next/font/google";
+import { APP_NAME } from "../config/app";
 import "./globals.css";
 
 // Display + labels: rounded, friendly; variable weight (we use 600–700).
@@ -19,9 +20,16 @@ const atkinson = Atkinson_Hyperlegible_Next({
   fallback: ["ui-sans-serif", "system-ui", "sans-serif"],
 });
 
-// Neutral title and noindex are finished in T013.
+// Discretion (constitution III): neutral title, not indexed, no referrer sent to other sites.
 export const metadata: Metadata = {
-  title: process.env.NEXT_PUBLIC_APP_NAME || "Notes",
+  title: APP_NAME,
+  robots: { index: false, follow: false },
+  referrer: "no-referrer",
+  formatDetection: { telephone: false, email: false, address: false },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#fffcfa",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
