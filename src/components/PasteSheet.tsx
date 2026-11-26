@@ -14,8 +14,9 @@ export default function PasteSheet() {
   }, []);
 
   return (
-    <div className="mt-10">
-      <label htmlFor="chat" className="label-doodle mb-3 block">
+    <div className="mt-8">
+      {/* Visually hidden; kept for screen readers. */}
+      <label htmlFor="chat" className="sr-only">
         {en.home.inputLabel}
       </label>
       <textarea

@@ -116,7 +116,7 @@ No traffic-light red anywhere. Danger is communicated by order (help first), wor
 - Each doodle sits on a `blush` circle. One doodle per screen header, plus small ones in help rows. No characters, animals or mascots.
 
 ### Type
-- **Display / labels**: *Quicksand* (variable weight), 600–700. Rounded, geometric, friendly. Headlines are lowercase (via CSS, copy stays sentence case so screen readers and the copy file read normally).
+- **Display / labels**: *Quicksand* (variable weight), 600–700. Rounded, geometric, friendly. Headlines are sentence case.
 - **Labels**: Quicksand 600, lowercase, letter-spacing 0.14em, `ink-muted`, small size — like the labels under phone icons.
 - **Body/UI**: *Atkinson Hyperlegible Next*, 400/700. Designed for legibility; important when someone is reading quickly and stressed.
 - Set `<html lang="en">`. Keep the `latin-ext` subset so names with š, č, ć, ž, đ still render in our fonts.
@@ -152,7 +152,7 @@ On `low`/`watch`, the order is: header → marked text → next steps → help b
 
 ### Components
 - **QuickExit**: top-right pill, 2 px `ink` outline, lowercase label "exit", always visible, 44 px tap target.
-- **PasteSheet**: textarea on `paper` with 2 px `ink` outline and a tracked lowercase label above it, placeholder with a short example, live counter only past 5,000 chars, masked items shown as soft grey chips after masking.
+- **PasteSheet**: textarea on `paper` with 2 px `ink` outline, no visible label (screen-reader label only), placeholder with a short example, live counter only past 5,000 chars, masked items shown as soft grey chips after masking.
 - **AnalyzingState**: the pasted text stays visible and slightly dimmed; copy "Reading carefully…"; no spinner.
 - **RiskHeader**: headline + summary; `low` gets a mint wash, `watch` a yellow underline, `high` the rose label. Headlines: low "We didn't find clear warning signs", watch "Some things are worth a closer look", high "This is worth taking seriously".
 - **MarkedText**: the signature; marks are `<button>`s (keyboard focusable) inside the text.
