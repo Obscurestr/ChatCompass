@@ -29,8 +29,7 @@ export default function PasteSheet() {
         autoCorrect="off"
         autoCapitalize="sentences"
         spellCheck={false}
-        rows={9}
-        className="block w-full resize-y rounded-sheet border-2 border-ink bg-paper p-5 text-left text-body text-ink caret-berry placeholder:text-ink-muted/75 focus:border-berry focus:outline-none focus:ring-4 focus:ring-berry/15"
+        className="block h-64 w-full resize-none overflow-y-auto overscroll-contain rounded-sheet border-2 border-ink bg-paper p-5 text-left text-body text-ink caret-berry placeholder:text-ink-muted/75 focus:border-berry focus:outline-none focus:ring-4 focus:ring-berry/15"
       />
     </div>
   );
