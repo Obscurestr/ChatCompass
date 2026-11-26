@@ -104,7 +104,7 @@ export default function Home() {
   if (state.phase === "analysing") {
     return (
       <main className="mx-auto max-w-column px-5 py-12 text-center">
-        <AnalyzingState masked={state.masked} counts={state.counts} />
+        <AnalyzingState />
       </main>
     );
   }

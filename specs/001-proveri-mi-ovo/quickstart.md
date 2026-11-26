@@ -19,7 +19,7 @@ Run on: Android Chrome, iPhone Safari, laptop Chrome. Log bugs as: *device – w
 | S4 | Sample D (photo request) | `high`, help block first |
 | S5 | Sample E (meeting + secrecy) | `high`, help shows police |
 | S6 | Sample F (own description, no quotes) | result shown, signs listed without marks |
-| S7 | Sample G (contains phone + email + link) | masked chips visible before result; marks still work |
+| S7 | Sample G (contains phone + email + link) | result shows "We hid personal details before sending" with chips; marks still work |
 | S8 | 10 characters | button disabled, hint shown |
 | S9 | 7,000 characters | asked to shorten |
 | S10 | Turn on airplane mode, tap Proveri | calm error, retry, help block |

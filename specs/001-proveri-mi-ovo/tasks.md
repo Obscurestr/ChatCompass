@@ -32,7 +32,7 @@
 ### Phase 3: User Story 1 — Check a conversation (P1) 🎯 MVP
 - [x] T013 [US1] `src/app/layout.tsx` — `milk` background, neutral `<title>` from env, centered 560 px column, `lang="en"`, `noindex`; `Referrer-Policy: no-referrer` in `next.config`
 - [x] T014 [P] [US1] `PasteSheet.tsx` — paper textarea (`autocomplete="off"`, `spellcheck={false}`), AI disclosure line (FR-014), placeholder, length hints, masked chips after masking, "Check" button (disabled < 20 chars)
-- [x] T015 [P] [US1] `AnalyzingState.tsx` — dimmed text + "Reading carefully…" + ink pulse dot
+- [x] T015 [P] [US1] `AnalyzingState.tsx` — "Reading carefully…" + ink pulse dot only (no text)
 - [x] T016 [P] [US1] `RiskHeader.tsx` — three variants per plan.md
 - [x] T017 [US1] `MarkedText.tsx` — render text with `<button>` marks (yellow / rose by risk), draw-in animation, reduced-motion fallback
 - [x] T018 [US1] `SignSheet.tsx` — bottom sheet; close via X, swipe down, Esc; focus trapped and returned
