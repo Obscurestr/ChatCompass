@@ -30,6 +30,16 @@ describe("cleanOcrText", () => {
     expect(cleanOcrText("ok\nĐorđe")).toBe("ok\nĐorđe");
   });
 
+  it("drops the message box and status bar even when OCR merges them", () => {
+    const raw = "hey are you there?\nMessage 5 mill 82%\nMessage...\niMessage\n5 mill 82%\nLTE 64 %";
+    expect(cleanOcrText(raw)).toBe("hey are you there?");
+  });
+
+  it("keeps real messages that start with 'Message' or mention a percentage", () => {
+    const raw = "Message me when you're home\nI'm 100% sure it was him";
+    expect(cleanOcrText(raw)).toBe(raw);
+  });
+
   it("turns a standalone '|' back into 'I'", () => {
     expect(cleanOcrText("| don't know...\nand |'m scared")).toBe("I don't know...\nand I'm scared");
   });

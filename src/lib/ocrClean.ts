@@ -4,6 +4,11 @@
 const TIME = String.raw`\d{1,2}[:.]\d{2}(?:\s?[ap]\.?m\.?)?`;
 const TIME_ONLY = new RegExp(`^${TIME}$`, "i");
 const TRAILING_TIME = new RegExp(`\\s+${TIME}$`, "i");
+// The message box placeholder, possibly merged with status-bar bits: "Message", "Message... 5 mill 82%".
+// Not "Message me when you're home" (a word follows).
+const INPUT_PLACEHOLDER = /^(?:i?message|send (?:a )?message|type a message|write a message)(?:\.{0,3}|…)?(?:\s+[^\p{L}\s].*)?$/iu;
+// Short line ending in a battery level, e.g. "5 mill 82%", "LTE 64 %".
+const BATTERY_LINE = /^.{0,16}\b\d{1,3}\s?%$/;
 const UI_LINE =
   /^(?:delivered|seen|read|sent|edited|typing\.*|today|yesterday|now|active now|online|message\.*|send message\.*|type a message\.*|reply|liked a message|\d+\s?%|[45]g|lte|wi-?fi)$/i;
 
@@ -23,6 +28,7 @@ export function cleanOcrText(raw: string): string {
       const letters = line.match(/\p{L}/gu)?.length ?? 0;
       if (letters <= 2 && /\d/.test(line)) return false;
       if (TIME_ONLY.test(line) || UI_LINE.test(line)) return false;
+      if (INPUT_PLACEHOLDER.test(line) || BATTERY_LINE.test(line)) return false;
       return true;
     });
 
