@@ -126,8 +126,6 @@ export const en = {
 
   nextSteps: {
     title: "What you can do now",
-    done: "done",
-    markDone: "Mark as done",
   },
 
   help: {

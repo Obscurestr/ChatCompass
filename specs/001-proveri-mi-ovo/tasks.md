@@ -45,7 +45,7 @@
 
 ### Phase 4: User Story 2 — Know what to do next (P1)
 - [x] T021 [P] [US2] `HelpBlock.tsx` — contact rows, tap-to-call `tel:` links, anonymity line; `showOnHighOnly` support
-- [x] T022 [P] [US2] `NextSteps.tsx` — list with mint tick when tapped ("done"), state in memory only
+- [x] T022 [P] [US2] `NextSteps.tsx` — plain non-interactive list with small ink bullets
 - [x] T023 [US2] Result ordering: `high` → header, HelpBlock, marked text, steps; others → header, text, steps, HelpBlock
 - [x] T024 [P] [US2] `src/app/help/page.tsx` — Get help page: contacts, what happens when you call, trusted-adult tips
 - [x] T025 [US2] `ErrorState.tsx` — explain + retry + HelpBlock + link to general signs — *general signs shown inline (no separate /signs page yet)*

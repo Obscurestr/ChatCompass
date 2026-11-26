@@ -107,7 +107,7 @@ public/icons/                 # neutral PWA icons
 | `berry` | `#A8436A` | Links, focus ring, caret, button hover/active |
 | `marker-yellow` | `#FFE48F` | "Worth watching" marks |
 | `marker-rose` | `#FFC2D1` | "High" marks; rose text `#A3214A` for the high-risk label |
-| `marker-mint` | `#C9EBD6` | Low-risk header wash and "done" ticks |
+| `marker-mint` | `#C9EBD6` | Low-risk header wash |
 
 No traffic-light red anywhere. Danger is communicated by order (help first), wording and the rose marker, not by alarm colour. All text pairs meet WCAG AA; marks are behind `ink` text so contrast stays high.
 
@@ -157,6 +157,7 @@ On `low`/`watch`, the order is: header → marked text → next steps → help b
 - **RiskHeader**: headline + summary; `low` gets a mint wash, `watch` a yellow underline, `high` the rose label. Headlines: low "We didn't find clear warning signs", watch "Some things are worth a closer look", high "This is worth taking seriously".
 - **MarkedText**: the signature; marks are focusable `role="button"` spans inside the text (Tab, Enter, Space). Not `<button>`: browsers render buttons inline-block, which breaks multi-line marks out of the text flow.
 - **SignSheet**: title, 2–3 sentence explanation, "Why this matters".
+- **NextSteps**: plain, non-interactive list with small ink-dot bullets.
 - **HelpBlock**: contact rows with tap-to-call; one line on anonymity.
 
 ### Voice rules (copy)
