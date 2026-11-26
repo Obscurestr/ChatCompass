@@ -11,7 +11,7 @@
 
 ### Phase 1: Setup
 - [x] T001 Create Next.js (latest) + TypeScript + Tailwind v4 app in repo root; add `zod`, `@anthropic-ai/sdk`, `vitest`
-- [ ] T002 [P] Add `.env.example` (`ANTHROPIC_API_KEY`, `ANTHROPIC_MODEL`, `NEXT_PUBLIC_EXIT_URL`, `NEXT_PUBLIC_APP_NAME`, `DEMO_MODE`); connect repo to Vercel, set env vars, confirm preview deploy — *deployed to chatcompass.vercel.app; GitHub auto-deploy + `ANTHROPIC_API_KEY` pending (manual)*
+- [x] T002 [P] Add `.env.example` (`ANTHROPIC_API_KEY`, `ANTHROPIC_MODEL`, `NEXT_PUBLIC_EXIT_URL`, `NEXT_PUBLIC_APP_NAME`, `DEMO_MODE`); connect repo to Vercel, set env vars, confirm preview deploy — *GitHub (Obscurestr/ChatCompass) connected to Vercel: pushes to `main` deploy to chatcompass.vercel.app*
 - [x] T003 [P] Design tokens in `src/app/globals.css` (`@theme`): colors, radii, shadow, type scale from plan.md
 - [x] T004 [P] Fonts via `next/font/google`: Quicksand (display/labels) + Atkinson Hyperlegible Next (body), `latin-ext`, wired in `src/app/layout.tsx`
 - [x] T005 [P] `src/copy/en.ts` with all strings from plan.md (headlines, buttons, errors, hints)
