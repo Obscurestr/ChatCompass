@@ -34,7 +34,7 @@ Run on: Android Chrome, iPhone Safari, laptop Chrome. Log bugs as: *device – w
 | S19 | Type in the box | no autocomplete suggestions, no red spell-check underlines |
 | S20 | Set `DEMO_MODE=fallback`, break the API key, paste Sample D | pre-recorded `high` result appears |
 | S21 | Paste "If you don't make it today, see you tomorrow at school" | NOT forced to `high` by the keyword check |
-| S23 | Tap "Add a screenshot", pick a clear chat screenshot | progress shows, text appears in the box, nothing else changes until Check |
+| S23 | Tap "Add a screenshot", pick a clear chat screenshot | progress shows, then "1 screenshot ready"; the box stays as it was; Check works without typing anything |
 | S24 | Pick a photo with no text (e.g. a landscape) | calm message: no text found, try a clearer screenshot or paste |
 | S25 | Laptop DevTools → Network while adding a screenshot | only `/ocr/…` files load; no image is sent anywhere; Check sends text only |
 | S22 | Paste "Send me a pic of the chemistry homework, we watched the game live so I didn't finish" | `low`, NOT forced to `high` |

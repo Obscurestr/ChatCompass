@@ -6,20 +6,35 @@ import { COUNTER_FROM, MAX_CHARS, MAX_SCREENSHOTS, MIN_CHARS } from "../config/a
 import { en } from "../copy/en";
 import { readScreenshots } from "../lib/ocr";
 
+/** Text read from screenshots on the device. Kept out of the textarea; sent together with it on Check. */
+export interface Shots {
+  count: number;
+  text: string;
+}
+
 type OcrState =
   | { kind: "idle" }
   | { kind: "reading"; i: number; n: number; pct: number }
   | { kind: "message"; text: string };
+
+/** What Check sends: typed text and screenshot text together. */
+export function combinedText(typed: string, shots: Shots): string {
+  return [typed.trim(), shots.text].filter(Boolean).join("\n\n");
+}
 
 // T014: the paper textarea, length hints, the Check button and the AI disclosure (FR-014).
 // FR-018: screenshots are read into text on the device; the image itself never leaves it.
 export default function PasteSheet({
   value,
   onChange,
+  shots,
+  onShotsChange,
   onSubmit,
 }: {
   value: string;
   onChange: (value: string) => void;
+  shots: Shots;
+  onShotsChange: (shots: Shots) => void;
   onSubmit: () => void;
 }) {
   const ref = useRef<HTMLTextAreaElement>(null);
@@ -31,8 +46,9 @@ export default function PasteSheet({
     ref.current?.focus();
   }, []);
 
-  const length = value.trim().length;
-  const tooShort = length > 0 && length < MIN_CHARS;
+  const typedLength = value.trim().length;
+  const length = combinedText(value, shots).length;
+  const tooShort = typedLength > 0 && length < MIN_CHARS;
   const tooLong = length > MAX_CHARS;
   const reading = ocr.kind === "reading";
   const canSubmit = length >= MIN_CHARS && !tooLong && !reading;
@@ -52,9 +68,11 @@ export default function PasteSheet({
         setOcr({ kind: "message", text: en.home.screenshot.empty });
         return;
       }
-      onChange(value.trim() ? `${value.trim()}\n\n${text}` : text);
-      const note = all.length > MAX_SCREENSHOTS ? `${en.home.screenshot.tooMany} ` : "";
-      setOcr({ kind: "message", text: note + en.home.screenshot.done });
+      onShotsChange({
+        count: shots.count + files.length,
+        text: [shots.text, text].filter(Boolean).join("\n\n"),
+      });
+      setOcr({ kind: "message", text: all.length > MAX_SCREENSHOTS ? en.home.screenshot.tooMany : "" });
     } catch {
       setOcr({ kind: "message", text: en.home.screenshot.failed });
     }
@@ -96,7 +114,7 @@ export default function PasteSheet({
         )}
       </div>
 
-      {/* Screenshot → text, on the device */}
+      {/* Screenshot → text, on the device. The text waits in memory until Check. */}
       <input
         ref={fileRef}
         type="file"
@@ -118,15 +136,41 @@ export default function PasteSheet({
         </svg>
         {en.home.screenshot.add}
       </button>
-      <p role="status" aria-live="polite" className="mx-auto mt-2 min-h-5 text-small">
-        {ocr.kind === "reading" && (
+
+      <div role="status" aria-live="polite" className="mx-auto mt-2 min-h-5 text-small">
+        {reading ? (
           <span className="inline-flex items-center gap-2">
             <span aria-hidden="true" className="pulse-dot inline-block size-2 rounded-full bg-ink" />
             {en.home.screenshot.reading(ocr.i, ocr.n, ocr.pct)}
           </span>
+        ) : (
+          <>
+            {shots.count > 0 && (
+              <div className="flex flex-wrap items-center justify-center gap-2">
+                <span className="inline-flex items-center gap-2 rounded-full bg-marker-mint px-3 py-1 font-bold">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M5.5 12.6l4.1 4 8.9-9.4" />
+                  </svg>
+                  {en.home.screenshot.ready(shots.count)}
+                </span>
+                <button
+                  type="button"
+                  aria-label={en.home.screenshot.removeLabel}
+                  onClick={() => {
+                    onShotsChange({ count: 0, text: "" });
+                    setOcr({ kind: "idle" });
+                  }}
+                  className="inline-flex min-h-11 items-center px-2 font-bold text-berry underline decoration-2 underline-offset-4"
+                >
+                  {en.home.screenshot.remove}
+                </button>
+                <span className="basis-full text-ink-muted">{en.home.screenshot.readyHint}</span>
+              </div>
+            )}
+            {ocr.kind === "message" && ocr.text && <p className="mt-1">{ocr.text}</p>}
+          </>
         )}
-        {ocr.kind === "message" && ocr.text}
-      </p>
+      </div>
 
       <p id="paste-note" className="mx-auto mt-2 text-small text-ink-muted">
         {en.home.maskNote} {en.home.screenshot.note}

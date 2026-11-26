@@ -16,7 +16,10 @@ export const en = {
       note: "Screenshots are read on your phone and never uploaded.",
       reading: (i: number, n: number, pct: number) =>
         n > 1 ? `Reading screenshot ${i + 1} of ${n}… ${pct}%` : `Reading your screenshot… ${pct}%`,
-      done: "We added the text above. Check it and fix anything we misread.",
+      ready: (n: number) => (n === 1 ? "1 screenshot ready" : `${n} screenshots ready`),
+      readyHint: "Tap Check when you're ready.",
+      remove: "Remove",
+      removeLabel: "Remove the screenshots",
       empty: "We couldn't find any text in that picture. Try a clearer screenshot, or paste the messages.",
       failed: "Reading the screenshot didn't work this time. You can paste the messages instead.",
       tooMany: "You can add up to 5 screenshots at a time.",

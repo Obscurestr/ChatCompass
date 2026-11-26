@@ -11,7 +11,7 @@ import HelpBlock from "../components/HelpBlock";
 import MarkedText from "../components/MarkedText";
 import MaskedChips from "../components/MaskedChips";
 import NextSteps from "../components/NextSteps";
-import PasteSheet from "../components/PasteSheet";
+import PasteSheet, { combinedText, type Shots } from "../components/PasteSheet";
 import RiskHeader from "../components/RiskHeader";
 import SignSheet from "../components/SignSheet";
 import { en } from "../copy/en";
@@ -36,13 +36,14 @@ function errorFromResponse(status: number, body: unknown): ErrorKind {
 
 export default function Home() {
   const [text, setText] = useState("");
+  const [shots, setShots] = useState<Shots>({ count: 0, text: "" });
   const [state, setState] = useState<State>({ phase: "idle" });
   const [openSign, setOpenSign] = useState<number | null>(null);
   const [run, setRun] = useState(0);
 
   async function analyse() {
     // FR-002: personal details are masked here, before anything leaves the device.
-    const { masked, counts } = mask(text);
+    const { masked, counts } = mask(combinedText(text, shots));
     setOpenSign(null);
     setState({ phase: "analysing", masked, counts });
     window.scrollTo({ top: 0 });
@@ -74,6 +75,7 @@ export default function Home() {
 
   function startOver() {
     setText("");
+    setShots({ count: 0, text: "" });
     setOpenSign(null);
     setState({ phase: "idle" });
     window.scrollTo({ top: 0 });
@@ -86,7 +88,13 @@ export default function Home() {
         <Doodle name="chat" className="mx-auto" />
         <h1 className="mt-6 text-headline">{en.home.headline}</h1>
         <p className="mx-auto mt-3 text-ink-muted">{en.home.lead}</p>
-        <PasteSheet value={text} onChange={setText} onSubmit={analyse} />
+        <PasteSheet
+          value={text}
+          onChange={setText}
+          shots={shots}
+          onShotsChange={setShots}
+          onSubmit={analyse}
+        />
         <p className="mx-auto mt-6 text-small text-ink-muted">{en.home.incognitoHint}</p>
       </main>
     );

@@ -154,7 +154,7 @@ On `low`/`watch`, the order is: header → marked text → next steps → help b
 
 ### Components
 - **QuickExit**: fixed top-right pill, 2 px `ink` outline on `paper`, label "Exit", always visible (also inside open sheets, which make the page behind inert), 44 px tap target. Esc twice on desktop (a single Esc closes an open sheet). Internal links use `replace` so Back never returns to the app.
-- **Add a screenshot**: outlined pill under the textarea; reads up to 5 screenshots on the device, shows calm progress ("Reading your screenshot… 40%"), appends the text to the textarea for her to check. One line says screenshots are read on the phone and never uploaded. No image preview.
+- **Add a screenshot**: outlined pill under the textarea; reads up to 5 screenshots on the device, shows calm progress ("Reading your screenshot… 40%"), then a mint "1 screenshot ready" chip with Remove; the text waits in memory (the textarea is left alone) and is sent with Check. One line says screenshots are read on the phone and never uploaded. No image preview.
 - **PasteSheet**: textarea on `paper` with 2 px `ink` outline, no visible label (screen-reader label only), fixed height that scrolls inside (never grows or resizes), placeholder with a short example, live counter only past 5,000 chars, masked items shown as soft grey chips after masking.
 - **AnalyzingState**: the pasted text stays visible and slightly dimmed; copy "Reading carefully…"; no spinner.
 - **RiskHeader**: headline + summary; `low` gets a mint wash, `watch` a yellow underline, `high` the rose label. Headlines: low "We didn't find clear warning signs", watch "Some things are worth a closer look", high "This is worth taking seriously".
