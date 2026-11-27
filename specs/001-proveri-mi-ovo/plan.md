@@ -134,7 +134,7 @@ Home                               Result (high)
 │ Something feels off in       │   │ This is worth taking         │
 │ a chat?                      │   │ seriously                    │
 │ Paste the messages or upload │   │ one-line summary             │
-│ screenshots.                 │   │ ┌ Talk to someone now ─────┐ │
+│ screenshots. We'll look at   │   │ ┌ Talk to someone now ─────┐ │
 │ ┌──────────────────────────┐ │   │ │ NADEL 116 111    [Call]  │ │
 │ │ paper sheet / textarea   │ │   │ └──────────────────────────┘ │
 │ │                          │ │   │ ┌ paper ───────────────────┐ │

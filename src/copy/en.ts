@@ -6,7 +6,7 @@ import { MAX_CHARS } from "../config/app";
 export const en = {
   home: {
     headline: "Something feels off in a chat?",
-    lead: "Paste the messages or upload screenshots.",
+    lead: "Paste the messages or upload screenshots. We'll look at them together.",
     inputLabel: "Messages or your own description",
     placeholder:
       "For example:\nThem: Don't tell anyone about us.\nMe: Why?\n\nYou can also describe what's happening in your own words.",
