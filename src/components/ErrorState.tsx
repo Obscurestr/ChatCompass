@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { en } from "../copy/en";
 import Doodle from "./Doodle";
 import HelpBlock from "./HelpBlock";
@@ -55,6 +56,13 @@ export default function ErrorState({
             </li>
           ))}
         </ul>
+        <Link
+          href="/signs"
+          replace
+          className="mt-4 inline-flex min-h-11 items-center font-display font-bold text-berry underline decoration-2 underline-offset-4 hover:text-ink"
+        >
+          {en.error.signsLink}
+        </Link>
       </section>
     </div>
   );

@@ -166,6 +166,7 @@ On `low`/`watch`, the order is: header → marked text → next steps → help b
 - **SignSheet**: title, 2–3 sentence explanation, "Why this matters".
 - **NextSteps**: non-interactive; each step in its own soft `blush` speech bubble (one small corner, like a chat bubble).
 - **HelpBlock**: contact rows with tap-to-call; one line on anonymity.
+- **SignsGuide** (`/signs`, and a sheet on the result): one outlined card per sign with a numbered circle, title, a made-up example in a blush chat bubble with a highlighter mark (rose for images / threats / meeting, yellow otherwise) and a one-line explanation; ends with "Check a chat" / "Get help".
 - **ReadAloud**: outlined pill under the result summary (speaker icon, "Read aloud" / "Stop reading"); on-device English voice only, rate 0.95, one utterance per item; hidden when no local voice exists.
 - **TellSomeone**: three ready-made messages (parent, teacher/counsellor, short) in outlined cards with Copy and, where supported, Send (Web Share).
 - **MoreHelp**: two outlined rows ("Check who's on the other side", "How to block and report"). On the result they open a bottom sheet (`BottomSheet`), so the in-memory result is never lost; on Help they link to `/who` and `/block`. The "who" row turns marker-yellow when an `identity_doubt` sign is present.

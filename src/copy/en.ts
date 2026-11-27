@@ -94,46 +94,57 @@ export const en = {
     secrecy: {
       title: "Wants it kept secret",
       short: "Someone who cares about you doesn't ask you to hide your chats from everyone.",
+      example: "Don't tell anyone about us, it's our little secret.",
     },
     isolation: {
       title: "Pulls you away from others",
       short: "Says only they understand you, and your family or friends wouldn't get it.",
+      example: "Your friends don't really get you. Only I do.",
     },
     fast_intimacy: {
       title: "Moving too fast",
       short: "Lots of compliments and closeness in a very short time.",
+      example: "We've only talked for a week, but I think I love you.",
     },
     pressure: {
       title: "Pressure",
       short: "Doesn't accept your “no”, keeps asking, or makes you feel guilty.",
+      example: "Come on, why are you being like this? Just do it for me.",
     },
     gifts_favours: {
       title: "Gifts and favours",
       short: "Money, gifts or game credits — and then expects something back.",
+      example: "I bought you game credits, so you owe me one.",
     },
     personal_info: {
       title: "Asks for personal details",
       short: "Your address, school, schedule, family or passwords.",
+      example: "Which school do you go to? When are you home alone?",
     },
     images: {
       title: "Asks for photos or videos",
       short: "Asks for pictures of you, or sends sexual content.",
+      example: "Send me a pic of you, just for me.",
     },
     move_platform: {
       title: "Wants to move to a more private app",
       short: "Asks you to switch somewhere “more private” or to delete messages.",
+      example: "Let's switch to another app, it's more private there.",
     },
     identity_doubt: {
       title: "Not clear who they are",
       short: "Avoids video calls, their story doesn't add up, the profile seems odd.",
+      example: "My camera's broken, so I can't video call.",
     },
     threats_guilt: {
       title: "Threats or blame",
       short: "Threatens you, blackmails you, or says it'll be your fault.",
+      example: "If you tell anyone, it'll be your fault.",
     },
     meeting: {
       title: "Wants to meet up",
       short: "Suggests meeting in person, especially without adults knowing.",
+      example: "Let's meet up, but don't tell your parents.",
     },
   },
 
@@ -195,6 +206,17 @@ export const en = {
     hint: "You can also press Esc twice.",
   },
 
+  // T036 — Warning signs guide (prevention, school workshops)
+  signsGuide: {
+    title: "Warning signs",
+    intro:
+      "These are common tricks predators use online. One sign doesn't always mean danger, but the more you see, the more careful you should be.",
+    exampleLabel: "For example",
+    outro: "Noticed one of these? You don't have to handle it alone.",
+    check: "Check a chat",
+    help: "Get help",
+  },
+
   // Read the result aloud with an on-device voice. Her own messages are never read out.
   readAloud: {
     start: "Read aloud",
@@ -210,6 +232,7 @@ export const en = {
     who: "Check who's on the other side",
     whoHighlight: "Not sure who they really are? Check it here.",
     block: "How to block and report",
+    signs: "Learn the warning signs",
   },
 
   // T034a — ready-made messages she can copy and send to someone she trusts. Never include her chat.

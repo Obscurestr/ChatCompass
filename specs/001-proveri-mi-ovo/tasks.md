@@ -80,7 +80,7 @@
 ## Day 3 — Freeze & pitch
 
 - [ ] T035 Bug fixes from QA until 12:00, then **code freeze**
-- [ ] T036 [P] (P3, optional) `src/app/signs/page.tsx` — warning-signs guide, one card per category
+- [x] T036 [P] (P3, optional) `src/app/signs/page.tsx` — warning-signs guide, one card per category
 - [ ] T037 Production deploy; run S18 three times on the production URL
 - [ ] T038 [P] Pitch deck (Tamara): problem (T.T.), solution, live demo, privacy-by-design, test results (SC-002/003 numbers), next steps (partnership with ASTRA/NADEL, school workshops)
 - [ ] T039 Demo script: Sample D on phone mirrored to projector → highlight moment → help block → quick exit as finale

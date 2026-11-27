@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { en } from "../copy/en";
 
-export type Guide = "who" | "block";
+export type Guide = "who" | "block" | "signs";
 
 // Entry points to the extra guides.
 // On the result screen (onOpen given) they open in a sheet, so the result isn't lost;
@@ -24,6 +24,7 @@ export default function MoreHelp({
   const items: Array<{ guide: Guide; label: string; href: string; className: string }> = [
     { guide: "who", label: en.more.who, href: "/who", className: `${base} ${highlightWho ? "bg-marker-yellow hover:brightness-95" : "bg-paper btn-outline-hover"}` },
     { guide: "block", label: en.more.block, href: "/block", className: `${base} bg-paper btn-outline-hover` },
+    { guide: "signs", label: en.more.signs, href: "/signs", className: `${base} bg-paper btn-outline-hover` },
   ];
 
   return (

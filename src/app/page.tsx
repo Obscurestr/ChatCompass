@@ -18,6 +18,7 @@ import PasteSheet, { combinedText, type Shots } from "../components/PasteSheet";
 import ReadAloud from "../components/ReadAloud";
 import RiskHeader from "../components/RiskHeader";
 import SignSheet from "../components/SignSheet";
+import SignsGuide from "../components/SignsGuide";
 import TellSomeone from "../components/TellSomeone";
 import WhoCheck from "../components/WhoCheck";
 import { en } from "../copy/en";
@@ -227,6 +228,14 @@ export default function Home() {
         title={en.block.title}
       >
         <BlockGuide />
+      </BottomSheet>
+      <BottomSheet
+        open={openGuide === "signs"}
+        onClose={() => setOpenGuide(null)}
+        labelledBy="signs-sheet-title"
+        title={en.signsGuide.title}
+      >
+        <SignsGuide />
       </BottomSheet>
     </main>
   );
