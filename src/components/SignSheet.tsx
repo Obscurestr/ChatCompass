@@ -1,6 +1,6 @@
 "use client";
 
-import { en } from "../copy/en";
+import { useLocale } from "../i18n/LocaleProvider";
 import type { Risk, WarningSign } from "../lib/schema";
 import BottomSheet from "./BottomSheet";
 
@@ -14,6 +14,7 @@ export default function SignSheet({
   risk: Risk;
   onClose: () => void;
 }) {
+  const { copy } = useLocale();
   const markColor = risk === "high" ? "bg-marker-rose" : "bg-marker-yellow";
 
   return (
@@ -23,7 +24,7 @@ export default function SignSheet({
           <span className={`rounded-mark px-1 [box-decoration-break:clone] ${markColor}`}>&ldquo;{sign.quote}&rdquo;</span>
         </p>
       )}
-      <p className="label-doodle mt-6">{en.signSheet.why}</p>
+      <p className="label-doodle mt-6">{copy.signSheet.why}</p>
       <p className="mt-1">{sign?.explanation}</p>
     </BottomSheet>
   );

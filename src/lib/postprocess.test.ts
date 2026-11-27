@@ -97,3 +97,21 @@ describe("floorOnlyResult", () => {
     expect(r.nextSteps.length).toBeGreaterThanOrEqual(2);
   });
 });
+
+describe("claimsSafe — regional languages (FR-010, FR-025)", () => {
+  it.each([
+    ["Ova osoba je potpuno bezbedna.", "Sačuvaj skrinšotove na sigurnom mestu."],
+    ["Razgovor izgleda bezopasno.", "Sigurno ti je bilo neprijatno."],
+    ["Nema razloga za brigu.", "Ima razloga da porazgovaraš sa nekim."],
+    ["Разговорот е безбеден.", "Зачувај ги на безбедно место."],
+    ["Biseda duket e sigurt.", "Ruaji në një vend të sigurt."],
+  ])("flags %j but not %j", (claim, fine) => {
+    expect(claimsSafe(claim)).toBe(true);
+    expect(claimsSafe(fine)).toBe(false);
+  });
+
+  it("uses the chosen language for defaults", () => {
+    expect(floorOnlyResult("sr").summary).toContain("razgovaraj");
+    expect(floorOnlyResult("mk").nextSteps.at(-1)).toBe("Ова не е твоја вина.");
+  });
+});

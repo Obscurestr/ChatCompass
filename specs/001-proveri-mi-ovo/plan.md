@@ -123,7 +123,8 @@ No traffic-light red anywhere. Danger is communicated by order (help first), wor
 - **Display / labels**: *Quicksand* (variable weight), 600–700. Rounded, geometric, friendly. Headlines are sentence case.
 - **Labels**: Quicksand 600, lowercase, letter-spacing 0.14em, `ink-muted`, small size — like the labels under phone icons.
 - **Body/UI**: *Atkinson Hyperlegible Next*, 400/700. Designed for legibility; important when someone is reading quickly and stressed.
-- Set `<html lang="en">`. Keep the `latin-ext` subset so names with š, č, ć, ž, đ still render in our fonts.
+- `<html lang>` follows the chosen language (`sr-Latn`, `hr`, `bs`, `cnr`, `mk`, `sq`, `en`). Keep the `latin-ext` subset for š, č, ć, ž, đ, ë, ç.
+- Macedonian (Cyrillic): *Comfortaa* replaces Quicksand and *Nunito* replaces Atkinson (both `cyrillic` subset, not preloaded), switched by `html[lang="mk"]` in `globals.css`.
 - Scale (mobile → ≥ 768 px): 34/40 headline, 22/26 section, 17/18 body (line-height 1.55), 14/15 small. Max line length 62ch.
 - No all-caps, no monospace, no arrows appended to buttons.
 
@@ -172,8 +173,12 @@ On `low`/`watch`, the order is: header → marked text → next steps → help b
 - **MoreHelp**: two outlined rows ("Check who's on the other side", "How to block and report"). On the result they open a bottom sheet (`BottomSheet`), so the in-memory result is never lost; on Help they link to `/who` and `/block`. The "who" row turns marker-yellow when an `identity_doubt` sign is present.
 - **BottomSheet**: shared native-`<dialog>` sheet used by SignSheet and the guides; scrolls inside; swipe-down closes only when scrolled to the top; carries its own Exit pill.
 
+### Country picker and language switch
+- `/` is the country picker: one doodle, a headline in English with a small line in the regional languages ("Odakle si? · Од каде си? · Nga je?"), and six outlined pill rows, one per country, with the country's name in its own language and the English name under it. Tapping a row opens `/{country}/{defaultLang}`. QuickExit is on this screen too.
+- Home, Help and the guides show a small outlined pill at the top left: the country name and language (e.g. "Bosna i Hercegovina · Bosanski"). It opens a bottom sheet with the language list (the country's own languages first, then the rest, English last) and "Change country", which goes back to `/`. Switching keeps the current page.
+
 ### Voice rules (copy)
-Address her as "you", warm and direct. Short sentences, plain words (aim for a 12-year-old reading level). Name feelings without dramatising. Never blame ("It's not your fault" where relevant). Buttons say what happens: "Check", "Call", "Exit". Errors explain and give the next action, without apologising.
+Regional languages: informal "ti", gender-neutral wording where the language allows ("Nije tvoja krivica", not "Nisi ti kriva"), Serbian ekavian and Croatian/Bosnian/Montenegrin ijekavian, Macedonian in Cyrillic. English: address her as "you", warm and direct. Short sentences, plain words (aim for a 12-year-old reading level). Name feelings without dramatising. Never blame ("It's not your fault" where relevant). Buttons say what happens: "Check", "Call", "Exit". Errors explain and give the next action, without apologising.
 
 ### Design review against defaults
 - Considered and rejected: cream + serif + terracotta (generic "warm AI" look), and dark mode with neon accent (feels like a hacker tool, wrong for a scared teen).

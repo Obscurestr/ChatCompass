@@ -1,16 +1,21 @@
+"use client";
+
 import Link from "next/link";
-import Doodle from "../../components/Doodle";
-import HelpBlock from "../../components/HelpBlock";
-import MoreHelp from "../../components/MoreHelp";
-import TellSomeone from "../../components/TellSomeone";
-import { en } from "../../copy/en";
+import Doodle from "../../../../components/Doodle";
+import LocaleSwitch from "../../../../components/LocaleSwitch";
+import HelpBlock from "../../../../components/HelpBlock";
+import MoreHelp from "../../../../components/MoreHelp";
+import TellSomeone from "../../../../components/TellSomeone";
+import { useLocale } from "../../../../i18n/LocaleProvider";
 
 // T024 + T028a — Get help: contacts, what happens when you call, telling an adult,
 // and the honest note about browser history (FR-016).
 export default function HelpPage() {
-  const p = en.helpPage;
+  const { copy, href } = useLocale();
+  const p = copy.helpPage;
   return (
-    <main className="mx-auto max-w-column px-5 py-12">
+    <main className="mx-auto max-w-column px-5 py-16">
+      <LocaleSwitch />
       <header className="text-center">
         <Doodle name="phone" className="mx-auto" />
         <h1 className="mt-6 text-headline">{p.title}</h1>
@@ -56,12 +61,12 @@ export default function HelpPage() {
           {p.historyTitle}
         </h2>
         <p className="mt-2">{p.historyNote}</p>
-        <p className="mt-2 text-small text-ink-muted">{en.quickExit.hint}</p>
+        <p className="mt-2 text-small text-ink-muted">{copy.quickExit.hint}</p>
       </section>
 
       <div className="mt-10 text-center">
         <Link
-          href="/"
+          href={href()}
           replace
           className="inline-flex min-h-11 items-center rounded-full border-2 border-ink px-6 font-display font-bold btn-outline-hover"
         >

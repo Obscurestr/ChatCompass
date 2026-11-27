@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { MAX_CHARS, MAX_NEXT_STEPS, MAX_SIGNS, MIN_CHARS } from "../config/app";
+import { LANGS } from "../i18n/locales";
 
 // Types per specs/001-proveri-mi-ovo/data-model.md
 
@@ -21,9 +22,10 @@ export const SIGN_CATEGORIES = [
 export const RiskSchema = z.enum(RISKS);
 export const SignCategorySchema = z.enum(SIGN_CATEGORIES);
 
-/** POST /api/analyze body. Text is already masked on the device. */
+/** POST /api/analyze body. Text is already masked on the device; lang is the UI language for the answer. */
 export const AnalysisRequestSchema = z.object({
   text: z.string().trim().min(MIN_CHARS).max(MAX_CHARS),
+  lang: z.enum(LANGS).default("en"),
 });
 
 export const WarningSignSchema = z.object({

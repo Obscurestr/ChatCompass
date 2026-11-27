@@ -1,10 +1,13 @@
-import { en } from "../copy/en";
+"use client";
+
+import { useLocale } from "../i18n/LocaleProvider";
 import type { Risk } from "../lib/schema";
 import Doodle from "./Doodle";
 
 // T016: headline + summary. low → mint wash, watch → yellow underline, high → rose label.
 export default function RiskHeader({ risk, summary }: { risk: Risk; summary: string }) {
-  const headline = en.result.headline[risk];
+  const { copy } = useLocale();
+  const headline = copy.result.headline[risk];
 
   return (
     <header className="text-center">
@@ -25,7 +28,7 @@ export default function RiskHeader({ risk, summary }: { risk: Risk; summary: str
       {risk === "low" ? (
         <div className="mt-5 rounded-sheet bg-marker-mint/55 px-5 py-4">
           <p className="mx-auto">{summary}</p>
-          <p className="mx-auto mt-2 text-ink-muted">{en.result.trustFeeling}</p>
+          <p className="mx-auto mt-2 text-ink-muted">{copy.result.trustFeeling}</p>
         </div>
       ) : (
         <p className="mx-auto mt-3 text-ink-muted">{summary}</p>

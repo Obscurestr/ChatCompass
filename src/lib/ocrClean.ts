@@ -6,11 +6,13 @@ const TIME_ONLY = new RegExp(`^${TIME}$`, "i");
 const TRAILING_TIME = new RegExp(`\\s+${TIME}$`, "i");
 // The message box placeholder, possibly merged with status-bar bits: "Message", "Message... 5 mill 82%".
 // Not "Message me when you're home" (a word follows).
-const INPUT_PLACEHOLDER = /^(?:i?message|send (?:a )?message|type a message|write a message)(?:\.{0,3}|…)?(?:\s+[^\p{L}\s].*)?$/iu;
+// English plus the regional app languages (sr/hr/bs/cnr, mk, sq).
+const INPUT_PLACEHOLDER =
+  /^(?:i?message|send (?:a )?message|type a message|write a message|poruka|napiši poruku|napisi poruku|pošalji poruku|posalji poruku|порака|напиши порака|mesazh|shkruaj (?:një )?mesazh|dërgo (?:një )?mesazh)(?:\.{0,3}|…)?(?:\s+[^\p{L}\s].*)?$/iu;
 // Short line ending in a battery level, e.g. "5 mill 82%", "LTE 64 %".
 const BATTERY_LINE = /^.{0,16}\b\d{1,3}\s?%$/;
 const UI_LINE =
-  /^(?:delivered|seen|read|sent|edited|typing\.*|today|yesterday|now|active now|online|message\.*|send message\.*|type a message\.*|reply|liked a message|\d+\s?%|[45]g|lte|wi-?fi)$/i;
+  /^(?:delivered|seen|read|sent|edited|typing\.*|today|yesterday|now|active now|online|message\.*|send message\.*|type a message\.*|reply|liked a message|\d+\s?%|[45]g|lte|wi-?fi|viđeno|videno|pročitano|procitano|poslato|poslano|isporučeno|dostavljeno|uređeno|kuca\.*|piše\.*|danas|juče|jučer|jucer|sada|upravo|aktivan|aktivna|na mreži|odgovori|видено|прочитано|испратено|денес|вчера|сега|активен|активна|пишува\.*|parë|lexuar|dërguar|sot|dje|tani|aktiv|po shkruan\.*|përgjigju)$/iu;
 
 // A picture without text still gives Tesseract something to "read" (e.g. "yr" at ~58% confidence);
 // real chat screenshots read at ~95%. Below these thresholds we treat the picture as having no text.

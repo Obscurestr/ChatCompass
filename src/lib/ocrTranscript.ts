@@ -19,6 +19,13 @@ export interface OcrLine {
 
 type Side = "them" | "me" | "center";
 
+export interface SpeakerLabels {
+  them: string;
+  me: string;
+}
+
+const DEFAULT_LABELS: SpeakerLabels = { them: "Them", me: "Me" };
+
 export const MIN_LINE_CONFIDENCE = 50; // below this a line is usually garbage
 const SIDE_MARGIN = 0.12; // share of the width by which one margin must beat the other
 const HEADER = 0.105; // top share of the picture: status bar + contact name
@@ -34,7 +41,12 @@ function sideOf(line: OcrLine, width: number): Side {
   return "center";
 }
 
-export function buildTranscript(raw: OcrLine[], width: number, height: number): string {
+export function buildTranscript(
+  raw: OcrLine[],
+  width: number,
+  height: number,
+  labels: SpeakerLabels = DEFAULT_LABELS,
+): string {
   const lines = raw
     .filter((l) => l.confidence >= MIN_LINE_CONFIDENCE)
     .map((l) => ({ ...l, text: cleanLine(l.text) }))
@@ -60,5 +72,5 @@ export function buildTranscript(raw: OcrLine[], width: number, height: number): 
     }
   }
 
-  return messages.map((m) => `${m.side === "them" ? "Them" : "Me"}: ${m.text}`).join("\n");
+  return messages.map((m) => `${m.side === "them" ? labels.them : labels.me}: ${m.text}`).join("\n");
 }

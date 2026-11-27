@@ -1,5 +1,5 @@
-// All UI copy, in English. Voice: calm older friend, "you", short sentences, plain words, no blame.
-// See plan.md → "Voice rules (copy)".
+// All UI copy, in English. This file is the template: every language in src/copy/ has exactly these keys (type Copy).
+// Voice: calm older friend, "you", short sentences, plain words, no blame. See plan.md → "Voice rules (copy)".
 
 import { MAX_CHARS } from "../config/app";
 
@@ -38,6 +38,17 @@ export const en = {
     email: "email hidden",
     url: "link hidden",
     summary: "We hid personal details before sending.",
+  },
+
+  // Labels for who said what in a read screenshot (FR-018). Sent to the AI and shown in her text.
+  ocrLabels: { them: "Them", me: "Me" },
+
+  // Language and country switch (FR-023).
+  locale: {
+    button: (country: string, language: string) => `${language} · ${country}`,
+    buttonAria: "Change language or country",
+    title: "Language",
+    changeCountry: "Change country",
   },
 
   analyzing: {
@@ -160,13 +171,13 @@ export const en = {
     anonymity: "You don't have to give your name.",
     trustedAdult: "Or talk to an adult you trust: a parent, a teacher, the school counsellor.",
     unverified: "Number not verified yet.",
-    // Keyed by HelpContact.id in config/help.ts
-    contacts: {
-      // TODO(T026): confirm descriptions (cost, hours, anonymity) together with the numbers.
-      nadel: { name: "NADEL", description: "National helpline for children and young people." },
-      astra: { name: "ASTRA SOS", description: "SOS hotline run by ASTRA." },
-      police: { name: "Police", description: "If you are in danger right now." },
+    // Keyed by HelpContact.kind in config/help.ts; the contact's own name comes from config.
+    kinds: {
+      childLine: "Helpline for children and young people.",
+      sos: "SOS hotline run by ASTRA.",
+      police: "If you are in danger right now.",
     },
+    policeName: "Police",
   },
 
   helpPage: {
@@ -331,6 +342,6 @@ export const en = {
     note: "Menus can look a little different depending on your app version. Look for Report and Block on their profile or in the chat.",
     back: "Back",
   },
-} as const;
+};
 
 export type Copy = typeof en;

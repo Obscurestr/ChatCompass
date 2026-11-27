@@ -88,6 +88,17 @@
 
 ---
 
+## Phase 8: Country & language (US0, constitution v1.3.0)
+- [x] T041 [US0] `src/i18n/` — languages (`sr hr bs cnr mk sq en`: names, html lang, OCR model, speech voices, number format) and countries (`rs hr ba me mk al`: names, default language); routes moved under `src/app/[country]/[lang]/` with their own root layout + `generateStaticParams`; country picker at `/` (`src/app/(start)/`)
+- [x] T042 [US0] `LocaleProvider` + `useLocale()`; every component reads copy from it; internal links keep `/{country}/{lang}`; language/country switch on the home screen; Cyrillic fonts for Macedonian
+- [x] T043 [P] [US0] Copy dictionaries `src/copy/{sr,hr,bs,cnr,mk,sq}.ts` typed as `Copy` (same keys as `en.ts`), gender-neutral wording
+- [x] T044 [P] [US0] `config/help.ts` per country (research.md table); HelpBlock, Help page and Read aloud use the country's contacts
+- [x] T045 [US0] API: `lang` in the request; `systemPrompt(lang)`; postprocess defaults + safe-claim patterns per language; demo fixtures only for their own language; tests
+- [x] T046 [P] [US0] Safety floor: Cyrillic transliteration + BCS/Macedonian/Albanian phrases with harmless counter-examples (research.md); OCR model per language, regional app-chrome words; tests
+- [ ] T047 (Team) Verify helpline numbers for HR, BA, ME, MK, AL; set `verified: true` — *manual*
+- [ ] T048 (Team) Native-speaker review of each language's copy and floor phrases — *manual*
+- [ ] T049 **QA: S32–S36**
+
 ## Dependencies
 - T001 → everything. T006 → T012, T019. T011 → T012. T012 → T019.
 - US1 (Phase 3) → US2 (Phase 4). US3 is independent after T013.

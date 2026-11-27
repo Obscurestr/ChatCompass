@@ -1,6 +1,6 @@
 # Proveri — Project Constitution
 
-**Version**: 1.2.0 | **Ratified**: 2026-11-26 | **Amended**: 2026-11-26 (app language changed to English; on-device screenshot reading) | **Context**: SheSafe Online Regional Hackathon, 26–29 Nov 2026, Case 3 "Grooming and trust"
+**Version**: 1.3.0 | **Ratified**: 2026-11-26 | **Amended**: 2026-11-27 (country picker; app in the language of each Western Balkans country, English kept as an option) | **Context**: SheSafe Online Regional Hackathon, 26–29 Nov 2026, Case 3 "Grooming and trust"
 
 Proveri ("Check it") lets a teenager privately check whether an online conversation shows warning signs of grooming, understand why, and reach a real person for help — before the situation escalates.
 
@@ -23,7 +23,7 @@ A persistent quick-exit control replaces the page and history entry with a neutr
 The AI explains; people help. Every result screen, error screen and empty state shows how to reach a helpline or a trusted adult.
 
 ### V. Calm, clear, age-appropriate language
-UI copy is in English, written for a 13–17-year-old: short sentences, no jargon, no blame, no alarmist red. The whole app is in English: UI, pasted conversations and AI responses. The app speaks like a calm older friend, not a police officer or a teacher.
+The app starts by asking which country she is in: Serbia, Croatia, Bosnia and Herzegovina, Montenegro, North Macedonia or Albania. The country sets the helplines and a default language (Serbian, Croatian, Bosnian, Montenegrin, Macedonian, Albanian); she can switch language at any time, and English stays available. Everything she reads (UI and AI output) is in the chosen language; pasted conversations may be in any of these languages. Serbian and Montenegrin UI use Latin script; Macedonian uses Cyrillic. Copy is written for a 13–17-year-old: short sentences, no jargon, no blame, no alarmist red, gender-neutral wording where the language allows. The app speaks like a calm older friend, not a police officer or a teacher. The country and language live only in the URL; nothing is stored to remember them.
 
 ### VI. Beautiful is part of the brief
 A frightened user needs a screen that feels safe. Visual quality is a requirement, not polish: the design system in `plan.md` is binding, and every screen must work on a 360 px-wide phone.
@@ -34,7 +34,8 @@ Three days, one developer, one manual tester. Prefer the simplest thing that dem
 ## Constraints
 - Stack: Next.js (App Router) + TypeScript + Tailwind CSS, deployed on Vercel. One server route calls the Claude API.
 - Secrets live only in environment variables.
-- Helpline numbers are configuration and must be verified by a human before the demo.
+- Helpline numbers are configuration, per country, and must be verified by a human before the demo.
+- Translations and the per-language safety-floor phrases must be reviewed by a native speaker before the demo.
 
 ## Governance
 This constitution overrides the spec, plan and tasks. A change requires updating the version above and re-running `/speckit.analyze`.

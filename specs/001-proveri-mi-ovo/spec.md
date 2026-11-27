@@ -7,6 +7,20 @@
 
 ## User Scenarios & Testing *(mandatory)*
 
+### User Story 0 — Choose country and language (Priority: P1)
+On first open she picks her country (Serbia, Croatia, Bosnia and Herzegovina, Montenegro, North Macedonia, Albania). The app switches to that country's language and shows that country's helplines. She can change the language (all six regional languages plus English) or the country at any time.
+
+**Why this priority**: The app is for the whole region; a teenager must read it in her own language and reach a helpline that works in her country.
+
+**Independent Test**: Open `/`, pick North Macedonia: the home screen is in Macedonian (Cyrillic) and the help block shows North Macedonian numbers. Switch to Albanian: the same screen in Albanian, same numbers.
+
+**Acceptance Scenarios**:
+1. **Given** the start screen, **When** she taps a country, **Then** the app opens in that country's default language (Serbia → Serbian, Croatia → Croatian, Bosnia and Herzegovina → Bosnian, Montenegro → Montenegrin, North Macedonia → Macedonian, Albania → Albanian).
+2. **Given** any screen, **When** she changes the language, **Then** all UI text switches and the next check's AI answer is in that language; helplines stay those of her country.
+3. **Given** a check, **When** the result arrives, **Then** summary, signs and next steps are in the chosen language; quotes stay exactly as written in her chat.
+
+---
+
 ### User Story 1 — Check a conversation (Priority: P1)
 A teenager pastes part of a chat (or describes it in her own words) and gets a clear, calm answer: is there anything worrying here, what exactly, and why.
 
@@ -71,7 +85,8 @@ A short swipeable "Warning signs" guide explains the common patterns with one il
 - Empty or very short input (< 20 characters): the button stays disabled with a hint about what to paste.
 - Very long input (> 6,000 characters): she is asked to paste the most recent or most worrying part.
 - Input describes immediate danger (meeting in person soon, threats, blackmail, existing photos being used against her): result is High regardless of model output, and the help block includes the police number.
-- Input is expected in English; the response is always in English. Text in another language still gets analysed, but quality is only tested for English.
+- Pasted text may be in any of the six regional languages or English (Serbian in Latin or Cyrillic); the response is always in the chosen UI language, quotes stay in the original. Quality is tested for every UI language with the translated samples in `quickstart.md`.
+- She opens an old link (`/help`) or an unknown country/language in the URL: she lands on the country picker.
 - AI unavailable or times out: a calm error explains that the check didn't run, offers retry, and still shows the help block and the general warning-signs list.
 - AI returns a quoted phrase not present in her text: the sign is listed without an in-text highlight.
 - She adds a screenshot: it is read on her phone and waits as "1 screenshot ready" until she taps Check; the image never leaves the device. If no text is found, she is told to try a clearer screenshot or paste the messages.
@@ -82,7 +97,7 @@ A short swipeable "Warning signs" guide explains the common patterns with one il
 ### Functional Requirements
 - **FR-001**: The system MUST accept free text (pasted chat or own description), 20–6,000 characters. Screenshots are only a way to produce that text on the device (FR-018).
 - **FR-002**: The system MUST mask phone numbers, email addresses and URLs on the device before sending.
-- **FR-003**: The system MUST return a risk level of `low`, `watch` or `high`, a summary of at most 2 sentences, 0–6 warning signs and 2–4 next steps, all in English.
+- **FR-003**: The system MUST return a risk level of `low`, `watch` or `high`, a summary of at most 2 sentences, 0–6 warning signs and 2–4 next steps, all in the chosen UI language.
 - **FR-004**: Each warning sign MUST have a category, a short title, a plain explanation, and optionally an exact quote from the input.
 - **FR-005**: The system MUST highlight quoted phrases in the user's text and let her open the explanation by tapping them.
 - **FR-006**: The system MUST apply a server-side safety floor: if the input contains signs of imminent danger (in-person meeting, threats, blackmail, existing intimate images), the risk level is forced to `high`.
@@ -100,13 +115,18 @@ A short swipeable "Warning signs" guide explains the common patterns with one il
 - **FR-019** (P2): The result and Help page SHOULD offer ready-made messages she can copy or share to start talking to a trusted adult. They MUST be fixed text and never contain her conversation.
 - **FR-020** (P2): The system SHOULD explain how to save evidence and block/report on common apps, and MUST tell her not to save or forward sexual images, even as evidence.
 - **FR-021** (P2): The result SHOULD offer "Read aloud" using an on-device voice only (`localService`); if none is available the control is hidden. It reads the result (headline, summary, signs, next steps, help contacts), never her own messages, and stops immediately on Exit.
+- **FR-022**: The first screen MUST ask for the country (Serbia, Croatia, Bosnia and Herzegovina, Montenegro, North Macedonia, Albania). Country and language MUST be carried only in the URL (`/{country}/{lang}/…`), never stored in cookies or browser storage.
+- **FR-023**: All UI copy MUST exist in Serbian (Latin), Croatian, Bosnian, Montenegrin, Macedonian (Cyrillic), Albanian and English; every screen MUST offer a language switch and a way back to the country picker.
+- **FR-024**: Help contacts MUST be per country (child helpline + police at minimum); a contact not yet verified by a human shows "Number not verified yet".
+- **FR-025**: The safety floor (FR-006), the "never safe" rule (FR-010) and screenshot reading (FR-018) MUST work for every supported language (Serbian Cyrillic included); screenshots are read with the OCR model of the chosen language.
 - **FR-017**: The system SHOULD offer a demo fallback (pre-recorded results for the sample set) when the AI service is unavailable, enabled only by env flag.
 
 ### Key Entities
-- **AnalysisRequest**: masked text, UI language.
+- **AnalysisRequest**: masked text, UI language (`sr | hr | bs | cnr | mk | sq | en`).
 - **AnalysisResult**: risk level, summary, warning signs, next steps, escalate flag.
 - **WarningSign**: category, title, explanation, quote (optional).
-- **HelpContact**: name, description, phone/chat/link, hours, verified flag.
+- **HelpContact**: country, kind (child line / police / SOS), name, phone/chat/link, hours, verified flag.
+- **Country**: id (`rs | hr | ba | me | mk | al`), default language, languages listed first in the switch.
 
 ## Success Criteria *(mandatory)*
 - **SC-001**: A first-time user goes from opening the app to seeing a result in under 60 seconds.
@@ -121,6 +141,7 @@ A short swipeable "Warning signs" guide explains the common patterns with one il
 
 ## Assumptions
 - Users have a smartphone with a modern browser and internet.
-- Helpline numbers in config are verified by the team before the demo.
+- Helpline numbers in config are verified by the team before the demo, for every country.
+- A native speaker of each language reviews the copy and safety-floor phrases before the demo.
 - The Claude API is reachable from Vercel and the team has an API key.
 - The team accepts that the AI provider processes the text for one request; this is disclosed on the home screen.

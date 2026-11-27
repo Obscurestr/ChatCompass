@@ -1,8 +1,9 @@
+// Shared by the two root layouts (the country picker and /{country}/{lang}): fonts, metadata, <html>/<body>.
+
 import type { Metadata, Viewport } from "next";
-import { Atkinson_Hyperlegible_Next, Quicksand } from "next/font/google";
-import QuickExit from "../components/QuickExit";
+import { Atkinson_Hyperlegible_Next, Comfortaa, Nunito, Quicksand } from "next/font/google";
+import type { ReactNode } from "react";
 import { APP_NAME } from "../config/app";
-import "./globals.css";
 
 // Display + labels: rounded, friendly; variable weight (we use 600–700).
 const quicksand = Quicksand({
@@ -21,6 +22,23 @@ const atkinson = Atkinson_Hyperlegible_Next({
   fallback: ["ui-sans-serif", "system-ui", "sans-serif"],
 });
 
+// Macedonian (Cyrillic): Quicksand and Atkinson have no Cyrillic, so html[lang="mk"] switches to these.
+// Not preloaded: only Macedonian pages download them.
+const comfortaa = Comfortaa({
+  variable: "--font-comfortaa",
+  subsets: ["cyrillic", "latin"],
+  display: "swap",
+  preload: false,
+});
+const nunito = Nunito({
+  variable: "--font-nunito",
+  subsets: ["cyrillic", "latin"],
+  display: "swap",
+  preload: false,
+});
+
+const fontVariables = [quicksand, atkinson, comfortaa, nunito].map((f) => f.variable).join(" ");
+
 // Discretion (constitution III): neutral title, not indexed, no referrer sent to other sites.
 export const metadata: Metadata = {
   title: APP_NAME,
@@ -36,11 +54,11 @@ export const viewport: Viewport = {
   themeColor: "#fffcfa",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+/** <html> + <body> with the fonts. Each layout puts the QuickExit pill inside (constitution III: on every screen). */
+export function Shell({ lang, children }: { lang: string; children: ReactNode }) {
   return (
-    <html lang="en" className={`${quicksand.variable} ${atkinson.variable}`}>
+    <html lang={lang} className={fontVariables}>
       <body className="min-h-dvh">
-        <QuickExit />
         {children}
       </body>
     </html>

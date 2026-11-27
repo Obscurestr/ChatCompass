@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { en } from "../copy/en";
 import { speechParts } from "./ReadAloud";
 import type { AnalysisResult } from "../lib/schema";
 
@@ -12,7 +13,7 @@ const result: AnalysisResult = {
 };
 
 describe("speechParts", () => {
-  const parts = speechParts(result);
+  const parts = speechParts(result, en, "rs");
 
   it("reads the headline, summary, signs, steps and help contacts in order", () => {
     expect(parts[0]).toBe("This is worth taking seriously.");

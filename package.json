@@ -13,12 +13,17 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.14.0",
+    "@tesseract.js-data/bos": "^1.0.0",
+    "@tesseract.js-data/eng": "^1.0.0",
+    "@tesseract.js-data/hrv": "^1.0.0",
+    "@tesseract.js-data/mkd": "^1.0.0",
+    "@tesseract.js-data/sqi": "^1.0.0",
+    "@tesseract.js-data/srp_latn": "^1.0.0",
     "next": "16.4.6",
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "tesseract.js": "^7.0.0",
-    "zod": "^4.6.7",
-    "@tesseract.js-data/eng": "^1.0.0"
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@tailwindcss/turbopack": "4.3.3",

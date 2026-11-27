@@ -2,18 +2,26 @@
 
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { contactsFor } from "../config/help";
-import { en } from "../copy/en";
+import type { Copy } from "../copy";
+import { useLocale } from "../i18n/LocaleProvider";
+import { LANG_INFO, type Country, type Lang } from "../i18n/locales";
 import type { AnalysisResult } from "../lib/schema";
 
 // Reads the result aloud for users who find reading hard (dyslexia, low vision, stress).
 // Privacy: only voices that run ON the device (`localService`) are used — some browsers offer
 // cloud voices that send the text to a server. If there is no on-device English voice, the button
-// is hidden. Her own messages are never read out (someone may be nearby); only our result is.
+// is hidden. The voice speaks the chosen language (close languages as fallback, e.g. a Croatian voice
+// for Bosnian). Her own messages are never read out (someone may be nearby); only our result is.
 
-function localEnglishVoice(): SpeechSynthesisVoice | null {
+export function localVoice(lang: Lang): SpeechSynthesisVoice | null {
   if (typeof window === "undefined" || !("speechSynthesis" in window)) return null;
-  const voices = window.speechSynthesis.getVoices().filter((v) => v.localService && v.lang.toLowerCase().startsWith("en"));
-  return voices.find((v) => v.default) ?? voices[0] ?? null;
+  const local = window.speechSynthesis.getVoices().filter((v) => v.localService);
+  for (const prefix of LANG_INFO[lang].voices) {
+    const voices = local.filter((v) => v.lang.toLowerCase().startsWith(prefix));
+    const voice = voices.find((v) => v.default) ?? voices[0];
+    if (voice) return voice;
+  }
+  return null;
 }
 
 // Voices load asynchronously; re-check when the browser says they changed.
@@ -22,25 +30,25 @@ const subscribe = (onChange: () => void) => {
   window.speechSynthesis.addEventListener("voiceschanged", onChange);
   return () => window.speechSynthesis.removeEventListener("voiceschanged", onChange);
 };
-const hasVoice = () => localEnglishVoice() !== null;
 
 /** The pieces to speak, in order. Short items so long results aren't cut off by some browsers. */
-export function speechParts(result: AnalysisResult): string[] {
-  const parts = [`${en.result.headline[result.risk]}.`, result.summary];
+export function speechParts(result: AnalysisResult, copy: Copy, country: Country): string[] {
+  const parts = [`${copy.result.headline[result.risk]}.`, result.summary];
   if (result.signs.length > 0) {
-    parts.push(en.readAloud.signsIntro);
+    parts.push(copy.readAloud.signsIntro);
     for (const sign of result.signs) parts.push(`${sign.title}. ${sign.explanation}`);
   }
-  parts.push(en.readAloud.stepsIntro, ...result.nextSteps);
-  const contacts = contactsFor(result.risk)
-    .map((c) => `${en.help.contacts[c.id].name}, ${c.displayPhone ?? ""}`.trim())
+  parts.push(copy.readAloud.stepsIntro, ...result.nextSteps);
+  const contacts = contactsFor(country, result.risk)
+    .map((c) => `${c.kind === "police" ? copy.help.policeName : c.name}, ${c.displayPhone ?? ""}`.trim())
     .join(". ");
-  if (contacts) parts.push(`${en.readAloud.helpIntro} ${contacts}.`);
+  if (contacts) parts.push(`${copy.readAloud.helpIntro} ${contacts}.`);
   return parts;
 }
 
 export default function ReadAloud({ result }: { result: AnalysisResult }) {
-  const available = useSyncExternalStore(subscribe, hasVoice, () => false);
+  const { copy, country, lang } = useLocale();
+  const available = useSyncExternalStore(subscribe, () => localVoice(lang) !== null, () => false);
   const [speaking, setSpeaking] = useState(false);
 
   // Stop talking when the result goes away (new check, start over, leaving the page).
@@ -50,10 +58,10 @@ export default function ReadAloud({ result }: { result: AnalysisResult }) {
 
   function start() {
     const synth = window.speechSynthesis;
-    const voice = localEnglishVoice();
+    const voice = localVoice(lang);
     if (!voice) return;
     synth.cancel();
-    const parts = speechParts(result);
+    const parts = speechParts(result, copy, country);
     parts.forEach((text, i) => {
       const u = new SpeechSynthesisUtterance(text);
       u.voice = voice;
@@ -82,7 +90,7 @@ export default function ReadAloud({ result }: { result: AnalysisResult }) {
         <path d="M4 9.5h3.2L12 5.6v12.8l-4.8-3.9H4z" />
         {speaking ? <path d="M16 9.5l4 5M20 9.5l-4 5" /> : <path d="M15.6 9.2c1.2 1.6 1.2 4 0 5.6M18.4 7c2.3 2.9 2.3 7.1 0 10" />}
       </svg>
-      {speaking ? en.readAloud.stop : en.readAloud.start}
+      {speaking ? copy.readAloud.stop : copy.readAloud.start}
     </button>
   );
 }

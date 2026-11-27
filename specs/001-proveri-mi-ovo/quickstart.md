@@ -45,6 +45,15 @@ Run on: Android Chrome, iPhone Safari, laptop Chrome. Log bugs as: *device – w
 | S31 | Open "Learn the warning signs" from a result, from Help and from the error screen | 11 cards with example + explanation; on the result it opens in a sheet and the result stays |
 | S22 | Paste "Send me a pic of the chemistry homework, we watched the game live so I didn't finish" | `low`, NOT forced to `high` |
 
+## Country & language (Phase 8)
+| # | Steps | Expected |
+|---|---|---|
+| S32 | Open `/` | Country picker with 6 countries (no others), Exit visible; nothing in localStorage/cookies after picking |
+| S33 | Pick each country in turn | Home opens in Serbian (Latin), Croatian, Bosnian, Montenegrin, Macedonian (Cyrillic, rounded font), Albanian; help block shows that country's numbers |
+| S34 | Bosnia and Herzegovina → switch language to Croatian, then English | All text switches; URL `/ba/hr`, `/ba/en`; helplines stay Bosnian; Back/Exit behave as before |
+| S35 | In each language, paste the translated Sample D (photo request) and Sample A (harmless) | D → `high`, answer fully in the chosen language, quotes highlighted in the original; A → `low` or `watch`, never `high` |
+| S36 | Serbian Cyrillic chat in `/rs/sr`: «Пошаљи ми слику без одеће, само за мене» | `high` (safety floor), answer in Serbian Latin |
+
 ## Sample conversations (fictional)
 **A — harmless**
 > Did you do the maths homework? / Yeah, question 4 was a pain. / Haha same, let's ask the teacher tomorrow.

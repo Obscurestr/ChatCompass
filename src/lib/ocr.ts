@@ -10,7 +10,7 @@
 
 import { cleanOcrText, hasReadableText } from "./ocrClean";
 import { prepareForOcr } from "./ocrImage";
-import { buildTranscript, type OcrLine } from "./ocrTranscript";
+import { buildTranscript, type OcrLine, type SpeakerLabels } from "./ocrTranscript";
 
 export type OcrProgress = (fileIndex: number, fileCount: number, fraction: number) => void;
 
@@ -48,12 +48,19 @@ async function preparedImage(file: File): Promise<{ blob: Blob; width: number; h
   return blob ? { blob, width, height } : null;
 }
 
-export async function readScreenshots(files: File[], onProgress: OcrProgress): Promise<string> {
+export interface OcrOptions {
+  /** Tesseract model of the chosen language (FR-025), served from /ocr/<model>.traineddata.gz. */
+  model: string;
+  /** "Them"/"Me" in her language. */
+  labels: SpeakerLabels;
+}
+
+export async function readScreenshots(files: File[], onProgress: OcrProgress, options: OcrOptions): Promise<string> {
   const { createWorker, OEM } = await import("tesseract.js");
   const base = `${window.location.origin}/ocr`;
   let current = 0;
 
-  const worker = await createWorker("eng", OEM.LSTM_ONLY, {
+  const worker = await createWorker(options.model, OEM.LSTM_ONLY, {
     workerPath: `${base}/worker.min.js`,
     corePath: base,
     langPath: base,
@@ -76,7 +83,7 @@ export async function readScreenshots(files: File[], onProgress: OcrProgress): P
           b.paragraphs.flatMap((p) => p.lines.map((l) => ({ text: l.text, confidence: l.confidence, ...l.bbox }))),
         ) ?? [];
       const text =
-        prepared && lines.length > 0 ? buildTranscript(lines, prepared.width, prepared.height) : cleanOcrText(data.text);
+        prepared && lines.length > 0 ? buildTranscript(lines, prepared.width, prepared.height, options.labels) : cleanOcrText(data.text);
 
       if (hasReadableText(text, data.confidence)) parts.push(text);
     }

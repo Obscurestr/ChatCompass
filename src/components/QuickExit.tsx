@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { EXIT_URL } from "../config/app";
-import { en } from "../copy/en";
+import { useLocale } from "../i18n/LocaleProvider";
 
 // T027 — Quick exit (FR-008, constitution III).
 // One tap replaces the current history entry with a neutral site, so Back doesn't return here.
@@ -23,15 +23,16 @@ export function quickExit() {
 
 /** The pill itself. Rendered in the layout, and again inside modal sheets (which make the page behind inert). */
 export function QuickExitButton() {
+  const { copy } = useLocale();
   return (
     <button
       type="button"
       onClick={quickExit}
-      aria-label={en.quickExit.aria}
-      title={en.quickExit.hint}
+      aria-label={copy.quickExit.aria}
+      title={copy.quickExit.hint}
       className="fixed right-3 top-[max(0.75rem,env(safe-area-inset-top))] z-50 inline-flex min-h-11 items-center rounded-full border-2 border-ink bg-paper px-5 font-display font-bold text-ink btn-outline-hover"
     >
-      {en.quickExit.label}
+      {copy.quickExit.label}
     </button>
   );
 }

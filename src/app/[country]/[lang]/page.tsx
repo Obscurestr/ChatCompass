@@ -4,27 +4,28 @@
 // her text lives only in this component's memory (FR-009).
 
 import { useState } from "react";
-import AnalyzingState from "../components/AnalyzingState";
-import BlockGuide from "../components/BlockGuide";
-import BottomSheet from "../components/BottomSheet";
-import Doodle from "../components/Doodle";
-import ErrorState, { type ErrorKind } from "../components/ErrorState";
-import HelpBlock from "../components/HelpBlock";
-import MarkedText from "../components/MarkedText";
-import MaskedChips from "../components/MaskedChips";
-import MoreHelp, { type Guide } from "../components/MoreHelp";
-import NextSteps from "../components/NextSteps";
-import PasteSheet, { combinedText, type Shots } from "../components/PasteSheet";
-import ReadAloud from "../components/ReadAloud";
-import RiskHeader from "../components/RiskHeader";
-import SignSheet from "../components/SignSheet";
-import SignsGuide from "../components/SignsGuide";
-import TellSomeone from "../components/TellSomeone";
-import WhoCheck from "../components/WhoCheck";
-import { en } from "../copy/en";
-import { findMarks } from "../lib/highlight";
-import { mask, type MaskResult } from "../lib/mask";
-import { AnalysisResultSchema, type AnalysisResult } from "../lib/schema";
+import AnalyzingState from "../../../components/AnalyzingState";
+import BlockGuide from "../../../components/BlockGuide";
+import BottomSheet from "../../../components/BottomSheet";
+import Doodle from "../../../components/Doodle";
+import ErrorState, { type ErrorKind } from "../../../components/ErrorState";
+import HelpBlock from "../../../components/HelpBlock";
+import LocaleSwitch from "../../../components/LocaleSwitch";
+import MarkedText from "../../../components/MarkedText";
+import MaskedChips from "../../../components/MaskedChips";
+import MoreHelp, { type Guide } from "../../../components/MoreHelp";
+import NextSteps from "../../../components/NextSteps";
+import PasteSheet, { combinedText, type Shots } from "../../../components/PasteSheet";
+import ReadAloud from "../../../components/ReadAloud";
+import RiskHeader from "../../../components/RiskHeader";
+import SignSheet from "../../../components/SignSheet";
+import SignsGuide from "../../../components/SignsGuide";
+import TellSomeone from "../../../components/TellSomeone";
+import WhoCheck from "../../../components/WhoCheck";
+import { useLocale } from "../../../i18n/LocaleProvider";
+import { findMarks } from "../../../lib/highlight";
+import { mask, type MaskResult } from "../../../lib/mask";
+import { AnalysisResultSchema, type AnalysisResult } from "../../../lib/schema";
 
 type Counts = MaskResult["counts"];
 type State =
@@ -42,6 +43,7 @@ function errorFromResponse(status: number, body: unknown): ErrorKind {
 }
 
 export default function Home() {
+  const { copy, lang } = useLocale();
   const [text, setText] = useState("");
   const [shots, setShots] = useState<Shots>({ count: 0, text: "" });
   const [state, setState] = useState<State>({ phase: "idle" });
@@ -61,7 +63,7 @@ export default function Home() {
       const res = await fetch("/api/analyze", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ text: masked }),
+        body: JSON.stringify({ text: masked, lang }),
         cache: "no-store",
         signal: AbortSignal.timeout(45_000),
       });
@@ -93,10 +95,11 @@ export default function Home() {
   // ---- idle ----
   if (state.phase === "idle") {
     return (
-      <main className="mx-auto flex min-h-dvh max-w-column flex-col justify-center px-5 py-12 text-center">
+      <main className="mx-auto flex min-h-dvh max-w-column flex-col justify-center px-5 py-16 text-center">
+        <LocaleSwitch />
         <Doodle name="chat" className="mx-auto" />
-        <h1 className="mt-6 text-headline">{en.home.headline}</h1>
-        <p className="mx-auto mt-3 text-ink-muted">{en.home.lead}</p>
+        <h1 className="mt-6 text-headline">{copy.home.headline}</h1>
+        <p className="mx-auto mt-3 text-ink-muted">{copy.home.lead}</p>
         <PasteSheet
           value={text}
           onChange={setText}
@@ -104,7 +107,7 @@ export default function Home() {
           onShotsChange={setShots}
           onSubmit={analyse}
         />
-        <p className="mx-auto mt-6 text-small text-ink-muted">{en.home.incognitoHint}</p>
+        <p className="mx-auto mt-6 text-small text-ink-muted">{copy.home.incognitoHint}</p>
       </main>
     );
   }
@@ -150,9 +153,9 @@ export default function Home() {
   const herText = (
     <section key="text" aria-labelledby="text-title">
       <h2 id="text-title" className="text-section">
-        {en.result.yourMessages}
+        {copy.result.yourMessages}
       </h2>
-      {marks.length > 0 && <p className="mx-auto mt-1 text-small text-ink-muted">{en.result.markHint}</p>}
+      {marks.length > 0 && <p className="mx-auto mt-1 text-small text-ink-muted">{copy.result.markHint}</p>}
       <MaskedChips counts={counts} />
       <div className="mt-4">
         <MarkedText text={masked} marks={marks} signs={result.signs} risk={result.risk} onOpen={setOpenSign} />
@@ -160,7 +163,7 @@ export default function Home() {
 
       {unquoted.length > 0 && (
         <div className="mt-6 text-left">
-          <p className="label-doodle">{en.result.signsWithoutQuote}</p>
+          <p className="label-doodle">{copy.result.signsWithoutQuote}</p>
           <ul className="mt-2 space-y-2">
             {unquoted.map(({ sign, i }) => (
               <li key={i}>
@@ -204,7 +207,7 @@ export default function Home() {
           onClick={startOver}
           className="inline-flex min-h-11 items-center rounded-full border-2 border-ink px-6 font-display font-bold btn-outline-hover"
         >
-          {en.result.checkAnother}
+          {copy.result.checkAnother}
         </button>
       </div>
       <SignSheet
@@ -217,7 +220,7 @@ export default function Home() {
         open={openGuide === "who"}
         onClose={() => setOpenGuide(null)}
         labelledBy="who-sheet-title"
-        title={en.who.title}
+        title={copy.who.title}
       >
         <WhoCheck />
       </BottomSheet>
@@ -225,7 +228,7 @@ export default function Home() {
         open={openGuide === "block"}
         onClose={() => setOpenGuide(null)}
         labelledBy="block-sheet-title"
-        title={en.block.title}
+        title={copy.block.title}
       >
         <BlockGuide />
       </BottomSheet>
@@ -233,7 +236,7 @@ export default function Home() {
         open={openGuide === "signs"}
         onClose={() => setOpenGuide(null)}
         labelledBy="signs-sheet-title"
-        title={en.signsGuide.title}
+        title={copy.signsGuide.title}
       >
         <SignsGuide />
       </BottomSheet>

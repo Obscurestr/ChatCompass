@@ -2,7 +2,7 @@
 
 ## Request
 ```json
-{ "text": "string, 20–6000 chars, already masked on device" }
+{ "text": "string, 20–6000 chars, already masked on device", "lang": "sr | hr | bs | cnr | mk | sq | en (default en)" }
 ```
 - 400 `{ "error": "too_short" | "too_long" | "invalid" }`
 - 429 `{ "error": "rate_limited" }` (best-effort in-memory limit: 10 requests / 10 min / IP)
@@ -11,16 +11,16 @@
 ```json
 {
   "risk": "low | watch | high",
-  "summary": "max 2 sentences, English",
+  "summary": "max 2 sentences, in `lang`",
   "signs": [
     {
       "category": "secrecy | isolation | fast_intimacy | pressure | gifts_favours | personal_info | images | move_platform | identity_doubt | threats_guilt | meeting",
-      "title": "short, English",
-      "explanation": "1–3 sentences, English",
-      "quote": "exact substring of the input, or null"
+      "title": "short, in `lang`",
+      "explanation": "1–3 sentences, in `lang`",
+      "quote": "exact substring of the input (original language), or null"
     }
   ],
-  "nextSteps": ["2–4 short items, English"],
+  "nextSteps": ["2–4 short items, in `lang`"],
   "escalate": true,
   "floorTriggered": false
 }
@@ -33,11 +33,13 @@
 1. Never log `text`. Log only status and latency.
 2. `floorTriggered = safetyFloor(text)`; if true → `risk = "high"`, `escalate = true`.
 3. Drop any `quote` not found by `highlight.ts`; keep the sign.
-4. If `summary` or `nextSteps` say the chat or person is "safe / not dangerous / nothing to worry about", replace the summary with the default low-risk sentence from `copy/en.ts`.
-5. Cap `signs` at 6, `nextSteps` at 4 (top up to 2 from `copy/en.ts` defaults), and `summary` at 2 sentences.
-6. If the AI call fails and `DEMO_MODE=fallback`, return the best-matching fixture from `src/demo/fixtures.json` (word overlap ≥ 60%), unless the floor triggered and the fixture is not `high`; otherwise the floor-only `high` result if the floor triggered; otherwise 502.
+4. If `summary` or `nextSteps` say the chat or person is "safe / not dangerous / nothing to worry about", replace the summary with the default sentence for the risk level from `copy/{lang}.ts`. Safe-claim patterns exist for every language.
+5. Cap `signs` at 6, `nextSteps` at 4 (top up to 2 from `copy/{lang}.ts` defaults), and `summary` at 2 sentences.
+6. If the AI call fails and `DEMO_MODE=fallback`, return the best-matching fixture from `src/demo/fixtures.json` (word overlap ≥ 60%, only fixtures recorded in the same `lang`), unless the floor triggered and the fixture is not `high`; otherwise the floor-only `high` result if the floor triggered; otherwise 502.
 
 ## System prompt (`src/lib/prompt.ts`)
+
+`systemPrompt(lang)` builds the prompt below with a language block: write in the chosen language (script and dialect named), copy quotes in the original language, plus that language's style notes (English: the rules below; regional languages: informal "ti", "we" for the app, gender-neutral wording, the local word for "predators"). Screenshot lines may carry the localised Them/Me labels. The text below is the English version.
 
 ```text
 You are "Proveri", a calm, kind assistant inside a safety app for teenagers (13–17) in the Western Balkans. A young person has pasted part of an online conversation, or described it in her own words, because something feels off. Your job is to help her recognise possible warning signs of online grooming or manipulation, explain them simply, and point her to real help.

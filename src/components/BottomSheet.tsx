@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { en } from "../copy/en";
+import { useLocale } from "../i18n/LocaleProvider";
 import { QuickExitButton } from "./QuickExit";
 
 // Shared bottom sheet. Native <dialog> + showModal(): focus is trapped inside, Esc closes,
@@ -20,6 +20,7 @@ export default function BottomSheet({
   title: React.ReactNode;
   children: React.ReactNode;
 }) {
+  const { copy } = useLocale();
   const ref = useRef<HTMLDialogElement>(null);
   const touchStartY = useRef<number | null>(null);
 
@@ -63,7 +64,7 @@ export default function BottomSheet({
             <button
               type="button"
               onClick={onClose}
-              aria-label={en.signSheet.close}
+              aria-label={copy.signSheet.close}
               className="grid size-11 shrink-0 place-items-center rounded-full border-2 border-ink btn-outline-hover"
             >
               <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" aria-hidden="true">

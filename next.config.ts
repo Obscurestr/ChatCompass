@@ -15,6 +15,10 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  // Pages moved under /{country}/{lang} (FR-022): old links land on the country picker.
+  async redirects() {
+    return [{ source: "/:page(help|who|block|signs)", destination: "/", permanent: false }];
+  },
   cacheComponents: true,
   partialPrefetching: true,
   turbopack: {

@@ -7,6 +7,8 @@ import type { AnalysisResult } from "./schema";
 
 export interface DemoFixture {
   id: string;
+  /** Language the result was recorded in (default "en"). */
+  lang?: string;
   text: string;
   result: AnalysisResult;
 }
@@ -20,7 +22,7 @@ function words(text: string): Set<string> {
       .normalize("NFD")
       .replace(/[̀-ͯ]/g, "")
       .replace(/['’]/g, "")
-      .split(/[^a-z0-9]+/)
+      .split(/[^\p{L}\p{N}]+/u)
       .filter((w) => w.length >= 2),
   );
 }

@@ -1,8 +1,11 @@
-import { en } from "../copy/en";
+"use client";
+
+import { useLocale } from "../i18n/LocaleProvider";
 
 // T034b — save evidence first, then block and report, per app.
 export default function BlockGuide() {
-  const b = en.block;
+  const { copy } = useLocale();
+  const b = copy.block;
   return (
     <div className="text-left">
       <p className="mt-2 text-ink-muted">{b.intro}</p>

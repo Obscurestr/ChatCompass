@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { COUNTER_FROM, MAX_CHARS, MAX_SCREENSHOTS, MIN_CHARS } from "../config/app";
-import { en } from "../copy/en";
+import { useLocale } from "../i18n/LocaleProvider";
+import { LANG_INFO } from "../i18n/locales";
 import { readScreenshots } from "../lib/ocr";
 
 /** Text read from screenshots on the device. Kept out of the textarea; sent together with it on Check. */
@@ -37,6 +38,7 @@ export default function PasteSheet({
   onShotsChange: (shots: Shots) => void;
   onSubmit: () => void;
 }) {
+  const { copy, href, lang } = useLocale();
   const ref = useRef<HTMLTextAreaElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
   const [ocr, setOcr] = useState<OcrState>({ kind: "idle" });
@@ -61,20 +63,22 @@ export default function PasteSheet({
 
     setOcr({ kind: "reading", i: 0, n: files.length, pct: 0 });
     try {
-      const text = await readScreenshots(files, (i, n, fraction) =>
-        setOcr({ kind: "reading", i, n, pct: Math.round(fraction * 100) }),
+      const text = await readScreenshots(
+        files,
+        (i, n, fraction) => setOcr({ kind: "reading", i, n, pct: Math.round(fraction * 100) }),
+        { model: LANG_INFO[lang].ocr, labels: copy.ocrLabels },
       );
       if (!text) {
-        setOcr({ kind: "message", text: en.home.screenshot.empty });
+        setOcr({ kind: "message", text: copy.home.screenshot.empty });
         return;
       }
       onShotsChange({
         count: shots.count + files.length,
         text: [shots.text, text].filter(Boolean).join("\n\n"),
       });
-      setOcr({ kind: "message", text: all.length > MAX_SCREENSHOTS ? en.home.screenshot.tooMany : "" });
+      setOcr({ kind: "message", text: all.length > MAX_SCREENSHOTS ? copy.home.screenshot.tooMany : "" });
     } catch {
-      setOcr({ kind: "message", text: en.home.screenshot.failed });
+      setOcr({ kind: "message", text: copy.home.screenshot.failed });
     }
   }
 
@@ -88,14 +92,14 @@ export default function PasteSheet({
     >
       {/* Visually hidden; kept for screen readers. */}
       <label htmlFor="chat" className="sr-only">
-        {en.home.inputLabel}
+        {copy.home.inputLabel}
       </label>
       <textarea
         id="chat"
         ref={ref}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        placeholder={en.home.placeholder}
+        placeholder={copy.home.placeholder}
         aria-describedby="paste-hint paste-note"
         aria-invalid={tooLong}
         autoComplete="off"
@@ -107,10 +111,10 @@ export default function PasteSheet({
 
       <div className="mt-2 flex min-h-6 items-start justify-between gap-4 text-left text-small">
         <p id="paste-hint" role="status" className={tooLong ? "font-bold text-ink" : "text-ink-muted"}>
-          {tooLong ? en.home.tooLong : tooShort ? en.home.tooShort : ""}
+          {tooLong ? copy.home.tooLong : tooShort ? copy.home.tooShort : ""}
         </p>
         {value.length > COUNTER_FROM && (
-          <p className="shrink-0 tabular-nums text-ink-muted">{en.home.counter(value.length)}</p>
+          <p className="shrink-0 tabular-nums text-ink-muted">{copy.home.counter(value.length)}</p>
         )}
       </div>
 
@@ -134,14 +138,14 @@ export default function PasteSheet({
           <circle cx="9" cy="10" r="1.6" />
           <path d="M5 17.5l4.6-4.4 3.2 3 2.6-2.3 3.6 3.4" />
         </svg>
-        {en.home.screenshot.add}
+        {copy.home.screenshot.add}
       </button>
 
       <div role="status" aria-live="polite" className="mx-auto mt-2 min-h-5 text-small">
         {reading ? (
           <span className="inline-flex items-center gap-2">
             <span aria-hidden="true" className="pulse-dot inline-block size-2 rounded-full bg-ink" />
-            {en.home.screenshot.reading(ocr.i, ocr.n, ocr.pct)}
+            {copy.home.screenshot.reading(ocr.i, ocr.n, ocr.pct)}
           </span>
         ) : (
           <>
@@ -151,20 +155,20 @@ export default function PasteSheet({
                   <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <path d="M5.5 12.6l4.1 4 8.9-9.4" />
                   </svg>
-                  {en.home.screenshot.ready(shots.count)}
+                  {copy.home.screenshot.ready(shots.count)}
                 </span>
                 <button
                   type="button"
-                  aria-label={en.home.screenshot.removeLabel}
+                  aria-label={copy.home.screenshot.removeLabel}
                   onClick={() => {
                     onShotsChange({ count: 0, text: "" });
                     setOcr({ kind: "idle" });
                   }}
                   className="inline-flex min-h-11 items-center px-2 font-bold text-berry underline decoration-2 underline-offset-4 hover:text-ink"
                 >
-                  {en.home.screenshot.remove}
+                  {copy.home.screenshot.remove}
                 </button>
-                <span className="basis-full text-ink-muted">{en.home.screenshot.readyHint}</span>
+                <span className="basis-full text-ink-muted">{copy.home.screenshot.readyHint}</span>
               </div>
             )}
             {ocr.kind === "message" && ocr.text && <p className="mt-1">{ocr.text}</p>}
@@ -173,7 +177,7 @@ export default function PasteSheet({
       </div>
 
       <p id="paste-note" className="mx-auto mt-2 text-small text-ink-muted">
-        {en.home.maskNote} {en.home.screenshot.note}
+        {copy.home.maskNote} {copy.home.screenshot.note}
       </p>
 
       <button
@@ -181,16 +185,16 @@ export default function PasteSheet({
         disabled={!canSubmit}
         className="mt-6 h-13 w-full rounded-full bg-ink px-8 font-display text-[1.125rem] font-bold text-milk hover:bg-berry active:bg-berry disabled:cursor-not-allowed disabled:bg-ink/25 disabled:text-ink/60"
       >
-        {en.home.submit}
+        {copy.home.submit}
       </button>
-      <p className="mx-auto mt-3 text-small text-ink-muted">{en.home.disclosure}</p>
+      <p className="mx-auto mt-3 text-small text-ink-muted">{copy.home.disclosure}</p>
 
       <Link
-        href="/help"
+        href={href("/help")}
         replace
         className="mt-6 inline-flex min-h-11 items-center font-display font-bold text-berry underline decoration-2 underline-offset-4 hover:text-ink"
       >
-        {en.home.helpLink}
+        {copy.home.helpLink}
       </Link>
     </form>
   );

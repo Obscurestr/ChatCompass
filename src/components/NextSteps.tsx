@@ -1,11 +1,14 @@
-import { en } from "../copy/en";
+"use client";
+
+import { useLocale } from "../i18n/LocaleProvider";
 
 // T022 — next steps, each in its own soft speech bubble. Not interactive.
 export default function NextSteps({ steps }: { steps: string[] }) {
+  const { copy } = useLocale();
   return (
     <section aria-labelledby="steps-title">
       <h2 id="steps-title" className="text-section">
-        {en.nextSteps.title}
+        {copy.nextSteps.title}
       </h2>
       <ul className="mt-4 space-y-3 text-left">
         {steps.map((step, i) => (

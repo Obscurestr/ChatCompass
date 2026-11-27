@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { safetyFloor } from "./safetyFloor";
+import { normalize, safetyFloor } from "./safetyFloor";
 
 // Samples from specs/001-proveri-mi-ovo/quickstart.md
 const SAMPLES = {
@@ -67,5 +67,48 @@ describe("safetyFloor — normalisation", () => {
   it("needs 'just for me' and a photo word in the same message", () => {
     expect(safetyFloor("this is just for me / nice pic of the beach").triggered).toBe(false);
     expect(safetyFloor("send a pic, just for me").triggered).toBe(true);
+  });
+});
+
+// FR-025 — regional languages. Each dangerous line has a harmless line with similar words.
+describe("safetyFloor — regional languages", () => {
+  it.each([
+    // Serbian / Croatian / Bosnian / Montenegrin
+    ["meeting", "Hajde da se nađemo u parku u subotu, nemoj da kažeš mami.", "Vidimo se sutra u školi!"],
+    ["meeting", "Dođi kod mene posle škole, niko neće biti kući.", "Dođi na trening u pet."],
+    ["meeting", "Doći ću po tebe kolima ispred škole.", "Doći ću na rođendan kasnije."],
+    ["threats", "Pokazaću svima tvoje poruke ako me ostaviš.", "Pokazaću ti kako se rešava zadatak."],
+    ["threats", "Ako mi ne pošalješ još jednu sliku, svi će videti.", "Ako ne pošalješ beleške, pitaću Anu."],
+    ["threats", "Ako nekome kažeš, poslaću tvojim roditeljima sve.", "Ako nekome kažeš za žurku iznenađenja, ljutiću se."],
+    ["images", "Pošalji mi svoju sliku u donjem vešu.", "Pošalji mi sliku domaćeg iz hemije."],
+    ["images", "Slikaj se za mene, samo za mene.", "Slikaj zalazak sunca, prelep je."],
+    ["images", "Pošalji jednu fotku, samo za mene.", "Ovaj kolač je samo za mene."],
+    // Macedonian
+    ["meeting", "Ајде да се најдеме во паркот, но не кажувај им на родителите.", "Се гледаме утре на час."],
+    ["threats", "Ако не ми пратиш слика, ќе им покажам на сите.", "Ако не ми пратиш домашна, ќе ја прашам Ана."],
+    ["images", "Прати ми твоја слика, само за мене.", "Прати ми ја домашната по математика."],
+    ["images", "Сакам голи слики од тебе.", "Сакам слики од екскурзијата."],
+    // Albanian
+    ["meeting", "Hajde të takohemi në park të shtunën, mos u thuaj prindërve.", "Shihemi nesër në shkollë."],
+    ["threats", "Nëse nuk më dërgon foto, do t'ua tregoj të gjithëve.", "Nëse nuk më dërgon detyrat, do pyes Anën."],
+    ["images", "Më dërgo një foto tënden, vetëm për mua.", "Më dërgo detyrën e matematikës."],
+    ["images", "Dua foto lakuriq.", "Dua foto nga ekskursioni."],
+  ] as const)("%s: triggers on %j but not on %j", (group, dangerous, harmless) => {
+    const hit = safetyFloor(dangerous);
+    expect(hit.triggered).toBe(true);
+    expect(hit.groups).toContain(group);
+    expect(safetyFloor(harmless).triggered).toBe(false);
+  });
+
+  it("reads Serbian Cyrillic like Latin", () => {
+    expect(safetyFloor("Пошаљи ми слику без одеће, само за мене").triggered).toBe(true);
+    expect(safetyFloor("Показаћу свима твоје поруке").groups).toContain("threats");
+  });
+
+  it("normalises đ, ć, ë and Macedonian ќ", () => {
+    expect(normalize("Doći ću po tebe")).toBe("doci cu po tebe");
+    expect(normalize("Нађимо се")).toBe("nadjimo se");
+    expect(normalize("ќе дојдам по тебе")).toBe("kje dojdam po tebe");
+    expect(normalize("t'ua tregoj të gjithëve")).toBe("tua tregoj te gjitheve");
   });
 });

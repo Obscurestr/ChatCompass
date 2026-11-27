@@ -1,14 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { en } from "../copy/en";
+import { useLocale } from "../i18n/LocaleProvider";
 import Doodle from "./Doodle";
 
 // T033 — "Who's on the other side?" checklist + reverse image search how-to.
 // Answers live in memory only. We never receive any image: the search happens in another app.
 // Yes = a red flag (rose), No = fine (mint). Progress bar, then a result card with a 6-dot meter.
 export default function WhoCheck() {
-  const questions = en.who.questions;
+  const { copy } = useLocale();
+  const questions = copy.who.questions;
   const total = questions.length;
   const [answers, setAnswers] = useState<Array<boolean | null>>(() => questions.map(() => null));
 
@@ -16,7 +17,7 @@ export default function WhoCheck() {
   const answered = answeredCount === total;
   const flags = answers.filter((a) => a === true).length;
   const level = flags === 0 ? "none" : flags <= 2 ? "some" : "many";
-  const advice = en.who.advice[level];
+  const advice = copy.who.advice[level];
   const tone = { none: "bg-marker-mint", some: "bg-marker-yellow", many: "bg-marker-rose" }[level];
   const doodle = { none: "heart", some: "chat", many: "phone" } as const;
 
@@ -37,12 +38,12 @@ export default function WhoCheck() {
 
   return (
     <div className="text-left">
-      <p className="mt-2 text-ink-muted">{en.who.intro}</p>
+      <p className="mt-2 text-ink-muted">{copy.who.intro}</p>
 
       {/* Progress */}
       <div className="mt-5">
         <div className="flex items-center justify-between text-small">
-          <span className="label-doodle">{en.who.progress(answeredCount, total)}</span>
+          <span className="label-doodle">{copy.who.progress(answeredCount, total)}</span>
         </div>
         <div className="mt-2 h-2.5 w-full overflow-hidden rounded-full bg-blush" aria-hidden="true">
           <div
@@ -75,11 +76,11 @@ export default function WhoCheck() {
                 <div className="mt-3 flex gap-2 pl-11">
                   <button type="button" aria-pressed={a === true} onClick={() => choose(i, true)} className={pill(a === true, true)}>
                     {a === true && tick}
-                    {en.who.yes}
+                    {copy.who.yes}
                   </button>
                   <button type="button" aria-pressed={a === false} onClick={() => choose(i, false)} className={pill(a === false, false)}>
                     {a === false && tick}
-                    {en.who.no}
+                    {copy.who.no}
                   </button>
                 </div>
               </fieldset>
@@ -92,8 +93,8 @@ export default function WhoCheck() {
         {answered ? (
           <div className={`rounded-sheet border-2 border-ink p-5 text-center ${tone}`}>
             <Doodle name={doodle[level]} size={56} tone="paper" className="mx-auto" />
-            <p className="label-doodle mt-3">{en.who.resultTitle}</p>
-            <p className="font-display text-section font-bold">{en.who.tally(flags, total)}</p>
+            <p className="label-doodle mt-3">{copy.who.resultTitle}</p>
+            <p className="font-display text-section font-bold">{copy.who.tally(flags, total)}</p>
             <div className="mt-2 flex justify-center gap-1.5" aria-hidden="true">
               {answers.map((a, i) => (
                 <span key={i} className={`size-3 rounded-full border-2 border-ink ${a ? "bg-ink" : "bg-paper"}`} />
@@ -105,21 +106,21 @@ export default function WhoCheck() {
               onClick={reset}
               className="mt-4 inline-flex min-h-11 items-center rounded-full border-2 border-ink bg-paper px-5 font-display font-bold btn-outline-hover"
             >
-              {en.who.startOver}
+              {copy.who.startOver}
             </button>
           </div>
         ) : (
-          <p className="text-center text-small text-ink-muted">{en.who.unanswered}</p>
+          <p className="text-center text-small text-ink-muted">{copy.who.unanswered}</p>
         )}
       </div>
 
       <section aria-labelledby="reverse-title" className="mt-10">
         <h3 id="reverse-title" className="text-section">
-          {en.who.reverseTitle}
+          {copy.who.reverseTitle}
         </h3>
-        <p className="mt-2">{en.who.reverseIntro}</p>
+        <p className="mt-2">{copy.who.reverseIntro}</p>
         <ol className="mt-4 space-y-3">
-          {en.who.reverseSteps.map((step, i) => (
+          {copy.who.reverseSteps.map((step, i) => (
             <li key={step} className="flex items-start gap-3 rounded-[22px] rounded-bl-[6px] bg-blush px-4 py-3.5">
               <span aria-hidden="true" className="grid size-7 shrink-0 place-items-center rounded-full bg-paper font-display text-small font-bold">
                 {i + 1}
@@ -128,7 +129,7 @@ export default function WhoCheck() {
             </li>
           ))}
         </ol>
-        <p className="mt-3 text-small text-ink-muted">{en.who.reverseTools}</p>
+        <p className="mt-3 text-small text-ink-muted">{copy.who.reverseTools}</p>
       </section>
     </div>
   );

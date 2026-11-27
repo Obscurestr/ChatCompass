@@ -42,6 +42,16 @@
   --font-sans: var(--font-atkinson), ui-sans-serif, system-ui, sans-serif;
 }
 
+/* Macedonian is Cyrillic; Quicksand and Atkinson have none. Swap in the Cyrillic look-alikes (plan.md → Type).
+   Also for single Macedonian words on other pages (country picker, language switch). */
+@layer base {
+  [lang="mk"] {
+    --font-quicksand: var(--font-comfortaa);
+    --font-atkinson: var(--font-nunito);
+    font-family: var(--font-nunito), ui-sans-serif, system-ui, sans-serif;
+  }
+}
+
 @media (min-width: 768px) {
   :root {
     --text-headline: 2.5rem; /* 40px */

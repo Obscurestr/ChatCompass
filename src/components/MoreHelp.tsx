@@ -1,5 +1,7 @@
+"use client";
+
 import Link from "next/link";
-import { en } from "../copy/en";
+import { useLocale } from "../i18n/LocaleProvider";
 
 export type Guide = "who" | "block" | "signs";
 
@@ -14,6 +16,7 @@ export default function MoreHelp({
   onOpen?: (guide: Guide) => void;
   highlightWho?: boolean;
 }) {
+  const { copy, href } = useLocale();
   const base =
     "flex min-h-11 w-full items-center justify-between gap-3 rounded-sheet border-2 border-ink px-5 py-3 text-left font-display font-bold";
   const arrow = (
@@ -22,18 +25,18 @@ export default function MoreHelp({
     </svg>
   );
   const items: Array<{ guide: Guide; label: string; href: string; className: string }> = [
-    { guide: "who", label: en.more.who, href: "/who", className: `${base} ${highlightWho ? "bg-marker-yellow hover:brightness-95" : "bg-paper btn-outline-hover"}` },
-    { guide: "block", label: en.more.block, href: "/block", className: `${base} bg-paper btn-outline-hover` },
-    { guide: "signs", label: en.more.signs, href: "/signs", className: `${base} bg-paper btn-outline-hover` },
+    { guide: "who", label: copy.more.who, href: href("/who"), className: `${base} ${highlightWho ? "bg-marker-yellow hover:brightness-95" : "bg-paper btn-outline-hover"}` },
+    { guide: "block", label: copy.more.block, href: href("/block"), className: `${base} bg-paper btn-outline-hover` },
+    { guide: "signs", label: copy.more.signs, href: href("/signs"), className: `${base} bg-paper btn-outline-hover` },
   ];
 
   return (
     <section aria-labelledby="more-title">
       <h2 id="more-title" className="text-section">
-        {en.more.title}
+        {copy.more.title}
       </h2>
       <div className="mt-4 space-y-3">
-        {highlightWho && <p className="text-small font-bold">{en.more.whoHighlight}</p>}
+        {highlightWho && <p className="text-small font-bold">{copy.more.whoHighlight}</p>}
         {items.map((item) =>
           onOpen ? (
             <button key={item.guide} type="button" aria-haspopup="dialog" onClick={() => onOpen(item.guide)} className={item.className}>

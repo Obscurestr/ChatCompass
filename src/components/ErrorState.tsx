@@ -1,17 +1,11 @@
+"use client";
+
 import Link from "next/link";
-import { en } from "../copy/en";
+import { useLocale } from "../i18n/LocaleProvider";
 import Doodle from "./Doodle";
 import HelpBlock from "./HelpBlock";
 
 export type ErrorKind = "offline" | "rateLimited" | "tooShort" | "tooLong" | "generic";
-
-const MESSAGES: Record<ErrorKind, string> = {
-  offline: en.error.offline,
-  rateLimited: en.error.rateLimited,
-  tooShort: en.home.tooShort,
-  tooLong: en.home.tooLong,
-  generic: en.error.generic,
-};
 
 // T025 — explains what happened, offers a retry, and still shows help + the general warning signs.
 export default function ErrorState({
@@ -23,13 +17,21 @@ export default function ErrorState({
   onRetry: () => void;
   onEdit: () => void;
 }) {
+  const { copy, href } = useLocale();
+  const MESSAGES: Record<ErrorKind, string> = {
+    offline: copy.error.offline,
+    rateLimited: copy.error.rateLimited,
+    tooShort: copy.home.tooShort,
+    tooLong: copy.home.tooLong,
+    generic: copy.error.generic,
+  };
   const canRetry = kind !== "tooShort" && kind !== "tooLong";
 
   return (
     <div className="space-y-10">
       <header className="text-center">
         <Doodle name="chat" className="mx-auto" />
-        <h1 className="mt-6 text-headline">{en.error.title}</h1>
+        <h1 className="mt-6 text-headline">{copy.error.title}</h1>
         <p role="alert" className="mx-auto mt-3 text-ink-muted">
           {MESSAGES[kind]}
         </p>
@@ -38,7 +40,7 @@ export default function ErrorState({
           onClick={canRetry ? onRetry : onEdit}
           className="mt-6 h-13 w-full rounded-full bg-ink px-8 font-display text-[1.125rem] font-bold text-milk hover:bg-berry active:bg-berry"
         >
-          {canRetry ? en.error.retry : en.result.checkAnother}
+          {canRetry ? copy.error.retry : copy.result.checkAnother}
         </button>
       </header>
 
@@ -46,10 +48,10 @@ export default function ErrorState({
 
       <section aria-labelledby="signs-title" className="text-left">
         <h2 id="signs-title" className="text-section">
-          {en.error.meanwhile}
+          {copy.error.meanwhile}
         </h2>
         <ul className="mt-4 space-y-3">
-          {Object.values(en.categories).map((category) => (
+          {Object.values(copy.categories).map((category) => (
             <li key={category.title}>
               <p className="font-bold">{category.title}</p>
               <p className="text-small text-ink-muted">{category.short}</p>
@@ -57,11 +59,11 @@ export default function ErrorState({
           ))}
         </ul>
         <Link
-          href="/signs"
+          href={href("/signs")}
           replace
           className="mt-4 inline-flex min-h-11 items-center font-display font-bold text-berry underline decoration-2 underline-offset-4 hover:text-ink"
         >
-          {en.error.signsLink}
+          {copy.error.signsLink}
         </Link>
       </section>
     </div>
