@@ -41,6 +41,7 @@ Run on: Android Chrome, iPhone Safari, laptop Chrome. Log bugs as: *device – w
 | S27 | Tap Copy on a "Help me tell someone" message, paste in Notes | exact message pasted; on phone, Send opens the share sheet |
 | S28 | Open "How to block and report" from result and from Help | evidence steps + rose warning about sexual images; four apps listed |
 | S29 | Add an iPhone-style screenshot (blue bubbles with white text on the right) | her replies are read too; result text shows "Them: …" and "Me: …" lines; none of her own lines is marked |
+| S30 | On a result, tap "Read aloud", then Exit while it speaks | the result is read in a calm voice (not her messages); button shows "Stop reading"; Exit silences it at once |
 | S22 | Paste "Send me a pic of the chemistry homework, we watched the game live so I didn't finish" | `low`, NOT forced to `high` |
 
 ## Sample conversations (fictional)

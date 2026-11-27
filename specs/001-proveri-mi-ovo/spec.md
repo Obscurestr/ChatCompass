@@ -99,6 +99,7 @@ A short swipeable "Warning signs" guide explains the common patterns with one il
 - **FR-018**: The system MUST let her add up to 5 screenshots that are read into text on the device (OCR in the browser). The image MUST never be uploaded, sent to the AI, stored or cached; the extracted text is kept in memory (not put into the input), shown as "N screenshots ready" with a Remove option, sent together with any typed text on Check, and masked like any other text. She sees the text on the result screen. When the screenshot is a two-sided chat, each message is labelled by position: left bubbles "Them:", right bubbles "Me:"; white-on-dark bubbles and dark mode are read too.
 - **FR-019** (P2): The result and Help page SHOULD offer ready-made messages she can copy or share to start talking to a trusted adult. They MUST be fixed text and never contain her conversation.
 - **FR-020** (P2): The system SHOULD explain how to save evidence and block/report on common apps, and MUST tell her not to save or forward sexual images, even as evidence.
+- **FR-021** (P2): The result SHOULD offer "Read aloud" using an on-device voice only (`localService`); if none is available the control is hidden. It reads the result (headline, summary, signs, next steps, help contacts), never her own messages, and stops immediately on Exit.
 - **FR-017**: The system SHOULD offer a demo fallback (pre-recorded results for the sample set) when the AI service is unavailable, enabled only by env flag.
 
 ### Key Entities
