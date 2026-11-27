@@ -23,25 +23,34 @@ export function hasReadableText(text: string, confidence: number): boolean {
   return confidence >= MIN_OCR_CONFIDENCE && letters >= MIN_LETTERS;
 }
 
+/** Normalises one OCR line: collapses spaces, drops a trailing time, fixes "|" read for "I". */
+export function cleanLine(line: string): string {
+  return line
+    .replace(/\s+/g, " ")
+    .trim()
+    .replace(TRAILING_TIME, "")
+    .replace(/(^|\s)\|(?=\s|')/g, "$1I"); // OCR often reads a standalone capital "I" as "|"
+}
+
+/** False for app chrome and noise: times, "Seen", status bar, the message box, lines without letters. */
+export function keepLine(line: string): boolean {
+  if (!/\p{L}/u.test(line)) return false; // no letters at all: icons, numbers, noise
+  if (line.length < 2) return false;
+  // Status-bar bits like "5G 87%": digits with at most two letters.
+  const letters = line.match(/\p{L}/gu)?.length ?? 0;
+  if (letters <= 2 && /\d/.test(line)) return false;
+  if (TIME_ONLY.test(line) || UI_LINE.test(line)) return false;
+  if (INPUT_PLACEHOLDER.test(line) || BATTERY_LINE.test(line)) return false;
+  return true;
+}
+
+/** Cleans plain OCR text (used when line positions aren't available). */
 export function cleanOcrText(raw: string): string {
   const lines = raw
     .replace(/\r/g, "")
     .split("\n")
-    .map((line) => line.replace(/\s+/g, " ").trim())
-    .map((line) => line.replace(TRAILING_TIME, ""))
-    // OCR often reads a standalone capital "I" as "|".
-    .map((line) => line.replace(/(^|\s)\|(?=\s|')/g, "$1I"))
-    .filter((line) => {
-      if (!line) return true; // keep blank lines as message gaps (collapsed below)
-      if (!/\p{L}/u.test(line)) return false; // no letters at all: icons, numbers, noise
-      if (line.length < 2) return false;
-      // Status-bar bits like "5G 87%": digits with at most two letters.
-      const letters = line.match(/\p{L}/gu)?.length ?? 0;
-      if (letters <= 2 && /\d/.test(line)) return false;
-      if (TIME_ONLY.test(line) || UI_LINE.test(line)) return false;
-      if (INPUT_PLACEHOLDER.test(line) || BATTERY_LINE.test(line)) return false;
-      return true;
-    });
+    .map(cleanLine)
+    .filter((line) => !line || keepLine(line)); // keep blank lines as message gaps (collapsed below)
 
   return lines
     .join("\n")

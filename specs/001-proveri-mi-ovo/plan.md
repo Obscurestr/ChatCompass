@@ -73,6 +73,8 @@ src/
 │   ├── mask.ts               # phone/email/URL masking
 │   ├── ocr.ts                # on-device screenshot → text (tesseract.js, lazy-loaded)
 │   ├── ocrClean.ts           # drop times, status bar and chat-app labels from OCR text
+│   ├── ocrImage.ts           # flip white-on-dark bubbles / dark mode to black-on-white before OCR
+│   ├── ocrTranscript.ts      # line positions → "Them:" (left) / "Me:" (right) transcript
 │   ├── safetyFloor.ts        # keyword/regex danger detector (English)
 │   ├── highlight.ts          # find quote ranges in text, tolerant of whitespace/case
 │   ├── prompt.ts             # system prompt (from contracts/analyze-api.md)

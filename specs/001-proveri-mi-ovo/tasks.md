@@ -64,6 +64,7 @@
 - [ ] T032 **QA: S13–S22 full run**
 
 - [x] T030b [US1] On-device screenshot OCR (FR-018): `lib/ocr.ts`, `lib/ocrClean.ts` + tests, "Add a screenshot" in PasteSheet, OCR files self-hosted via `scripts/copy-ocr-assets.mjs` (constitution v1.2.0)
+- [x] T030c [US1] OCR: who said what — left bubbles "Them:", right bubbles "Me:" (`lib/ocrTranscript.ts`), white-on-dark bubbles and dark mode readable (`lib/ocrImage.ts`), prompt told to judge only "Them"; tests
 
 **Midday checkpoint**: if T021–T028 are done, start P2. Otherwise skip Phase 7.
 
