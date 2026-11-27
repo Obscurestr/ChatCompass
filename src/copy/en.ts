@@ -195,6 +195,15 @@ export const en = {
     hint: "You can also press Esc twice.",
   },
 
+  // Read the result aloud with an on-device voice. Her own messages are never read out.
+  readAloud: {
+    start: "Read aloud",
+    stop: "Stop reading",
+    signsIntro: "What we noticed.",
+    stepsIntro: "What you can do now.",
+    helpIntro: "If you want to talk to someone:",
+  },
+
   // Links from the result screen and the Help page to the extra guides.
   more: {
     title: "More ways to get help",

@@ -12,6 +12,7 @@ import { en } from "../copy/en";
 export function quickExit() {
   try {
     // Hide everything immediately while the neutral site loads.
+    window.speechSynthesis?.cancel(); // stop any read-aloud at once
     document.title = "";
     document.body.style.visibility = "hidden";
   } catch {

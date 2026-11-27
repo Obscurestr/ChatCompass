@@ -15,6 +15,7 @@ import MaskedChips from "../components/MaskedChips";
 import MoreHelp, { type Guide } from "../components/MoreHelp";
 import NextSteps from "../components/NextSteps";
 import PasteSheet, { combinedText, type Shots } from "../components/PasteSheet";
+import ReadAloud from "../components/ReadAloud";
 import RiskHeader from "../components/RiskHeader";
 import SignSheet from "../components/SignSheet";
 import TellSomeone from "../components/TellSomeone";
@@ -136,7 +137,14 @@ export default function Home() {
   const unquoted = result.signs.map((sign, i) => ({ sign, i })).filter(({ i }) => !marked.has(i));
   const dotColor = result.risk === "high" ? "bg-marker-rose" : "bg-marker-yellow";
 
-  const header = <RiskHeader key="header" risk={result.risk} summary={result.summary} />;
+  const header = (
+    <div key="header">
+      <RiskHeader risk={result.risk} summary={result.summary} />
+      <div className="mt-5 empty:hidden">
+        <ReadAloud result={result} />
+      </div>
+    </div>
+  );
 
   const herText = (
     <section key="text" aria-labelledby="text-title">
