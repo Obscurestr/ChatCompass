@@ -28,7 +28,7 @@ export function QuickExitButton() {
       onClick={quickExit}
       aria-label={en.quickExit.aria}
       title={en.quickExit.hint}
-      className="fixed right-3 top-[max(0.75rem,env(safe-area-inset-top))] z-50 inline-flex min-h-11 items-center rounded-full border-2 border-ink bg-paper px-5 font-display font-bold text-ink"
+      className="fixed right-3 top-[max(0.75rem,env(safe-area-inset-top))] z-50 inline-flex min-h-11 items-center rounded-full border-2 border-ink bg-paper px-5 font-display font-bold text-ink btn-outline-hover"
     >
       {en.quickExit.label}
     </button>

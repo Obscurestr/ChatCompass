@@ -64,7 +64,7 @@ export default function BottomSheet({
               type="button"
               onClick={onClose}
               aria-label={en.signSheet.close}
-              className="grid size-11 shrink-0 place-items-center rounded-full border-2 border-ink"
+              className="grid size-11 shrink-0 place-items-center rounded-full border-2 border-ink btn-outline-hover"
             >
               <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" aria-hidden="true">
                 <path d="M6.2 6.4l11.5 11.3M17.6 6.1L6.5 17.8" />

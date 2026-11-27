@@ -153,6 +153,8 @@ On `low`/`watch`, the order is: header → marked text → next steps → help b
 ### Motion
 - **The one moment**: when a result appears, each mark "draws" left-to-right behind its phrase (background-size 0→100%, 350 ms, 90 ms stagger). With `prefers-reduced-motion`, marks appear instantly.
 - Response to action only: the sign bottom sheet slides up (200 ms); the button shows a calm pulsing ink dot while analysing. No scroll-triggered entrances, no hover effects on cards.
+- Hover (mouse only, `@media (hover: hover)`): everything clickable shows the hand cursor; dark buttons turn `berry`, outlined buttons get a `blush` fill (`btn-outline-hover`), text links turn `ink`, marks darken slightly. 150 ms colour transition. Cards that are not clickable never react.
+- **Who's on the other side? (quiz)**: progress bar; numbered question cards; Yes fills rose (red flag), No fills mint, with a tick; result card in mint / yellow / rose with a doodle, "N of 6 red flags", a 6-dot meter, advice and Start over.
 
 ### Components
 - **QuickExit**: fixed top-right pill, 2 px `ink` outline on `paper`, label "Exit", always visible (also inside open sheets, which make the page behind inert), 44 px tap target. Esc twice on desktop (a single Esc closes an open sheet). Internal links use `replace` so Back never returns to the app.

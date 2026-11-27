@@ -159,7 +159,7 @@ export default function Home() {
                   type="button"
                   aria-haspopup="dialog"
                   onClick={() => setOpenSign(i)}
-                  className="flex min-h-11 w-full items-center gap-3 rounded-sheet border-2 border-ink/15 bg-paper px-4 py-3 text-left font-bold"
+                  className="flex min-h-11 w-full items-center gap-3 rounded-sheet border-2 border-ink/15 bg-paper px-4 py-3 text-left font-bold btn-outline-hover"
                 >
                   <span aria-hidden="true" className={`size-3 shrink-0 rounded-full ${dotColor}`} />
                   {sign.title}
@@ -193,7 +193,7 @@ export default function Home() {
         <button
           type="button"
           onClick={startOver}
-          className="inline-flex min-h-11 items-center rounded-full border-2 border-ink px-6 font-display font-bold"
+          className="inline-flex min-h-11 items-center rounded-full border-2 border-ink px-6 font-display font-bold btn-outline-hover"
         >
           {en.result.checkAnother}
         </button>

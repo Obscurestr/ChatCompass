@@ -63,7 +63,7 @@ export default function HelpPage() {
         <Link
           href="/"
           replace
-          className="inline-flex min-h-11 items-center rounded-full border-2 border-ink px-6 font-display font-bold"
+          className="inline-flex min-h-11 items-center rounded-full border-2 border-ink px-6 font-display font-bold btn-outline-hover"
         >
           {p.back}
         </Link>

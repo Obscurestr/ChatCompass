@@ -127,7 +127,7 @@ export default function PasteSheet({
         type="button"
         disabled={reading}
         onClick={() => fileRef.current?.click()}
-        className="mt-3 inline-flex min-h-11 items-center gap-2 rounded-full border-2 border-ink bg-paper px-5 font-display font-bold disabled:cursor-wait disabled:opacity-60"
+        className="mt-3 inline-flex min-h-11 items-center gap-2 rounded-full border-2 border-ink bg-paper px-5 font-display font-bold btn-outline-hover disabled:cursor-wait disabled:opacity-60"
       >
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <rect x="3.5" y="5" width="17" height="14" rx="3" />
@@ -160,7 +160,7 @@ export default function PasteSheet({
                     onShotsChange({ count: 0, text: "" });
                     setOcr({ kind: "idle" });
                   }}
-                  className="inline-flex min-h-11 items-center px-2 font-bold text-berry underline decoration-2 underline-offset-4"
+                  className="inline-flex min-h-11 items-center px-2 font-bold text-berry underline decoration-2 underline-offset-4 hover:text-ink"
                 >
                   {en.home.screenshot.remove}
                 </button>
@@ -188,7 +188,7 @@ export default function PasteSheet({
       <Link
         href="/help"
         replace
-        className="mt-6 inline-flex min-h-11 items-center font-display font-bold text-berry underline decoration-2 underline-offset-4"
+        className="mt-6 inline-flex min-h-11 items-center font-display font-bold text-berry underline decoration-2 underline-offset-4 hover:text-ink"
       >
         {en.home.helpLink}
       </Link>

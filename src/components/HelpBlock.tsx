@@ -57,7 +57,7 @@ export default function HelpBlock({
                     href={contact.chatUrl}
                     target="_blank"
                     rel="noreferrer noopener"
-                    className="inline-flex min-h-11 items-center rounded-full border-2 border-ink px-5 font-display font-bold"
+                    className="inline-flex min-h-11 items-center rounded-full border-2 border-ink px-5 font-display font-bold btn-outline-hover"
                   >
                     {en.help.chat}
                   </a>

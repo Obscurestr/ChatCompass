@@ -56,7 +56,7 @@ export default function TellSomeone() {
                 <button
                   type="button"
                   onClick={() => share(message.text)}
-                  className="inline-flex min-h-11 items-center rounded-full border-2 border-ink px-5 font-display font-bold"
+                  className="inline-flex min-h-11 items-center rounded-full border-2 border-ink px-5 font-display font-bold btn-outline-hover"
                 >
                   {en.tell.send}
                 </button>

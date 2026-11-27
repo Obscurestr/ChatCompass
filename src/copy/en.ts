@@ -248,6 +248,9 @@ export const en = {
       many: "Lots of things don't add up. This person may not be who they say they are. Don't share anything else, don't meet, and talk to an adult you trust soon.",
     },
     unanswered: "Answer all the questions to see your result.",
+    progress: (n: number, total: number) => `${n} of ${total} answered`,
+    resultTitle: "Your result",
+    startOver: "Start over",
     reverseTitle: "Check their profile photo",
     reverseIntro: "Fake accounts often use photos copied from someone else. A reverse image search shows where else a photo appears online. We never see the photo: you do this in another app.",
     reverseSteps: [

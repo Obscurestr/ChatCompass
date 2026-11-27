@@ -89,6 +89,34 @@
     background: var(--color-marker-yellow);
     color: var(--color-ink);
   }
+
+  /* Everything clickable shows the hand cursor (Tailwind v4 resets buttons to the default arrow). */
+  button:not(:disabled),
+  [role="button"],
+  a[href],
+  summary {
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: not-allowed;
+  }
+  button,
+  a[href] {
+    transition:
+      background-color 150ms var(--ease-calm),
+      color 150ms var(--ease-calm),
+      border-color 150ms var(--ease-calm),
+      filter 150ms var(--ease-calm);
+  }
+}
+
+/* Outlined pill / row buttons: soft blush fill on hover (mouse only; no sticky hover on touch). */
+@utility btn-outline-hover {
+  @media (hover: hover) {
+    &:hover:not(:disabled) {
+      background-color: var(--color-blush);
+    }
+  }
 }
 
 /* Lowercase, wide-tracked label, like the names under phone icons */
@@ -125,6 +153,13 @@
   text-align: inherit;
   animation: marker-draw 350ms var(--ease-calm) both;
   animation-delay: calc(var(--i, 0) * 90ms + 150ms);
+}
+
+/* A mark darkens slightly under the mouse, so it reads as tappable. */
+@media (hover: hover) {
+  .mark:hover {
+    filter: brightness(0.93);
+  }
 }
 
 /* ---- Calm pulsing ink dot while analysing ---- */

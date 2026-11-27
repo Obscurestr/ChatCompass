@@ -22,8 +22,8 @@ export default function MoreHelp({
     </svg>
   );
   const items: Array<{ guide: Guide; label: string; href: string; className: string }> = [
-    { guide: "who", label: en.more.who, href: "/who", className: `${base} ${highlightWho ? "bg-marker-yellow" : "bg-paper"}` },
-    { guide: "block", label: en.more.block, href: "/block", className: `${base} bg-paper` },
+    { guide: "who", label: en.more.who, href: "/who", className: `${base} ${highlightWho ? "bg-marker-yellow hover:brightness-95" : "bg-paper btn-outline-hover"}` },
+    { guide: "block", label: en.more.block, href: "/block", className: `${base} bg-paper btn-outline-hover` },
   ];
 
   return (

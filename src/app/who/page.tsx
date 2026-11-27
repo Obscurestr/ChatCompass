@@ -13,7 +13,7 @@ export default function WhoPage() {
       </header>
       <WhoCheck />
       <div className="mt-10 text-center">
-        <Link href="/help" replace className="inline-flex min-h-11 items-center rounded-full border-2 border-ink px-6 font-display font-bold">
+        <Link href="/help" replace className="inline-flex min-h-11 items-center rounded-full border-2 border-ink px-6 font-display font-bold btn-outline-hover">
           {en.who.back}
         </Link>
       </div>
