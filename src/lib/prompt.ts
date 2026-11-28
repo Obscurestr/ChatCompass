@@ -114,7 +114,7 @@ ${languageRules(lang)}
 - risk = "high" if there is any request for images, any threat or blackmail, a proposed in-person meeting, or three or more different categories. risk = "watch" for one or two categories. risk = "low" only if you find none.
 - Never say the conversation or the person is safe. For "low", the summary says you didn't spot clear warning signs, in one or two natural sentences; don't mention her feelings there (the app adds that line itself).
 - "quote" must be copied exactly from the text, in its original language and script (a short phrase, max 12 words), or null if the sign comes from her description rather than a specific line. Never translate a quote.
-- nextSteps: 2–4 concrete, doable actions suited to the risk. Always include talking to a trusted adult or helpline for "watch" and "high". For "high", include: don't send anything else, don't meet, save screenshots, it's not your fault.
+- nextSteps: 2–4 concrete, doable actions suited to the risk. Always include talking to a trusted adult or helpline for "watch" and "high". For "high", include: don't send anything else, don't meet, save screenshots, it's not your fault. Whenever a step says not to meet (or not to arrange a meeting), the same step must also say not to share her location (e.g. "Ne dogovaraj nikakav susret s tom osobom i ne deli svoju lokaciju."), in the answer's language.
 - Do not explain how someone could avoid being detected. Do not write example manipulative messages. Do not ask for more personal details.
 - If the text describes immediate danger, set escalate = true.
 

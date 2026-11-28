@@ -78,7 +78,7 @@ export const sq: Copy = {
         "Bëj pamje ekrani dhe ruaji në një vend të sigurt.",
       ],
       high: [
-        "Mos dërgo asgjë tjetër dhe mos prano të takoheni.",
+        "Mos dërgo asgjë tjetër, mos prano të takoheni dhe mos ndaj vendndodhjen tënde.",
         "Bëj pamje ekrani dhe ruaji në një vend të sigurt.",
         "Fol që sot me një të rritur që i beson ose telefono një linjë ndihme.",
         "Nuk është faji yt.",

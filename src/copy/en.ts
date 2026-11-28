@@ -79,7 +79,7 @@ export const en = {
         "Take screenshots and save them somewhere safe.",
       ],
       high: [
-        "Don't send anything else and don't agree to meet.",
+        "Don't send anything else, don't agree to meet, and don't share your location.",
         "Take screenshots and save them somewhere safe.",
         "Talk to an adult you trust or call a helpline today.",
         "This is not your fault.",

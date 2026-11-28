@@ -78,7 +78,7 @@ export const sr: Copy = {
         "Napravi skrinšotove i sačuvaj ih na sigurnom mestu.",
       ],
       high: [
-        "Ne šalji ništa više i ne pristaj na viđanje.",
+        "Ne šalji ništa više, ne pristaj na viđanje i ne deli svoju lokaciju.",
         "Napravi skrinšotove i sačuvaj ih na sigurnom mestu.",
         "Još danas razgovaraj sa odraslom osobom kojoj veruješ ili pozovi liniju za pomoć.",
         "Ovo nije tvoja krivica.",

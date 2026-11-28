@@ -78,7 +78,7 @@ export const bs: Copy = {
         "Napravi snimke ekrana i sačuvaj ih na sigurnom mjestu.",
       ],
       high: [
-        "Ne šalji ništa više i ne pristaj na viđanje.",
+        "Ne šalji ništa više, ne pristaj na viđanje i ne dijeli svoju lokaciju.",
         "Napravi snimke ekrana i sačuvaj ih na sigurnom mjestu.",
         "Još danas razgovaraj s odraslom osobom kojoj vjeruješ ili pozovi liniju za pomoć.",
         "Ovo nije tvoja krivica.",
