@@ -95,7 +95,7 @@
 - [x] T044 [P] [US0] `config/help.ts` per country (research.md table); HelpBlock, Help page and Read aloud use the country's contacts
 - [x] T045 [US0] API: `lang` in the request; `systemPrompt(lang)`; postprocess defaults + safe-claim patterns per language; demo fixtures only for their own language; tests
 - [x] T046 [P] [US0] Safety floor: Cyrillic transliteration + BCS/Macedonian/Albanian phrases with harmless counter-examples (research.md); OCR model per language, regional app-chrome words; tests
-- [ ] T047 (Team) Verify helpline numbers for HR, BA, ME, MK, AL; set `verified: true` — *manual*
+- [x] T047 (Team) Verify helpline numbers for HR, BA, ME, MK, AL; set `verified: true` — *confirmed by the team 2026-11-28 (MK: 0800 12222)*
 - [ ] T048 (Team) Native-speaker review of each language's copy and floor phrases — *manual*
 - [ ] T049 **QA: S32–S36**
 

@@ -35,7 +35,7 @@ All languages are checked on every request, whatever the UI language. Text is no
 - Police — 192
 - Trusted adult prompt (no number)
 
-### Per country (`config/help.ts`; numbers from Child Helpline International / UNICEF, 2026-11-27; `verified: false` until a human confirms, T047)
+### Per country (`config/help.ts`; numbers from Child Helpline International / UNICEF, all confirmed by the team 2026-11-28, T047)
 | Country | Child helpline | Police |
 |---|---|---|
 | Serbia | NADEL 116 111 (verified) | 192 (verified) |
