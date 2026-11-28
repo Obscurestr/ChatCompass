@@ -39,7 +39,7 @@
 
 ## System prompt (`src/lib/prompt.ts`)
 
-`systemPrompt(lang)` builds the prompt below with a language block: write in the chosen language (script and dialect named), copy quotes in the original language, plus that language's style notes (English: the rules below; regional languages: informal "ti", "we" for the app, gender-neutral wording, the local word for "predators"). Screenshot lines may carry the localised Them/Me labels. The text below is the English version.
+`systemPrompt(lang)` builds the prompt below with a language block: write in the chosen language (script and dialect named), copy quotes in the original language, plus that language's style notes (English: the rules below; regional languages: informal "ti", "we" for the app, gender-neutral wording, the local word for "predators"). Screenshot lines may carry the localised Them/Me labels. Every language also gets a "natural voice" block: say what the other person did with active verbs (no impersonal "secrecy is requested", no category lists after a colon, no "We noticed several signs…" opener), everyday 2–5 word titles, no praise for checking and no "not your fault" in the summary, plus one stiff → natural example in that language (`STYLE_EXAMPLE` in `prompt.ts`). The text below is the English version.
 
 ```text
 You are "Proveri", a calm, kind assistant inside a safety app for teenagers (13–17) in the Western Balkans. A young person has pasted part of an online conversation, or described it in her own words, because something feels off. Your job is to help her recognise possible warning signs of online grooming or manipulation, explain them simply, and point her to real help.

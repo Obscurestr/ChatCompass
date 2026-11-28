@@ -16,16 +16,67 @@ const PREDATORS: Record<Lang, string> = {
   sq: "grabitqarët",
 };
 
+// One stiff → natural pair per language, so the model hears what "natural" means in that language.
+const STYLE_EXAMPLE: Record<Lang, { stiff: string; natural: string; title: string }> = {
+  en: {
+    stiff: "We noticed several signs often seen in manipulation: secrecy is requested, isolation from parents and moving to a more private app.",
+    natural: "They want your chats kept secret, they're trying to pull you away from your parents, and they want you on another app. Predators often do exactly this.",
+    title: '"Wants it kept secret" (not "Secrecy request")',
+  },
+  sr: {
+    stiff: "Primetili smo nekoliko znakova koji se često javljaju kod manipulacije: traži se tajnost, odvajanje od roditelja i prelazak na privatniju aplikaciju.",
+    natural: "Ova osoba traži da vaše dopisivanje ostane tajna, pokušava da te udalji od roditelja i hoće da pređete na drugu aplikaciju. Predatori često rade baš to.",
+    title: '"Traži da ćutiš o vama" (ne "Zahtev za tajnost")',
+  },
+  hr: {
+    stiff: "Primijetili smo nekoliko znakova koji se često javljaju kod manipulacije: traži se tajnost, odvajanje od roditelja i prelazak na privatniju aplikaciju.",
+    natural: "Ta osoba traži da vaše dopisivanje ostane tajna, pokušava te udaljiti od roditelja i želi da prijeđete na drugu aplikaciju. Predatori često rade baš to.",
+    title: '"Traži da šutiš o vama" (ne "Zahtjev za tajnost")',
+  },
+  bs: {
+    stiff: "Primijetili smo nekoliko znakova koji se često javljaju kod manipulacije: traži se tajnost, odvajanje od roditelja i prelazak na privatniju aplikaciju.",
+    natural: "Ta osoba traži da vaše dopisivanje ostane tajna, pokušava te udaljiti od roditelja i hoće da pređete na drugu aplikaciju. Predatori često rade baš to.",
+    title: '"Traži da šutiš o vama" (ne "Zahtjev za tajnost")',
+  },
+  cnr: {
+    stiff: "Primijetili smo nekoliko znakova koji se često javljaju kod manipulacije: traži se tajnost, odvajanje od roditelja i prelazak na privatniju aplikaciju.",
+    natural: "Ta osoba traži da vaše dopisivanje ostane tajna, pokušava da te udalji od roditelja i hoće da pređete na drugu aplikaciju. Predatori često rade baš to.",
+    title: '"Traži da ćutiš o vama" (ne "Zahtjev za tajnost")',
+  },
+  mk: {
+    stiff: "Забележавме неколку знаци што често се јавуваат кај манипулација: се бара тајност, оддалечување од родителите и преминување на поприватна апликација.",
+    natural: "Оваа личност бара вашето допишување да остане тајна, се обидува да те оддалечи од родителите и сака да преминете на друга апликација. Предаторите често го прават токму тоа.",
+    title: '"Бара да молчиш за вас", "Те оддалечува од родителите" (не "Барање за тајност")',
+  },
+  sq: {
+    stiff: "Vumë re disa shenja që shfaqen shpesh te manipulimi: kërkohet fshehtësi, largim nga prindërit dhe kalim në një aplikacion më privat.",
+    natural: "Ky person kërkon që biseda juaj të mbetet sekret, përpiqet të të largojë nga prindërit dhe do që të kaloni në një aplikacion tjetër. Grabitqarët shpesh bëjnë pikërisht këtë.",
+    title: '"Do që të mos i tregosh askujt" (jo "Kërkesë për fshehtësi")',
+  },
+};
+
+// Applies to every language: what makes the answer sound like a person, not a report.
+function naturalVoice(lang: Lang): string {
+  const ex = STYLE_EXAMPLE[lang];
+  return `- Write the way a caring older sister would text her, not like a report or a translation. Say what the other person DID, with "this person"/"they" as the subject and active verbs. No impersonal or passive phrasing ("secrecy is requested"), no list of abstract nouns or category names after a colon, no filler openers like "We noticed several signs…".
+  Stiff: "${ex.stiff}"
+  Natural: "${ex.natural}"
+- Titles: 2–5 everyday words, like a friend would say it, e.g. ${ex.title}. Explanations: 1–2 concrete sentences about why it matters for her.
+- Don't praise her for checking ("good that you stopped and checked") and don't put "it's not your fault" in the summary (the next steps carry it). Don't repeat the same idea in summary, explanations and steps.`;
+}
+
 function languageRules(lang: Lang): string {
   if (lang === "en") {
     return `- Write all text in simple, warm English, addressing her as "you". Short sentences, no jargon, no blame. Never say it was her fault.
-- Sound like a caring older friend talking to her, not a report: natural, everyday words and contractions ("didn't", "you're", "it's"). Avoid stiff phrases like "in what you shared" or "it is good that you". Preferred wording: "the way they talk to you" (not "the way they ask"), "school-related stuff" (not "school stuff").
+- Use natural, everyday words and contractions ("didn't", "you're", "it's"). Avoid stiff phrases like "in what you shared" or "it is good that you". Preferred wording: "the way they talk to you" (not "the way they ask"), "school-related stuff" (not "school stuff").
+${naturalVoice(lang)}
 - Refer to yourself as "we", never "I". This is a one-time check, not a chat: don't ask her to reply or tell you more.`;
   }
   const name = LANG_INFO[lang].promptName;
   return `- Write ALL text (summary, titles, explanations, nextSteps) in ${name}, even if the conversation is in another language. Simple, warm, short sentences, no jargon, no blame. Never say it was her fault.
-- Address her informally (singular "you", e.g. "ti" / "ти" / "ti" in Albanian). Sound like a caring older friend from the region talking to her, with everyday words teenagers use, not a report and not a word-for-word translation from English.
-- Prefer gender-neutral phrasing (e.g. "Nije tvoja krivica" rather than "Nisi ti kriva"). When a sentence would need a gendered form, rephrase it instead.
+- Address her informally (singular "you", e.g. "ti" / "ти" / "ti" in Albanian), with the everyday words teenagers in the region actually use.
+${naturalVoice(lang)}
+- Gender-neutral: never use gendered past-tense or adjective forms about her ("zastala", "proverila", "sama", "kriva"). Rephrase instead (e.g. "Nije tvoja krivica", "Dobro je pitati nekoga").
 - Refer to yourself in the first person plural ("we"), never "I". This is a one-time check, not a chat: don't ask her to reply or tell you more.`;
 }
 
