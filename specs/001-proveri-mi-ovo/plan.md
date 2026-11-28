@@ -174,7 +174,7 @@ On `low`/`watch`, the order is: header → marked text → next steps → help b
 - **BottomSheet**: shared native-`<dialog>` sheet used by SignSheet and the guides; scrolls inside; swipe-down closes only when scrolled to the top; carries its own Exit pill.
 
 ### Country picker and language switch
-- `/` is the country picker: one doodle, a headline in English with a small line in the regional languages ("Odakle si? · Од каде си? · Nga je?"), and six outlined pill rows, one per country, with the country's name in its own language and the English name under it. Tapping a row opens `/{country}/{defaultLang}`. QuickExit is on this screen too.
+- `/` is the country picker: one doodle, a headline in English ("Where are you right now?") with a small line in the regional languages ("Gde se trenutno nalaziš? · Gdje se trenutno nalaziš? · Каде се наоѓаш моментално? · Ku ndodhesh tani?"), and six outlined pill rows, one per country, with the country's name in its own language and the English name under it. Tapping a row opens `/{country}/{defaultLang}`. QuickExit is on this screen too.
 - Home, Help and the guides show a small outlined pill at the top left: the country name and language (e.g. "Bosna i Hercegovina · Bosanski"). It opens a bottom sheet with the language list (the country's own languages first, then the rest, English last) and "Change country", which goes back to `/`. Switching keeps the current page.
 
 ### Voice rules (copy)

@@ -8,9 +8,10 @@ export default function CountryPicker() {
   return (
     <main className="mx-auto flex min-h-dvh max-w-column flex-col justify-center px-5 py-16 text-center">
       <Doodle name="chat" className="mx-auto" />
-      <h1 className="mt-6 text-headline">Where are you?</h1>
+      <h1 className="mt-6 text-headline">Where are you right now?</h1>
       <p className="mx-auto mt-3 text-ink-muted">
-        <span lang="sr-Latn">Odakle si?</span> · <span lang="mk">Од каде си?</span> · <span lang="sq">Nga je?</span>
+        <span lang="sr-Latn">Gde se trenutno nalaziš?</span> · <span lang="hr">Gdje se trenutno nalaziš?</span> ·{" "}
+        <span lang="mk">Каде се наоѓаш моментално?</span> · <span lang="sq">Ku ndodhesh tani?</span>
       </p>
 
       <ul className="mt-8 space-y-3 text-left">
