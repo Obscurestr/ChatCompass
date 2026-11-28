@@ -1,5 +1,6 @@
 "use client";
 
+import { CATEGORY_SOURCES, REFERENCES, shortSources, type ReferenceId } from "../config/sources";
 import { useLocale } from "../i18n/LocaleProvider";
 import { SIGN_CATEGORIES, type SignCategory } from "../lib/schema";
 
@@ -7,6 +8,10 @@ import { SIGN_CATEGORIES, type SignCategory } from "../lib/schema";
 // and why it matters. The three most serious signs use the rose marker, the rest yellow,
 // the same as marks on a result.
 const SERIOUS: SignCategory[] = ["images", "threats_guilt", "meeting"];
+// Every reference cited on a card, once, sorted alphabetically by author.
+const ALL_SOURCES = [...new Set(Object.values(CATEGORY_SOURCES).flat())].sort((a, b) =>
+  REFERENCES[a].full.localeCompare(REFERENCES[b].full),
+) as ReferenceId[];
 
 export default function SignsGuide() {
   const { copy } = useLocale();
@@ -33,10 +38,28 @@ export default function SignsGuide() {
                 <span className={`rounded-mark px-1 [box-decoration-break:clone] ${marker}`}>{sign.example}</span>
               </p>
               <p className="mt-3">{sign.short}</p>
+              <p className="mt-3 text-small text-ink-muted">
+                {copy.signSheet.sources}: {shortSources(key)}
+              </p>
             </li>
           );
         })}
       </ol>
+
+      {/* Full references, cited briefly on each card. */}
+      <details className="mt-6 rounded-sheet border-2 border-ink/15 bg-paper px-5 py-3 text-small">
+        <summary className="min-h-11 content-center font-display font-bold">{copy.signsGuide.sourcesTitle}</summary>
+        <ul className="mt-2 space-y-2 pb-2 text-ink-muted">
+          {ALL_SOURCES.map((id) => (
+            <li key={id}>
+              {REFERENCES[id].full}{" "}
+              <a href={REFERENCES[id].url} target="_blank" rel="noreferrer noopener" className="break-all text-berry underline">
+                {REFERENCES[id].url.replace(/^https?:\/\//, "")}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </details>
     </div>
   );
 }

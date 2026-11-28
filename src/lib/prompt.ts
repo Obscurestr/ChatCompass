@@ -70,13 +70,16 @@ function languageRules(lang: Lang): string {
     return `- Write all text in simple, warm English, addressing her as "you". Short sentences, no jargon, no blame. Never say it was her fault.
 - Use natural, everyday words and contractions ("didn't", "you're", "it's"). Avoid stiff phrases like "in what you shared" or "it is good that you". Preferred wording: "the way they talk to you" (not "the way they ask"), "school-related stuff" (not "school stuff").
 ${naturalVoice(lang)}
+- Grammar, spelling and punctuation must be flawless. Explanations are full sentences that start with a capital letter and end with a full stop. Reread every title, explanation and step before answering.
 - Refer to yourself as "we", never "I". This is a one-time check, not a chat: don't ask her to reply or tell you more.`;
   }
   const name = LANG_INFO[lang].promptName;
   return `- Write ALL text (summary, titles, explanations, nextSteps) in ${name}, even if the conversation is in another language. Simple, warm, short sentences, no jargon, no blame. Never say it was her fault.
 - Address her informally (singular "you", e.g. "ti" / "ти" / "ti" in Albanian), with the everyday words teenagers in the region actually use.
 ${naturalVoice(lang)}
-- Gender-neutral: never use gendered past-tense or adjective forms about her ("zastala", "proverila", "sama", "kriva"). Rephrase instead (e.g. "Nije tvoja krivica", "Dobro je pitati nekoga").
+- Gender-neutral: never use gendered past-tense or adjective forms about her ("zastala", "proverila", "sama", "kriva"; Macedonian "виновна", "сама"; Albanian "e sigurt" about her), and never slash forms like "oklevao/la" or "sam/a". Rephrase instead (e.g. "Nije tvoja krivica", "Не е твоја вина", "Nuk është faji yt", "Dobro je pitati nekoga").
+- Use one script per word: in Macedonian every word is fully Cyrillic (never mix in Latin letters, e.g. "стручно лице", not "стрicно"); app names like Telegram stay as they are.
+- Grammar must be flawless, as a careful native speaker would write it: correct case endings after prepositions, gender and number agreement (BCS "osoba" and Macedonian "личност" are feminine: "ta osoba traži", "ne šalji joj"; Albanian "personi" is masculine: "ky person"), verb aspect, clitic word order ("Ne moraš mu ništa slati", not "Ne moraš ništa mu slati"), and the punctuation rules of the language (e.g. in BCS a comma before "ali", "a", "jer", but none before "da" in "traži da…"; in Albanian the correct forms of ë and ç). Explanations are full sentences that start with a capital letter and end with a full stop. Reread every title, explanation and step before answering.
 - Refer to yourself in the first person plural ("we"), never "I". This is a one-time check, not a chat: don't ask her to reply or tell you more.`;
 }
 

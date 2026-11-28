@@ -47,3 +47,10 @@ All languages are checked on every request, whatever the UI language. Text is no
 | Albania | ALO 116 111 (24/7, free) | 129 |
 
 112 works in all six countries as the general emergency number.
+
+## Research behind the warning signs (`config/sources.ts`, checked 2026-11-28)
+Shown briefly (author, year) under each explanation; full list in the warning-signs guide.
+- secrecy: Winters & Jeglic 2017; O'Connell 2003 · isolation: Winters & Jeglic 2017; Craven et al. 2006 · fast intimacy: O'Connell 2003; Whittle et al. 2013
+- pressure: Kloess et al. 2019; Whittle et al. 2013 · gifts: Craven et al. 2006; Winters & Jeglic 2017 · personal info: O'Connell 2003; Whittle et al. 2013
+- images: Kloess et al. 2019; Winters & Jeglic 2017 · move platform: Thorn 2022 (two thirds of minors asked to move to a private platform) · identity doubt: Kloess et al. 2019; Whittle et al. 2013
+- threats: Wolak & Finkelhor 2016 (sextortion) · meeting: Wolak et al. 2008; Winters & Jeglic 2017

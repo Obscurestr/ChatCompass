@@ -95,6 +95,7 @@ export const sq: Copy = {
   },
 
   signSheet: {
+    sources: "Literatura",
     why: "Pse ka rëndësi kjo",
     close: "Mbyll",
   },
@@ -215,6 +216,7 @@ export const sq: Copy = {
   },
 
   signsGuide: {
+    sourcesTitle: "Literatura mbi të cilën bazohen këto shenja",
     title: "Shenjat paralajmëruese",
     intro:
       "Këto janë truke të zakonshme që grabitqarët përdorin në internet. Një shenjë nuk do të thotë gjithmonë rrezik, por sa më shumë të shohësh, aq më e kujdesshme duhet të jesh.",

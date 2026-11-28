@@ -1,5 +1,6 @@
 "use client";
 
+import { shortSources } from "../config/sources";
 import { useLocale } from "../i18n/LocaleProvider";
 import type { Risk, WarningSign } from "../lib/schema";
 import BottomSheet from "./BottomSheet";
@@ -26,6 +27,11 @@ export default function SignSheet({
       )}
       <p className="label-doodle mt-6">{copy.signSheet.why}</p>
       <p className="mt-1">{sign?.explanation}</p>
+      {sign && (
+        <p className="mt-4 text-small text-ink-muted">
+          {copy.signSheet.sources}: {shortSources(sign.category)}
+        </p>
+      )}
     </BottomSheet>
   );
 }

@@ -95,6 +95,7 @@ export const bs: Copy = {
   },
 
   signSheet: {
+    sources: "Literatura",
     why: "Zašto je ovo važno",
     close: "Zatvori",
   },
@@ -215,6 +216,7 @@ export const bs: Copy = {
   },
 
   signsGuide: {
+    sourcesTitle: "Literatura na kojoj se zasnivaju ovi znakovi",
     title: "Znakovi upozorenja",
     intro:
       "Ovo su česti trikovi koje predatori koriste na internetu. Jedan znak ne znači uvijek opasnost, ali što ih više vidiš, to trebaš biti oprezniji/a.",

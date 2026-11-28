@@ -96,6 +96,7 @@ export const en = {
   },
 
   signSheet: {
+    sources: "Research",
     why: "Why this matters",
     close: "Close",
   },
@@ -219,6 +220,7 @@ export const en = {
 
   // T036 — Warning signs guide (prevention, school workshops)
   signsGuide: {
+    sourcesTitle: "Research behind these signs",
     title: "Warning signs",
     intro:
       "These are common tricks predators use online. One sign doesn't always mean danger, but the more you see, the more careful you should be.",
