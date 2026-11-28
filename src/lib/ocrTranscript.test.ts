@@ -66,3 +66,32 @@ describe("buildTranscript", () => {
     expect(buildTranscript(oneSide, W, H)).toBe("I've been chatting with a guy for a month.\nHe never video calls.");
   });
 });
+
+// Positions from the OCR benchmark (WhatsApp-style, 1170×2532): her wide bubble doesn't reach the
+// right edge because the time sits on the line below; emoji and ticks come back as low-confidence words.
+describe("buildTranscript — benchmark fixes", () => {
+  const Wd = (text: string, confidence = 96) => ({ text, confidence });
+  const line = (x0: number, x1: number, y0: number, words: Array<{ text: string; confidence: number }>): OcrLine => ({
+    text: words.map((w) => w.text).join(" "),
+    confidence: words.reduce((s, w) => s + w.confidence, 0) / words.length,
+    x0,
+    x1,
+    y0,
+    y1: y0 + 46,
+    words,
+  });
+  const chat = [
+    line(74, 661, 430, [Wd("Ćao,"), Wd("šta"), Wd("radiš"), Wd("večeras?"), Wd("21:10")]),
+    line(290, 1000, 556, [Wd("Ništa"), Wd("posebno,"), Wd("učim"), Wd("za"), Wd("kontrolni")]),
+    line(963, 1096, 636, [Wd("21:11", 10)]),
+    line(714, 1096, 933, [Wd("Zašto?"), Wd("2", 48), Wd("2143vV", 15)]),
+    line(77, 862, 1063, [Wd("Pošalji"), Wd("mi"), Wd("sliku")]),
+    line(78, 884, 1121, [Wd("[o]", 24), Wd("21:14")]),
+  ];
+
+  it("puts her wide bubble on her side and keeps lines whose only bad words are emoji or ticks", () => {
+    expect(buildTranscript(chat, W, H, { them: "Osoba", me: "Ja" })).toBe(
+      ["Osoba: Ćao, šta radiš večeras?", "Ja: Ništa posebno, učim za kontrolni", "Ja: Zašto?", "Osoba: Pošalji mi sliku"].join("\n"),
+    );
+  });
+});

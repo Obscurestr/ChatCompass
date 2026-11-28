@@ -9,12 +9,11 @@
 // 3. buildTranscript: left bubbles → "Them:", right bubbles → "Me:", app chrome dropped.
 
 import { cleanOcrText, hasReadableText } from "./ocrClean";
-import { prepareForOcr } from "./ocrImage";
+import { ocrScale, prepareForOcr } from "./ocrImage";
 import { buildTranscript, type OcrLine, type SpeakerLabels } from "./ocrTranscript";
 
 export type OcrProgress = (fileIndex: number, fileCount: number, fraction: number) => void;
 
-const MAX_WIDTH = 1400; // larger photos are scaled down: faster, and much less memory on phones
 
 /** Draws the picture onto a canvas, prepares it, and returns it as a PNG blob plus its size. */
 async function preparedImage(file: File): Promise<{ blob: Blob; width: number; height: number } | null> {
@@ -24,7 +23,7 @@ async function preparedImage(file: File): Promise<{ blob: Blob; width: number; h
   } catch {
     return null; // a format the browser can't decode here: fall back to reading the file directly
   }
-  const scale = Math.min(1, MAX_WIDTH / bitmap.width);
+  const scale = ocrScale(bitmap.width);
   const width = Math.round(bitmap.width * scale);
   const height = Math.round(bitmap.height * scale);
 
@@ -36,6 +35,7 @@ async function preparedImage(file: File): Promise<{ blob: Blob; width: number; h
     bitmap.close();
     return null;
   }
+  ctx.imageSmoothingQuality = "high"; // smooth upscaling of small screenshots
   ctx.drawImage(bitmap, 0, 0, width, height);
   bitmap.close();
 
@@ -80,7 +80,12 @@ export async function readScreenshots(files: File[], onProgress: OcrProgress, op
 
       const lines: OcrLine[] =
         data.blocks?.flatMap((b) =>
-          b.paragraphs.flatMap((p) => p.lines.map((l) => ({ text: l.text, confidence: l.confidence, ...l.bbox }))),
+          b.paragraphs.flatMap((p) => p.lines.map((l) => ({
+            text: l.text,
+            confidence: l.confidence,
+            ...l.bbox,
+            words: l.words.map((w) => ({ text: w.text, confidence: w.confidence })),
+          }))),
         ) ?? [];
       const text =
         prepared && lines.length > 0 ? buildTranscript(lines, prepared.width, prepared.height, options.labels) : cleanOcrText(data.text);

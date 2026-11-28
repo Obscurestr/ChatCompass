@@ -3,7 +3,17 @@
 
 const TIME = String.raw`\d{1,2}[:.]\d{2}(?:\s?[ap]\.?m\.?)?`;
 const TIME_ONLY = new RegExp(`^${TIME}$`, "i");
-const TRAILING_TIME = new RegExp(`\\s+${TIME}$`, "i");
+// A time at the end of a line, with the read ticks apps put after it ("✓✓" comes back as "vv", "7/7", "//",
+// or Cyrillic "/У"). The colon is sometimes misread ("21:15" → "21457") or lost ("2115", Macedonian model):
+// a 4-digit time only counts right after the end of a sentence, so "rođena sam 2010" keeps its year.
+// The tail is only non-letters, anything with "/", or v/vv, so a real word ("ok") is never cut.
+const TICKS = String.raw`(?:\s*(?:[^\s\p{L}]{1,4}|[\p{L}/]{0,3}/[\p{L}/]{0,3}|vv?))?`;
+const TRAILING_TIME = new RegExp(
+  String.raw`(?:\s*(?:\d{1,2}[:.]\d{2}(?:\s?[ap]\.?m\.?)?|[0-2]\d[^\s\p{L}][0-5]\d)|(?<=[?!.…])\s+[0-2]\d[0-5]\d)${TICKS}$`,
+  "iu",
+);
+// "?" at the end of a word is sometimes read as "2" (Albanian model: "sonte2", "mirë2").
+const QUESTION_AS_TWO = /(\p{L}{2,})2(?=\s|$)/gu;
 // The message box placeholder, possibly merged with status-bar bits: "Message", "Message... 5 mill 82%".
 // Not "Message me when you're home" (a word follows).
 // English plus the regional app languages (sr/hr/bs/cnr, mk, sq).
@@ -31,6 +41,7 @@ export function cleanLine(line: string): string {
     .replace(/\s+/g, " ")
     .trim()
     .replace(TRAILING_TIME, "")
+    .replace(QUESTION_AS_TWO, "$1?")
     .replace(/(^|\s)\|(?=\s|')/g, "$1I"); // OCR often reads a standalone capital "I" as "|"
 }
 

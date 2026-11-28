@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { prepareForOcr } from "./ocrImage";
+import { ocrScale, prepareForOcr } from "./ocrImage";
 
 // Build a w×h RGBA image filled with one colour, then paint some pixels.
 function image(w: number, h: number, fill: [number, number, number]) {
@@ -48,5 +48,14 @@ describe("prepareForOcr", () => {
     expect(r).toBe(g);
     expect(g).toBe(b);
     expect(a).toBe(255);
+  });
+});
+
+describe("ocrScale", () => {
+  it("scales small screenshots up (max 2×), big photos down, and leaves phone-size ones alone", () => {
+    expect(ocrScale(780)).toBeCloseTo(1300 / 780);
+    expect(ocrScale(500)).toBe(2);
+    expect(ocrScale(1170)).toBe(1);
+    expect(ocrScale(2800)).toBe(0.5);
   });
 });
